@@ -7,24 +7,31 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
         <div class="main-section">
             <div class="container">
                 <div class="main-slider">
-                    <div class="main-slide">
-                        <h1 class="main-page_title">
-                            Изделия <span class="min">металлопроката</span> от производителя
-                        </h1>
-                        <a href="" class="main-btn main-section_catalog-btn">Каталог</a>
-                    </div>
-                    <div class="main-slide">
-                        <div class="main-page_title">
-                            Изделия <span class="min">металлопроката</span> от производителя
-                        </div>
-                        <a href="" class="main-btn main-section_catalog-btn">Каталог</a>
-                    </div>
-                    <div class="main-slide">
-                        <div class="main-page_title">
-                            Изделия <span class="min">металлопроката</span> от производителя
-                        </div>
-                        <a href="" class="main-btn main-section_catalog-btn">Каталог</a>
-                    </div>
+                    <?$APPLICATION->IncludeComponent("bitrix:news.line", "slider", Array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+                        "CACHE_GROUPS" => "Y",	// Учитывать права доступа
+                        "CACHE_TIME" => "300",	// Время кеширования (сек.)
+                        "CACHE_TYPE" => "A",	// Тип кеширования
+                        "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
+                        "FIELD_CODE" => array(	// Поля
+                            0 => "CODE",
+                            1 => "NAME",
+                            2 => "PREVIEW_TEXT",
+                            3 => "",
+                        ),
+                        "IBLOCKS" => array(	// Код информационного блока
+                            0 => "5",
+                        ),
+                        "IBLOCK_TYPE" => "components",	// Тип информационного блока
+                        "NEWS_COUNT" => "20",	// Количество новостей на странице
+                        "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+                        "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+                        "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+                        "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+                        "COMPONENT_TEMPLATE" => ".default"
+                    ),
+                        false
+                    );?>
                 </div>
             </div>
         </div>
@@ -110,108 +117,28 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
             <div class="container">
                 <div class="section-title">УСЛУГИ</div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/01.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Резка газом</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/02.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Рубка гильотиной</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/03.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Размотка арматуры</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/04.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Подготовка</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/05.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Погрузка</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-item">
-                            <a href="" class="service-item_mobile-link"></a>
-                            <img data-src="img/static/service/06.jpg" alt="alt">
-                            <div class="service-item_desc">
-                                <span class="service-item_title">Доставка</span>
-                                <div class="service-item_desc-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                    <a href="" class="service-item_btn">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?$APPLICATION->IncludeComponent("bitrix:news.line", "services", Array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+                        "CACHE_GROUPS" => "Y",	// Учитывать права доступа
+                        "CACHE_TIME" => "300",	// Время кеширования (сек.)
+                        "CACHE_TYPE" => "A",	// Тип кеширования
+                        "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
+                        "FIELD_CODE" => array(	// Поля
+                            0 => "PREVIEW_PICTURE",
+                            1 => "PREVIEW_TEXT",
+                        ),
+                        "IBLOCKS" => array(	// Код информационного блока
+                            0 => "4",
+                        ),
+                        "IBLOCK_TYPE" => "news",	// Тип информационного блока
+                        "NEWS_COUNT" => "20",	// Количество новостей на странице
+                        "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+                        "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+                        "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+                        "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+                    ),
+                        false
+                    );?>
                 </div>
             </div>
         </div>
@@ -223,97 +150,65 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
                     <div class="left-column">
                         <div class="wrapper_advantages-slider">
                             <div class="advantages-slider">
-                                <div class="advantages-slide">
-                                    <p>
-                                        <span class="quotes">“</span>
-                                        Мы обеспечиваем наших сотрудников, клиентов
-                                        и поставщиков уверенностью, стабильностью
-                                        и эффективностью взаимоотношений. 
-                                    </p>
-                                    <div class="advantages-slide_img">
-                                        <img data-src="img/static/advantages/01.jpg" alt="alt">
-                                    </div>
-                                </div>
-                                <div class="advantages-slide">
-                                    <p>
-                                        <span class="quotes">“</span>
-                                        Мы обеспечиваем наших сотрудников, клиентов
-                                        и поставщиков уверенностью, стабильностью
-                                        и эффективностью взаимоотношений. 
-                                    </p>
-                                    <div class="advantages-slide_img">
-                                        <img data-src="img/static/advantages/01.jpg" alt="alt">
-                                    </div>
-                                </div>
-                                <div class="advantages-slide">
-                                    <p>
-                                        <span class="quotes">“</span>
-                                        Мы обеспечиваем наших сотрудников, клиентов
-                                        и поставщиков уверенностью, стабильностью
-                                        и эффективностью взаимоотношений. 
-                                    </p>
-                                    <div class="advantages-slide_img">
-                                        <img data-src="img/static/advantages/01.jpg" alt="alt">
-                                    </div>
-                                </div>
+                                <?$APPLICATION->IncludeComponent("bitrix:news.line", "slider.advantages", Array(
+                                    "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+                                    "CACHE_GROUPS" => "Y",	// Учитывать права доступа
+                                    "CACHE_TIME" => "300",	// Время кеширования (сек.)
+                                    "CACHE_TYPE" => "A",	// Тип кеширования
+                                    "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
+                                    "FIELD_CODE" => array(	// Поля
+                                        0 => "CODE",
+                                        1 => "NAME",
+                                        2 => "PREVIEW_TEXT",
+                                        3 => "PREVIEW_PICTURE",
+                                    ),
+                                    "IBLOCKS" => array(	// Код информационного блока
+                                        0 => "7",
+                                    ),
+                                    "IBLOCK_TYPE" => "components",	// Тип информационного блока
+                                    "NEWS_COUNT" => "20",	// Количество новостей на странице
+                                    "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+                                    "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+                                    "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+                                    "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+                                    "COMPONENT_TEMPLATE" => "advantages"
+                                ),
+                                    false
+                                );?>
                             </div>
                             <div class="advantages-slide_dots js-dots"></div>
                         </div>
                     </div>
                     <div class="right-column">
                         <div class="row">
-                            <div class="col-md-7">
-                                <div class="advantages-item">
-                                    <span class="advantages-item_icon glipf-discount"></span>
-                                    <div class="advantages-item_title">
-                                        Скидка на объем <span class="min">приобретенной продукции</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="advantages-item">
-                                    <span class="advantages-item_icon glipf-award"></span>
-                                    <div class="advantages-item_title">
-                                        Сертифицированная <span class="min">продукция</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="advantages-item">
-                                    <span class="advantages-item_icon glipf-truck"></span>
-                                    <div class="advantages-item_title">
-                                        Оперативная <span class="min">доставка</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="advantages-item">
-                                    <span class="advantages-item_icon glipf-boxes"></span>
-                                    <div class="advantages-item_title">
-                                        Склады в разных <span class="min">районах города</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        <span class="min">consectetur adipisicing elit, sed do</span>
-                                        eiusmod tempor incididunt ut labore
-                                    </p>
-                                </div>
-                            </div>
+                            <?$APPLICATION->IncludeComponent(
+                                "bitrix:news.line",
+                                "advantages",
+                                array(
+                                    "ACTIVE_DATE_FORMAT" => "d.m.Y",
+                                    "CACHE_GROUPS" => "Y",
+                                    "CACHE_TIME" => "300",
+                                    "CACHE_TYPE" => "A",
+                                    "DETAIL_URL" => "",
+                                    "FIELD_CODE" => array(
+                                        0 => "CODE",
+                                        1 => "NAME",
+                                        2 => "PREVIEW_TEXT",
+                                        3 => "",
+                                    ),
+                                    "IBLOCKS" => array(
+                                        0 => "6",
+                                    ),
+                                    "IBLOCK_TYPE" => "components",
+                                    "NEWS_COUNT" => "20",
+                                    "SORT_BY1" => "ACTIVE_FROM",
+                                    "SORT_BY2" => "SORT",
+                                    "SORT_ORDER1" => "DESC",
+                                    "SORT_ORDER2" => "ASC",
+                                    "COMPONENT_TEMPLATE" => "advantages"
+                                ),
+                                false
+                            );?>
                         </div>
                     </div>
                 </div>
@@ -324,21 +219,31 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
             <div class="container">
                 <div class="section-title">НАШИ ПАРТНЁРЫ</div>
                 <div class="our-partners_slider">
-                    <div class="our-partners_item">
-                        <img data-src="img/static/partners/01.jpg" alt="alt">
-                    </div>
-                    <div class="our-partners_item">
-                        <img data-src="img/static/partners/02.jpg" alt="alt">
-                    </div>
-                    <div class="our-partners_item">
-                        <img data-src="img/static/partners/03.jpg" alt="alt">
-                    </div>
-                    <div class="our-partners_item">
-                        <img data-src="img/static/partners/04.jpg" alt="alt">
-                    </div>
-                    <div class="our-partners_item">
-                        <img data-src="img/static/partners/05.jpg" alt="alt">
-                    </div>
+                    <?$APPLICATION->IncludeComponent("bitrix:news.line", "partners", Array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+                        "CACHE_GROUPS" => "Y",	// Учитывать права доступа
+                        "CACHE_TIME" => "300",	// Время кеширования (сек.)
+                        "CACHE_TYPE" => "A",	// Тип кеширования
+                        "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
+                        "FIELD_CODE" => array(	// Поля
+                            0 => "CODE",
+                            1 => "NAME",
+                            2 => "PREVIEW_PICTURE",
+                            3 => "",
+                        ),
+                        "IBLOCKS" => array(	// Код информационного блока
+                            0 => "8",
+                        ),
+                        "IBLOCK_TYPE" => "components",	// Тип информационного блока
+                        "NEWS_COUNT" => "20",	// Количество новостей на странице
+                        "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+                        "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+                        "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+                        "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+                        "COMPONENT_TEMPLATE" => "slider.advantages"
+                    ),
+                        false
+                    );?>
                 </div>
             </div>
         </div>
