@@ -12,14 +12,20 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
-	<?foreach($arResult["ITEMS"] as $key => $arItem): ?>
-		<?
-		$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
-		$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
-		?>
-        <div class="our-partners_item">
-            <img data-src="<?=$arItem['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arItem['NAME']?>">
+<div class="our-partners_section">
+    <div class="container">
+        <div class="section-title">НАШИ ПАРТНЁРЫ</div>
+        <div class="our-partners_slider">
+            <?foreach($arResult["ITEMS"] as $key => $arItem): ?>
+                <?
+                $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
+                $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
+                ?>
+                <div class="our-partners_item">
+                    <img data-src="<?=$arItem['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arItem['NAME']?>">
+                </div>
+            <?endforeach;?>
         </div>
-	<?endforeach;?>
+    </div>
+</div>
 
