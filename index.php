@@ -1,6 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
+$APPLICATION->SetPageProperty("title", "Металлинвест Плюс - изделия из металлопроката в Воронеже по низким ценам!");
+$APPLICATION->SetTitle("Металлинвест - изделия из металлопроката");
 ?>
 
     <main class="main-content">
