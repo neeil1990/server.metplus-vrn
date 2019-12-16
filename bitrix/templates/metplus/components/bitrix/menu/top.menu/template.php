@@ -28,7 +28,7 @@ $this->setFrameMode(true);
                 <?foreach($arRow as $itemIdLevel_2=>$arLevel_3):?>
                     <li class="dropdown-menu_item">
                         <a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>">
-                            <span class="menu-icon <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["PARAMS"]["ICON"]?>"></span>
+                            <span class="menu-icon <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["PARAMS"]["ICON_MENU"]?>"></span>
                             <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>
                         </a>
                     <?if (is_array($arLevel_3) && count($arLevel_3) > 0):?>

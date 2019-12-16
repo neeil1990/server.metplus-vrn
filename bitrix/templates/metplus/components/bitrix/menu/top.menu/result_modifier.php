@@ -231,7 +231,7 @@ foreach ($arMenuItemsIDs as $itemIdLevel_1=>$arLevels2)
 
 	if ($countLevels2 > 0)
 	{
-		for ($i=1; $i<=3; $i++)
+		for ($i=1; $i<=1; $i++)
 		{
 			$sumElementsInRow = 0;
 			foreach($arLevels2 as $itemIdLevel_2=>$arLevels3)
@@ -248,7 +248,7 @@ foreach ($arMenuItemsIDs as $itemIdLevel_1=>$arLevels2)
 					$tmpCount+= 1 + count($arTmpLevels3);
 				}
 
-				if ($tmpCount <= $countItemsInRow*(3-$i) && $countItemsInRow<=$sumElementsInRow)
+				if ($tmpCount <= $countItemsInRow*(1-$i) && $countItemsInRow<=$sumElementsInRow)
 					break;
 			}
 		}
