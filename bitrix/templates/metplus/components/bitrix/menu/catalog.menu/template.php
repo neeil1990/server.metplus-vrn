@@ -18,7 +18,7 @@ $this->setFrameMode(true);
     <?$existPictureDescColomn = ($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["picture_src"] || $arResult["ALL_ITEMS"][$itemID]["PARAMS"]["description"]) ? true : false;?>
     <li class="catalog-menu_item">
         <a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>">
-            <span class="menu-icon menu-icon_first"></span>
+            <span class="menu-icon <?=$arResult["ALL_ITEMS"][$itemID]["PARAMS"]["ICON"]?>"></span>
             <?=mb_strtoupper($arResult["ALL_ITEMS"][$itemID]["TEXT"])?>
         </a>
     <?if (is_array($arColumns) && count($arColumns) > 0):?>
