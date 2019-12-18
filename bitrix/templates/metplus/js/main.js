@@ -372,32 +372,45 @@ jQuery(document).ready(function($) {
       }
     }
   });
+
   $('.head-cart > a').on('click', function() {
-    $('.cart-content').addClass('is-open');
-    if (!is_mobile()) {
-      $('html').addClass('is-hidden');
-    }
+
+    $.get("/ajax/", { component: "cart" }).done(function(data) {
+      $('.cart-content > .cart-content_first').html(data);
+      $('.cart-content').addClass('is-open');
+      if (!is_mobile()) {
+        $('html').addClass('is-hidden');
+      }
+    });
+
     return false;
   });
-  $('.js-checkout').on('click', function() {
-    $('.cart-content_second').addClass('is-open');
+
+  $('.cart-content').on('click', '.js-checkout', function() {
+    $.get("/ajax/", { component: "order" }).done(function(data) {
+      $('.cart-content > .cart-content_second').html(data);
+      $('.cart-content_second').addClass('is-open');
+    });
     return false;
   });
+
   $('.js-checkout-2').on('click', function() {
-    $('.cart-content_third').addClass('is-open');
-    return false;
+    //$('.cart-content_third').addClass('is-open');
+    //return false;
   });
   $('.js_back-site').on('click', function() {
     $('.cart-content').removeClass('is-open');
     $('html').removeClass('is-hidden');
     return false;
   });
-  $('.cart-close').on('click', function() {
+
+  $('.cart-content').on('click', '.cart-close', function () {
     $('.cart-content').removeClass('is-open');
     $('.cart-content_second').removeClass('is-open');
     $('.cart-content_third').removeClass('is-open');
     $('html').removeClass('is-hidden');
   });
+
   $('.js-back-site_2').on('click', function() {
     $('.cart-content').removeClass('is-open');
     $('.cart-content_second').removeClass('is-open');
