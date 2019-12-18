@@ -1,4 +1,25 @@
-<h2 class="white-title">СЕО текст</h2>
-<p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. iat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+Сложно найти более востребованную и разнообразную металлопродукцию, чем металлопрокат, который с успехом используется в самых разных областях от строительства, до художественной ковки. Наша компания готова предложить широкий ассортимент такой продукции в любом количестве для реализации как небольших, так и грандиозных проектов. Для вас мы приготовили изделия ведущих металлургических комбинатов, которые вы можете приобрести на наиболее выгодных условиях.
 </p>
+<h2 style="color:#ffffff">Виды и сферы применения</h2>
+<p>
+	Учитывая то, что металлопрокат в Воронеже всегда пользовался большой популярностью, можно смело предположить, что он и дальше будет востребован на рынке. Компания «Металлинвест Плюс» готова предложить широкий ассортимент такой продукции, среди которой вы найдете:
+</p>
+<ul>
+	<li><a href="/catalog/metalloprokat/balka-dvutavrovaya/">Двутавровая балка</a>, используется при строительстве зданий, мостов, перекрытий, сооружения шахтных стволов и подвесных путей.</li>
+	<li>Различные швеллера для строительства каркасов и перекрытий, придающие им дополнительную прочность.</li>
+	<li>Угловая, арматурная и круглая сталь, используемая как в быту, так и для изготовления различных деталей на производстве или же используемая для художественной ковки.</li>
+	<li>Листы холоднокатаной и горячекатаной стали, которые используются в промышленности, строительстве, а также машиностроении.</li>
+	<li>Квадраты, полосы и шестигранники служат для бытовых и промышленных нужд, а также используются для создания кованых изделий украшений.</li>
+</ul>
+<p>
+	На самом деле металлопрокат в Воронеже – сфера довольно разнообразная, поэтому каждый в нашем каталоге сможет найти подходящую продукцию для своего проекта и приобрести ее на выгодных условиях.
+</p>
+<h3>«Корпорация Металлинвест» - гарант надежности и достойного выбора</h3>
+<p>
+	Наша компания осуществляет свою деятельность на рынке металлопроката уже более 15 лет, благодаря чему мы успели сформировать довольно обширный каталог самой разной продукции, среди которой не только арматура, но более 400 наименований различной продукции из металла. При этом наш ассортимент продолжает постоянно расширяться, поэтому клиентам «Металлинвест Плюс» всегда доступно все самое лучшее и, конечно же, различные новинки.
+</p>
+<h2 style="color:#ffffff">Выгодное сотрудничество</h2>
+<p>
+	Сделать покупку у нас очень просто. Понадобилась ли вам арматура в Воронеже или же целый вагон листовой стали, наша компания готова предоставить вам любую продукцию в нужном количестве. Тем более что сегодня сделать покупку стало намного проще, достаточно лишь иметь доступ к интернету. Для вас действуют самые выгодные цены и доступна продукция высокого качества от ведущих производителей, которые за годы сотрудничества заслужили отличную репутацию.
+</p>
+ <br>

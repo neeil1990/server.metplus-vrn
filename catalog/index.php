@@ -1,7 +1,7 @@
 <?
 define("HIDE_SIDEBAR", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Сталь арматурная");
+$APPLICATION->SetTitle("Каталог продукции Металлинвест Плюс");
 ?>
 
 	<main class="main-content">
