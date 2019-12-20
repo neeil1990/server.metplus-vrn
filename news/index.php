@@ -1,6 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Новости");
+$APPLICATION->SetPageProperty("title", "Новости компании Металливест Плюс");
+$APPLICATION->SetPageProperty("keywords", "Новости компании Металливест Плюс");
+$APPLICATION->SetPageProperty("description", "Новости компании Металливест Плюс");
+$APPLICATION->SetTitle("Новости компании Металливест Плюс");
 ?>
 
     <main class="main-content">

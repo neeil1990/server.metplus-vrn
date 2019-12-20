@@ -1,6 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("reviews");
+$APPLICATION->SetPageProperty("title", "Отзывы о компании Металлинвест");
+$APPLICATION->SetPageProperty("keywords", "отзывы");
+$APPLICATION->SetPageProperty("description", "отзывы");
+$APPLICATION->SetTitle("Отзывы");
 ?>
 
     <main class="main-content">

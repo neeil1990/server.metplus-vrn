@@ -88,7 +88,7 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/rest/index.php',
     'SORT' => 100,
   ),
-  11 => 
+  14 => 
   array (
     'CONDITION' => '#^/news/#',
     'RULE' => '',

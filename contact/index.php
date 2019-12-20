@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("contact");
+$APPLICATION->SetPageProperty("keywords", "телефон, почта, карты");
+$APPLICATION->SetPageProperty("description", "Контакты компании Металлинвест: номера телефонов, почта, карты");
+$APPLICATION->SetTitle("Контакты компании Металлинвест");
 ?>
 
     <main class="main-content">
