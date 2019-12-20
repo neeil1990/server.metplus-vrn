@@ -38,7 +38,7 @@ if ($isFilter)
         $arCurSection = array();
         if (Loader::includeModule("iblock"))
         {
-            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL"));
+            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL", "DESCRIPTION"));
 
             if(defined("BX_COMP_MANAGED_CACHE"))
             {
@@ -297,6 +297,11 @@ if ($isFilter)
                         ?>
                 </div>
             </div>
+            <? if($arCurSection['DEPTH_LEVEL'] > 1): ?>
+            <div class="unified-text-section">
+                <?=$arCurSection['DESCRIPTION'];?>
+            </div>
+            <? endif; ?>
         </div>
     </section>
     <!-- end category-section -->
