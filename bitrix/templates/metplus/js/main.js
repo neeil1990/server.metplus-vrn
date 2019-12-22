@@ -242,6 +242,12 @@ jQuery(document).ready(function($) {
     $(this).closest('.tab-item').find('.contact-section-desc').removeClass('is-active').eq(number).addClass('is-active');
   });
 
+  $(".map-contact_box .js-select").on("change", function() {
+    var number = $(this).find('option:selected').val();
+    $(this).closest('.map-contact_box').find('.map-contact_list').fadeOut(1);
+    $(this).closest('.map-contact_box').find('[data-id=' + number + ']').fadeIn(1);
+  });
+
   if (!is_mobile()) {
     if ($('.digit-list').length) {
       var show = true;
@@ -521,6 +527,8 @@ jQuery(document).ready(function($) {
     "clearIncomplete": true,
     showMaskOnHover: false,
   });
+
+
 });
 if ($('.map-container').length) {
   YaMapsShown = false;

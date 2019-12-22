@@ -185,22 +185,33 @@ $APPLICATION->SetTitle("Металлинвест - изделия из мета�
         </div>
         <!-- end text-section -->
         <div class="map-container">
-            <div class="map-contact_box">
-                <div class="section-title">КОНТАКТЫ</div>
-                <select class="js-select">
-                    <option value="">Склад №1</option>
-                    <option value="">Склад №1</option>
-                    <option value="">Склад №1</option>
-                    <option value="">Склад №1</option>
-                    <option value="">Склад №1</option>
-                </select>
-                <ul class="map-contact_list">
-                    <li><span class="contact-icon glipf-place-2"></span>Воронеж, Монтажный проезд, д. 26</li>
-                    <li><a href="tel:+74732075555"><span class="contact-icon glipf-call-answer"></span>+7 (473) 207-55-55 </a></li>
-                    <li><a href="mailto:info@metplus-vrn.ru" class="map-contact_mail"><span class="contact-icon glipf-email"></span>info@metplus-vrn.ru</a></li>
-                </ul>
-                <a href="" class="main-btn map-callback_btn"><span class="glipf-call-answer"></span>Заказать обратный звонок</a>
-            </div>
+            <?$APPLICATION->IncludeComponent("bitrix:catalog.section.list", "contact.main", Array(
+                "ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+                "CACHE_FILTER" => "N",	// Кешировать при установленном фильтре
+                "CACHE_GROUPS" => "Y",	// Учитывать права доступа
+                "CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+                "CACHE_TYPE" => "A",	// Тип кеширования
+                "COUNT_ELEMENTS" => "N",	// Показывать количество элементов в разделе
+                "FILTER_NAME" => "sectionsFilter",	// Имя массива со значениями фильтра разделов
+                "IBLOCK_ID" => "18",	// Инфоблок
+                "IBLOCK_TYPE" => "contact",	// Тип инфоблока
+                "SECTION_CODE" => "",	// Код раздела
+                "SECTION_FIELDS" => array(	// Поля разделов
+                    0 => "",
+                    1 => "",
+                ),
+                "SECTION_ID" => "",	// ID раздела
+                "SECTION_URL" => "",	// URL, ведущий на страницу с содержимым раздела
+                "SECTION_USER_FIELDS" => array(	// Свойства разделов
+                    0 => "",
+                    1 => "",
+                ),
+                "SHOW_PARENT_NAME" => "Y",	// Показывать название раздела
+                "TOP_DEPTH" => "2",	// Максимальная отображаемая глубина разделов
+                "VIEW_MODE" => "LINE",	// Вид списка подразделов
+            ),
+                false
+            );?>
             <div id="map"></div>
         </div>
     </main>
