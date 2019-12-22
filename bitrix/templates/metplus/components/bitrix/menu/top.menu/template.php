@@ -43,11 +43,15 @@ $this->setFrameMode(true);
                             <?endforeach;?>
                         </ul>
                         <div class="dropdown-submenu_img">
-                            <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/menu/01.jpg" alt="alt">
+                            <? if(strlen($arResult["ALL_ITEMS"][$itemIdLevel_2]['PARAMS']['PICTURE']) > 0): ?>
+                                <img data-src="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]['PARAMS']['PICTURE']?>" alt="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>">
+                            <? else: ?>
+                                <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/menu/01.jpg" alt="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>">
+                            <? endif; ?>
                             <ul class="dropdown-submenu_img-text">
                                 <li>
                                     <small>Только у нас</small>
-                                    швеллер
+                                    <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>
                                 </li>
                                 <li>
                                     <small>по самой</small>

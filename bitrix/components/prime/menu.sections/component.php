@@ -46,6 +46,7 @@ if($this->StartResultCache())
 			"ID",
 			"DEPTH_LEVEL",
 			"NAME",
+			"PICTURE",
 			"SECTION_PAGE_URL",
 			"UF_ICON",
 			"UF_ICON_MENU",
@@ -62,6 +63,7 @@ if($this->StartResultCache())
 				"ICON" => $arSection["UF_ICON"],
 				"ICON_MENU" => $arSection["UF_ICON_MENU"],
 				"~NAME" => $arSection["~NAME"],
+				"PICTURE" => CFile::GetPath($arSection["PICTURE"]),
 				"~SECTION_PAGE_URL" => $arSection["~SECTION_PAGE_URL"],
 			);
 			$arResult["ELEMENT_LINKS"][$arSection["ID"]] = array();
@@ -139,6 +141,8 @@ foreach($arResult["SECTIONS"] as $arSection)
 			"DEPTH_LEVEL" => $arSection["DEPTH_LEVEL"],
 			"ICON" => $arSection["ICON"],
 			"ICON_MENU" => $arSection["ICON_MENU"],
+			"ICON_MENU" => $arSection["ICON_MENU"],
+			"PICTURE" => $arSection["PICTURE"],
 		),
 	);
 }
