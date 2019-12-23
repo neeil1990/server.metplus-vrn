@@ -93,9 +93,20 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                 </div>
             </div>
             <div class="contact_right-column">
-                <div class="contact-img">
-                    <img data-src="<?=CFile::GetPath($arResult['BLOCK']['PICTURE'])?>" alt="<?=$arResult['BLOCK']['NAME']?>">
+                <? foreach ($arResult['SECTIONS'] as $key => $arSection):
+                $this->AddEditAction($arSection['ID'], $arSection['EDIT_LINK'], $strSectionEdit);
+                $this->AddDeleteAction($arSection['ID'], $arSection['DELETE_LINK'], $strSectionDelete, $arSectionDeleteParams);
+                ?>
+                <div class="contact-img tab-item <?if(!$key):?>is-visible<?endif;?>">
+                    <? foreach ($arSection['ITEMS'] as $k => $arItem): ?>
+                        <?if($arItem['PREVIEW_PICTURE']):?>
+                            <img class="contact-section-desc <?if($arItem['IS']):?>is-active<?endif;?>" data-src="<?=$arItem['PREVIEW_PICTURE']?>" alt="<?=$arItem['NAME']?>">
+                        <?else:?>
+                            <img class="contact-section-desc <?if($arItem['IS']):?>is-active<?endif;?>" data-src="<?=CFile::GetPath($arResult['BLOCK']['PICTURE'])?>" alt="<?=$arItem['NAME']?>">
+                        <?endif;?>
+                    <?endforeach;?>
                 </div>
+                <?endforeach;?>
             </div>
         </div>
     </div>

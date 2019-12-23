@@ -42,23 +42,21 @@ $this->setFrameMode(true);
                                 </li>
                             <?endforeach;?>
                         </ul>
-                        <div class="dropdown-submenu_img">
-                            <? if(strlen($arResult["ALL_ITEMS"][$itemIdLevel_2]['PARAMS']['PICTURE']) > 0): ?>
+                        <? if(strlen($arResult["ALL_ITEMS"][$itemIdLevel_2]['PARAMS']['PICTURE']) > 0): ?>
+                            <div class="dropdown-submenu_img">
                                 <img data-src="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]['PARAMS']['PICTURE']?>" alt="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>">
-                            <? else: ?>
-                                <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/menu/01.jpg" alt="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>">
-                            <? endif; ?>
-                            <ul class="dropdown-submenu_img-text">
-                                <li>
-                                    <small>Только у нас</small>
-                                    <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>
-                                </li>
-                                <li>
-                                    <small>по самой</small>
-                                    выгодной <br>цене
-                                </li>
-                            </ul>
-                        </div>
+                                <ul class="dropdown-submenu_img-text">
+                                    <li>
+                                        <small>Только у нас</small>
+                                        <?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>
+                                    </li>
+                                    <li>
+                                        <small>по самой</small>
+                                        выгодной <br>цене
+                                    </li>
+                                </ul>
+                            </div>
+                        <? endif; ?>
                     </div>
                     <?endif?>
                     </li>

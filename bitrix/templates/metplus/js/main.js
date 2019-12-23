@@ -240,6 +240,7 @@ jQuery(document).ready(function($) {
   $(".wrapper_select-office").on("change", function() {
     var number = $(this).find('option:selected').index();
     $(this).closest('.tab-item').find('.contact-section-desc').removeClass('is-active').eq(number).addClass('is-active');
+    $(this).closest('.container').find('.contact_right-column .contact-img.is-visible .contact-section-desc').removeClass('is-active').eq(number).addClass('is-active');
   });
 
   $(".map-contact_box .js-select").on("change", function() {
@@ -497,6 +498,7 @@ jQuery(document).ready(function($) {
   $('.tab-container').on('click', '.tab:not(.active)', function() {
     $(this).addClass('active').siblings().removeClass('active')
     $(this).closest('.tab-container').find('.tab-item').removeClass('is-visible').eq($(this).index()).addClass('is-visible');
+    $(this).closest('.container').find('.contact_right-column .tab-item').removeClass('is-visible').eq($(this).index()).addClass('is-visible');
   });
   var heightTopHead = $('.ui-header').outerHeight();
   jQuery(window).on("scroll load resize", function() {

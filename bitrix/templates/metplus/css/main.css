@@ -5518,6 +5518,14 @@ h3, .title-h3 {
   height: auto;
 }
 
+.contact-img.tab-item{
+  display: none;
+}
+
+.contact-img.tab-item.is-visible{
+  display: contents;
+}
+
 .tab-names {
   display: -webkit-flex;
   display: -moz-flex;
@@ -5789,6 +5797,14 @@ h3, .title-h3 {
   opacity: 1;
   height: auto;
   overflow: visible;
+}
+
+img.contact-section-desc {
+  display: none;
+}
+
+img.contact-section-desc.is-active {
+  display: block;
 }
 
 /**about-us_section**/
