@@ -558,8 +558,8 @@ if ($('.map-container').length) {
 
         // Создание экземпляра карты.
         var myMap = new ymaps.Map('map', {
-              center: [50.443705, 30.530946],
-              zoom: 14,
+              center: $($(".js-select option").get(0)).data('center').split(','),
+              zoom: 18,
               behaviors: ['default', 'scrollZoom'],
             }, {
               searchControlProvider: 'yandex#search'
@@ -591,7 +591,6 @@ if ($('.map-container').length) {
           return false;
         });
 
-        myMap.setBounds(myMap.geoObjects.getBounds());
       }
     }
   }
