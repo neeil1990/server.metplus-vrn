@@ -252,7 +252,11 @@ h1 {
   text-transform: uppercase;
 }
 
-h3, .title-h3 {
+
+.unified-text-section h1,
+h3,
+.title-h3 {
+  color: #2b2b2b;
   font-size: 1.875rem;
   font-weight: 800;
   margin: 0 0 1.6em;
