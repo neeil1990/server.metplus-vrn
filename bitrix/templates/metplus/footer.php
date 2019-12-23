@@ -1,52 +1,41 @@
 <footer class="main-footer">
     <div class="container">
         <div class="row">
-            <div class="footer-column">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="footer-title"><a href="">КАТАЛОГ</a></div>
-                        <div class="footer-menu_title-box">
-                            <ul class="footer-menu">
-                                <li><a href="">Спецпредложения</a></li>
-                                <li><a href="">Продукция под заказ</a></li>
-                            </ul>
-                            <div class="footer-title_box">
-                                <div class="footer-title"><a href="">контакты</a></div>
-                                <div class="footer-title"><a href="">карта сайта</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-6">
-                        <div class="footer-title"><a href="">О КОМПАНИИ</a></div>
-                        <ul class="footer-menu">
-                            <li><a href="">О нас</a></li>
-                            <li><a href="">Складской комплекс</a></li>
-                            <li><a href="">Награды и достижения</a></li>
-                            <li><a href="">Вакансии</a> </li>
-                            <li><a href="">Отзывы</a></li>
-                            <li><a href="">Контакты</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-6">
-                        <div class="footer-title"><a href="">уСЛУГИ И СЕРВИС</a></div>
-                        <ul class="footer-menu">
-                            <li><a href="">Резка</a></li>
-                            <li><a href="">Упаковка</a></li>
-                            <li><a href="">Погрузка</a></li>
-                            <li><a href="">Доставка</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-column">
-                <div class="footer-title"><a href="">полезное</a></div>
-                <ul class="footer-menu">
-                    <li><a href="">ГОСты</a></li>
-                    <li><a href="">Калькулятор</a></li>
-                    <li><a href="">Расчёт расстояния</a></li>
-                    <li><a href="">Статьи</a></li>
-                </ul>
-            </div>
+            <?$APPLICATION->IncludeComponent("bitrix:menu", "bottom.menu", Array(
+                "ROOT_MENU_TYPE" => "bottom",	// Тип меню для первого уровня
+                "MENU_CACHE_TYPE" => "A",	// Тип кеширования
+                "MENU_CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                "MENU_THEME" => "site",	// Тема меню
+                "CACHE_SELECTED_ITEMS" => "N",
+                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                "MAX_LEVEL" => "2",	// Уровень вложенности меню
+                "CHILD_MENU_TYPE" => "bottom_left",	// Тип меню для остальных уровней
+                "USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                "ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
+                "COMPONENT_TEMPLATE" => "catalog_horizontal"
+            ),
+                false
+            );?>
+
+            <?$APPLICATION->IncludeComponent("bitrix:menu", "bottom_useful.menu", Array(
+                "ROOT_MENU_TYPE" => "bottom_useful",	// Тип меню для первого уровня
+                "MENU_CACHE_TYPE" => "A",	// Тип кеширования
+                "MENU_CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                "MENU_THEME" => "site",	// Тема меню
+                "CACHE_SELECTED_ITEMS" => "N",
+                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                "MAX_LEVEL" => "1",	// Уровень вложенности меню
+                "CHILD_MENU_TYPE" => "bottom_useful",	// Тип меню для остальных уровней
+                "USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                "ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
+                "COMPONENT_TEMPLATE" => "catalog_horizontal"
+            ),
+                false
+            );?>
             <div class="footer-column">
                 <ul class="footer-contact_list">
                     <li><a href="tel:+74732075555"><span class="glipf-call-answer"></span>+7 (473) 207-55-55</a></li>
