@@ -1,33 +1,18 @@
 <?
 $aMenuLinks = Array(
-    Array(
-        "ГОСты",
-        "catalog/",
-        Array(),
-        Array(),
-        ""
-    ),
-    Array(
-        "Калькулятор",
-        "about/",
-        Array(),
-        Array(),
-        ""
-    ),
-    Array(
-        "Расчёт расстояния",
-        "services/",
-        Array(),
-        Array(),
-        ""
-    ),
-    Array(
-        "Статьи",
-        "services/",
-        Array(),
-        Array(),
-        ""
-    ),
-
+	Array(
+		"ГОСТы ", 
+		"/gost/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Статьи", 
+		"/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
 );
 ?>

@@ -1,27 +1,25 @@
 <?
 $aMenuLinks = Array(
-    Array(
-        "Спецпредложения",
-        "catalog/",
-        Array(),
-        Array(),
-        ""
-    ),
-    Array(
-        "Продукция под заказ",
-        "about/",
-        Array(),
-        Array(),
-        ""
-    ),
-    Array(
-        "О нас",
-        "services/",
-        Array(),
-        Array(),
-        ""
-    ),
-
-
+	Array(
+		"Отзывы", 
+		"/reviews/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Новости", 
+		"/news/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Вакансии", 
+		"/vacancy/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
 );
 ?>

@@ -1,5 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("title", "Доставка металла по всей России");
+$APPLICATION->SetPageProperty("keywords", "доставка");
+$APPLICATION->SetPageProperty("description", "доставка");
 $APPLICATION->SetTitle("delivery");
 ?>
 
