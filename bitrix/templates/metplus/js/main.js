@@ -554,24 +554,43 @@ if ($('.map-container').length) {
         myPlacemark;
 
       function init() {
-        myMap = new ymaps.Map("map", {
-          center: [51.64389407230797, 39.29436749999995],
-          zoom: 13,
-          behaviors: ['default', 'scrollZoom'],
+
+        // Создание экземпляра карты.
+        var myMap = new ymaps.Map('map', {
+              center: [50.443705, 30.530946],
+              zoom: 14,
+              behaviors: ['default', 'scrollZoom'],
+            }, {
+              searchControlProvider: 'yandex#search'
+            });
+            myMap.behaviors.disable('scrollZoom');
+
+        collection = new ymaps.GeoObjectCollection(null, { preset: "islands#redIcon" }),
+        myMap.geoObjects.add(collection)
+
+        var arPlacemark = [];
+        $(".js-select option").each(function(indx, element){
+
+          if($(element).data('center')){
+            placemark = new ymaps.Placemark($(element).data('center').split(','), { balloonContent: $(element).text() });
+            collection.add(placemark)
+            arPlacemark[$(element).val()] = placemark;
+          }
         });
-        myMap.behaviors.disable('scrollZoom');
-        myMap.geoObjects.add(new ymaps.Placemark([51.64389407230797, 39.29436749999995], {
-          balloonContent: 'г. Воронеж, Монтажный проезд, д. 26',
-        }, {
-          // Опции.
-          // Необходимо указать данный тип макета.
-          iconLayout: 'default#image',
-          preset: 'islands#redIcon',
-          iconImageHref: 'img/icons/map.svg',
-          // Размеры метки.
-        }));
-        myMap.geoObjects.add(myPlacemark);
-        // }
+
+        $('.js-select').bind('change', function () {
+          var id = $(this).find('option:selected').val();
+          if(arPlacemark[id]){
+            if (!arPlacemark[id].balloon.isOpen()) {
+              arPlacemark[id].balloon.open();
+            } else {
+              arPlacemark[id].balloon.close();
+            }
+          }
+          return false;
+        });
+
+        myMap.setBounds(myMap.geoObjects.getBounds());
       }
     }
   }

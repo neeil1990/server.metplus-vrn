@@ -39,7 +39,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                             <div class="wrapper_select-office">
                                 <select class="js-select">
                                     <? foreach ($arSection['ITEMS'] as $arItem):?>
-                                        <option value=""><?=$arItem['NAME']?></option>
+                                        <option value="<?=$arItem['ID']?>" data-center="<?=$arItem['PROPERTIES']['CENTER']['VALUE']?>"><?=$arItem['NAME']?></option>
                                     <?endforeach;?>
                                 </select>
                             </div>
