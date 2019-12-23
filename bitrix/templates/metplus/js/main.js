@@ -573,7 +573,11 @@ if ($('.map-container').length) {
         $(".js-select option").each(function(indx, element){
 
           if($(element).data('center')){
-            placemark = new ymaps.Placemark($(element).data('center').split(','), { balloonContent: $(element).text() });
+            placemark = new ymaps.Placemark($(element).data('center').split(','), {
+              balloonContent: $(element).text()
+            }, {
+              balloonAutoPan: false
+            });
             collection.add(placemark)
             arPlacemark[$(element).val()] = placemark;
           }
@@ -584,6 +588,7 @@ if ($('.map-container').length) {
           if(arPlacemark[id]){
             if (!arPlacemark[id].balloon.isOpen()) {
               arPlacemark[id].balloon.open();
+              myMap.setCenter($(this).find('option:selected').data('center').split(','), 18);
             } else {
               arPlacemark[id].balloon.close();
             }
