@@ -9,10 +9,9 @@ $APPLICATION->SetTitle("Отзывы");
     <main class="main-content">
         <div class="inner-page_title-section">
             <div class="container">
-                <ul class="breadcrumbs">
-                    <li><a href="">Главная</a></li>
-                    <li>Отзывы</li>
-                </ul>
+                <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                    false
+                );?>
                 <h1>Отзывы</h1>
             </div>
         </div>

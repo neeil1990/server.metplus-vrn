@@ -9,11 +9,9 @@ $APPLICATION->SetTitle("delivery");
     <main class="main-content">
         <div class="inner-page_title-section">
             <div class="container">
-                <ul class="breadcrumbs">
-                    <li><a href="">Главная</a></li>
-                    <li><a href="">Услуги</a></li>
-                    <li>Доставка</li>
-                </ul>
+                <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                    false
+                );?>
                 <h1>Доставка</h1>
             </div>
         </div>

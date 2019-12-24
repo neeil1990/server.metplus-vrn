@@ -5,10 +5,9 @@ $APPLICATION->SetTitle("gost");
     <main class="main-content">
         <div class="inner-page_title-section">
             <div class="container">
-                <ul class="breadcrumbs">
-                    <li><a href="">Главная</a></li>
-                    <li>ГОСТы и ТУ</li>
-                </ul>
+                <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                    false
+                );?>
                 <h1>ГОСТы и ТУ</h1>
             </div>
         </div>
