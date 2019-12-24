@@ -176,7 +176,7 @@ class Updater {
 //        echo str_pad("Lengths: " . $this->toEng($this->curDonProps['_4_DLINYSAYT']['VALUE']), 30);
 
         //проверка когда вместо номера категории в выгрузке лежит какая-то херня.
-        $strToPrint = (strlen($this->curDonProps['_2_PODRAZDELSAYTA']['VALUE']) > 4) ? 'XX' : $this->curDonProps['_2_PODRAZDELSAYTA']['VALUE'];
+        $strToPrint = (strlen($this->curDonProps['_2_PODRAZDELSAYTA_NEW']['VALUE']) > 4) ? 'XX' : $this->curDonProps['_2_PODRAZDELSAYTA_NEW']['VALUE'];
         echo str_pad("Category: " . $this->toEng($strToPrint), 13);
 
         return $props;
@@ -187,7 +187,7 @@ class Updater {
         $fields['IBLOCK_ID'] = $this->idAccIBlock;
         $fields['PROPERTY_VALUES'] = $this->curPropsForAcc;
 
-        if ($this->curDonProps['_2_PODRAZDELSAYTA']['VALUE'] != ''){
+        if ($this->curDonProps['_2_PODRAZDELSAYTA_NEW']['VALUE'] != ''){
             $fields['IBLOCK_SECTION_ID'] = $this->getSectIdAcc();
         }
 
@@ -270,7 +270,7 @@ class Updater {
         //запись второй цены в аццептора
         $idSecondPrice = '';
         foreach ($this->accordances as $accordance) {
-            if ($accordance['idDon'] == $this->curDonProps['_2_PODRAZDELSAYTA']['VALUE']) {
+            if ($accordance['idDon'] == $this->curDonProps['_2_PODRAZDELSAYTA_NEW']['VALUE']) {
                 $idSecondPrice = $accordance['idSecondPrice'];
             }
         }
@@ -347,7 +347,7 @@ class Updater {
 //        $this->accordances = include('groupAccordance.php');
 
         foreach ($this->accordances as $accordance) {
-            if ($this->curDonProps['_2_PODRAZDELSAYTA']['VALUE'] == $accordance['idDon']) {
+            if ($this->curDonProps['_2_PODRAZDELSAYTA_NEW']['VALUE'] == $accordance['idDon']) {
 
                 $secCodeAcc = $accordance['secCode'];
 
@@ -408,7 +408,7 @@ class Updater {
         ];
 
         if ($this->settings['sectToProc'] > 0) {
-            $filter['PROPERTY__2_PODRAZDELSAYTA'] = $this->settings['sectToProc'];
+            $filter['PROPERTY__2_PODRAZDELSAYTA_NEW'] = $this->settings['sectToProc'];
         }
 
         $goodsDon = CIBlockElement::GetList(

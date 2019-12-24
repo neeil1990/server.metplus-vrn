@@ -1,344 +1,301 @@
 <?php
 $accordances = [
+
     [
         'idDon' => '1',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-besshovnaya',
-        'Труба бесшовная'
+        'idSecondPrice' => '',
+        'secCode' => 'armatura-a500s-riflyenaya-a400',
+        'Арматура А500С (рифлёная)'
     ],
     [
-
         'idDon' => '2',
         'idSecondPrice' => '',
-        'secCode' => 'truba-besshovnaya-goryachedeformirovannaya',
-        'Труба бесшовная горячедеформированная'
+        'secCode' => 'armatura-a240-gladkaya',
+        'Арматура А240 (гладкая)'
     ],
     [
-
         'idDon' => '3',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-vodogazoprovodnaya',
-        'Труба водогазопроводная'
+        'idSecondPrice' => '',
+        'secCode' => 'stekloplastikovaya-armatura',
+        'Стеклопластиковая арматура'
     ],
     [
-
         'idDon' => '4',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-otsinkovannaya',
-        'Труба оцинкованная'
+        'idSecondPrice' => '',
+        'secCode' => 'katanka',
+        'Катанка'
     ],
     [
-
         'idDon' => '5',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-elektrosvarnaya',
-        'Труба электросварная'
+        'idSecondPrice' => '',
+        'secCode' => 'balka-dvutavrovaya-goryachekatanaya',
+        'Балка двутавровая горячекатаная'
     ],
     [
-
         'idDon' => '6',
         'idSecondPrice' => '',
-        'secCode' => 'otvody',
-        'Отводы'],
-    [
-
-        'idDon' => '7',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-profilnaya',
-        'Труба профильная'
-    ],
-    [
-
-        'idDon' => '8',
-        'idSecondPrice' => '',
-        'secCode' => 'elektrody1',
-        'Электроды'
-    ],
-    [
-
-        'idDon' => '9',
-        'idSecondPrice' => '2',
-        'secCode' => 'balka-dvutavrovaya',
-        'Балка двутавровая'
-    ],
-    [
-
-        'idDon' => '10',
-        'idSecondPrice' => '2',
-        'secCode' => 'shveller',
-        'Швеллер'
-    ],
-    [
-        //сказали гнутый швеллер пихать сюда
-        'idDon' => '11',
-        'idSecondPrice' => '2',
-        'secCode' => 'shveller',
+        'secCode' => 'shveller-gnutyy',
         'Швеллер гнутый'
     ],
     [
-
+        'idDon' => '7',
+        'idSecondPrice' => '',
+        'secCode' => 'shveller-p',
+        'Швеллер П'
+    ],
+    [
+        'idDon' => '8',
+        'idSecondPrice' => '',
+        'secCode' => 'shveller-u',
+        'Швеллер У'
+    ],
+    [
+        'idDon' => '9',
+        'idSecondPrice' => '',
+        'secCode' => 'neravnopolochnyy',
+        'Неравнополочный'
+    ],
+    [
+        'idDon' => '10',
+        'idSecondPrice' => '',
+        'secCode' => 'ravnopolochnyy',
+        'Равнополочный'
+    ],
+    [
+        'idDon' => '11',
+        'idSecondPrice' => '',
+        'secCode' => 'elektrosvarnaya-truba',
+        'Электросварная труба'
+    ],
+    [
         'idDon' => '12',
-        'idSecondPrice' => '2',
-        'secCode' => 'stal-armaturnaya',
-        'Сталь арматурная'
+        'idSecondPrice' => '',
+        'secCode' => 'vodogazoprovodnaya-truba-vgp',
+        'Водогазопроводная труба (ВГП)'
     ],
     [
-
         'idDon' => '13',
-        'idSecondPrice' => '2',
-        'secCode' => 'stal-kruglaya',
-        'Сталь круглая'
+        'idSecondPrice' => '',
+        'secCode' => 'otsinkovannaya-truba',
+        'Оцинкованная труба'
     ],
     [
-
         'idDon' => '14',
-        'idSecondPrice' => '2',
-        'secCode' => 'stal-uglovaya',
-        'Сталь угловая'
+        'idSecondPrice' => '',
+        'secCode' => 'besshovnaya-truba',
+        'Бесшовная труба'
     ],
     [
-
         'idDon' => '15',
-        'idSecondPrice' => '2',
-        'secCode' => 'kvadrat',
-        'Квадрат'
+        'idSecondPrice' => '',
+        'secCode' => 'kvadratnaya-profilnaya-truba',
+        'Квадратная профильная труба'
     ],
     [
-
         'idDon' => '16',
-        'idSecondPrice' => '2',
-        'secCode' => 'polosa',
-        'Полоса'
+        'idSecondPrice' => '',
+        'secCode' => 'pryamougolnaya-profilnaya-truba',
+        'Прямоугольная профильная труба'
     ],
     [
-
         'idDon' => '17',
-        'idSecondPrice' => '2',
-        'secCode' => 'shestigrannik',
-        'Шестигранник'
+        'idSecondPrice' => '',
+        'secCode' => 'polosa-goryachekatanaya',
+        'Полоса горячекатаная'
     ],
     [
-
         'idDon' => '18',
-        'idSecondPrice' => '2',
-        'secCode' => 'list-kh-k',
-        'Лист х/к'
+        'idSecondPrice' => '',
+        'secCode' => 'st3',
+        'Ст3'
     ],
     [
-
         'idDon' => '19',
-        'idSecondPrice' => '2',
-        'secCode' => 'list-g-k',
-        'Лист г/к'
+        'idSecondPrice' => '',
+        'secCode' => 'krug-goryachekatanyy',
+        'Круг горячекатаный'
     ],
     [
-
         'idDon' => '20',
-        'idSecondPrice' => '2',
+        'idSecondPrice' => '',
+        'secCode' => 'shestigrannik-stalnoy',
+        'Шестигранник стальной'
+    ],
+    [
+        'idDon' => '21',
+        'idSecondPrice' => '',
+        'secCode' => 'list-goryachekatanyy',
+        'Лист горячекатаный'
+    ],
+    [
+        'idDon' => '22',
+        'idSecondPrice' => '',
+        'secCode' => 'list-kholodnokatanyy',
+        'Лист холоднокатаный'
+    ],
+    [
+        'idDon' => '23',
+        'idSecondPrice' => '',
+        'secCode' => 'prosechno-vytyazhnoy-list',
+        'Просечно-вытяжной лист'
+    ],
+    [
+        'idDon' => '24',
+        'idSecondPrice' => '',
         'secCode' => 'list-otsinkovannyy',
         'Лист оцинкованный'
     ],
     [
-
-        'idDon' => '21',
-        'idSecondPrice' => '2',
-        'secCode' => 'list-prosechno-vytyazhnoy',
-        'Лист просечно-вытяжной'
-    ],
-    [
-        //стала разделом "Сетка"
-        'idDon' => '22',
-        'idSecondPrice' => '',
-//        'secCode' => 'setka-svarnaya-kladochnaya-v-kartakh-',
-        'secCode' => 'setka',
-        'Сетка сварная кладочная в картах'
-    ],
-    [
-        //стала разделом "Проволока"
-        'idDon' => '23',
-        'idSecondPrice' => '',
-//        'secCode' => 'setka-svarnaya-dorozhnaya-v-kartakh-',
-        'secCode' => 'provoloka',
-        'Сетка сварная дорожная в картах'
-    ],
-    [
-
-        'idDon' => '24',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-svarnaya-iz-armatury-kl-aiii',
-        'Сетка сварная из арматуры кл. АIII'
-    ],
-    [
-
         'idDon' => '25',
         'idSecondPrice' => '',
-        'secCode' => 'tselno-met-prosechno-vytyazhnaya-setka-v-rulonakh',
-        'Цельно-мет. просечно-вытяжная сетка в рулонах'
+        'secCode' => 'list-riflenyy',
+        'Лист рифленый'
     ],
     [
-
         'idDon' => '26',
+        'idSecondPrice' => '',
+        'secCode' => 'otvody',
+        'Отводы'
+    ],
+    [
+        'idDon' => '27',
+        'idSecondPrice' => '',
+        'secCode' => 'svarnaya-i-kladochnaya-setka',
+        'Сварная и кладочная сетка'
+    ],
+    [
+        'idDon' => '28',
+        'idSecondPrice' => '',
+        'secCode' => 'svarnaya-i-kladochnaya-setka',
+        'Сварная и кладочная сетка'
+    ],
+    [
+        'idDon' => '29',
+        'idSecondPrice' => '',
+        'secCode' => 'setka-rabitsa',
+        'Сетка-рабица'
+    ],
+    [
+        'idDon' => '30',
+        'idSecondPrice' => '',
+        'secCode' => 'setka-tspvs-i-bazaltovaya',
+        'Сетка ЦПВС и базальтовая'
+    ],
+    [
+        'idDon' => '31',
         'idSecondPrice' => '',
         'secCode' => 'provoloka-vyazalnaya',
         'Проволока вязальная'
     ],
     [
-
-        'idDon' => '27',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-rabitsa-neotsinkovannaya',
-        'Сетка "РАБИЦА" неоцинкованная'
-    ],
-    [
-
-        'idDon' => '28',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-rabitsa-iz-pvkh', 'Сетка "РАБИЦА" из ПВХ'],
-    [
-
-        'idDon' => '29',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-rabitsa-otsinkovannaya',
-        'Сетка "РАБИЦА" оцинкованная'
-    ],
-    [
-
-        'idDon' => '30',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-svarnaya-v-rulonakh-neotsinkovannaya',
-        'Сетка сварная в рулонах неоцинкованная'
-    ],
-    [
-
-        'idDon' => '31',
-        'idSecondPrice' => '',
-        'secCode' => 'setka-svarnaya-v-rulonakh-otsinkovannaya',
-        'Сетка сварная в рулонах оцинкованная'
-    ],
-    [
-
         'idDon' => '32',
         'idSecondPrice' => '',
-        'secCode' => 'setka-kladochnaya-v-rulonakh',
-        'Сетка кладочная в рулонах'
+        'secCode' => 'egoza',
+        'Егоза'
     ],
     [
-
         'idDon' => '33',
         'idSecondPrice' => '',
         'secCode' => 'provoloka-kolyuchaya',
         'Проволока колючая'
     ],
     [
-
         'idDon' => '34',
         'idSecondPrice' => '',
-        'secCode' => 'armirovannaya-kolyuchaya-lenta-akl-egoza',
-        'Армированная колючая лента (АКЛ) "Егоза"'
+        'secCode' => 'ano-21',
+        'АНО-21'
     ],
     [
-
         'idDon' => '35',
         'idSecondPrice' => '',
-        'secCode' => 'proflist-otsinkovannyy',
-        'Профнастил оцинкованный'
+        'secCode' => 'monolit-rts',
+        'Монолит РЦ'
     ],
     [
-
         'idDon' => '36',
         'idSecondPrice' => '',
-        'secCode' => 'metallocherepitsa',
-        'Металлочерепица'
+        'secCode' => 'mr-3',
+        'МР-3'
     ],
     [
-
         'idDon' => '37',
         'idSecondPrice' => '',
-        'secCode' => 'profnastil-okrashennyy',
-        'Профнастил окрашенный'
+        'secCode' => 'truba-kruglaya-nerzhaveyushchaya',
+        'Труба круглая нержавеющая'
     ],
     [
-
         'idDon' => '38',
         'idSecondPrice' => '',
-        'secCode' => 'samorezy',
-        'Саморезы'
+        'secCode' => 'nerzhaveyushchie-fitingi',
+        'Нержавеющие фитинги'
     ],
     [
-
         'idDon' => '39',
         'idSecondPrice' => '',
-        'secCode' => 'sendvich-paneli',
-        'Сэндвич панели'
+        'secCode' => 'nerzhaveyushchiy-krug',
+        'Нержавеющий круг'
     ],
     [
-
         'idDon' => '40',
         'idSecondPrice' => '',
-        'secCode' => 'vodostochnye-sistemy',
-        'Водосточные системы'
+        'secCode' => 'nerzhaveyushchiy-kvadrat',
+        'Нержавеющий квадрат'
     ],
     [
-
         'idDon' => '41',
         'idSecondPrice' => '',
-        'secCode' => 'utepliteli',
-        'Утеплители'
+        'secCode' => 'provoloka-nerzhaveyushchaya',
+        'Проволока нержавеющая'
     ],
     [
-
         'idDon' => '42',
         'idSecondPrice' => '',
-        'secCode' => 'sayding-metallicheskiy',
-        'Сайдинг металлический'
+        'secCode' => 'polosa-nerzhaveyushchaya',
+        'Полоса нержавеющая'
     ],
     [
         'idDon' => '43',
         'idSecondPrice' => '',
-        'secCode' => 'myagkaya-krovlya',
-        'Мягкая кровля'
+        'secCode' => 'ugolok-nerzhaveyushchiy',
+        'Уголок нержавеющий'
     ],
-	[
-        'idDon' => 'Лист нержавеющий',
-        'idSecondPrice' => '2',
+    [
+        'idDon' => '44',
+        'idSecondPrice' => '',
+        'secCode' => 'truba-profilnaya-nerzhaveyushchaya',
+        'Труба профильная нержавеющая'
+    ],
+    [
+        'idDon' => '45',
+        'idSecondPrice' => '',
         'secCode' => 'list-nerzhaveyushchiy',
         'Лист нержавеющий'
-    ],	
-	[
-        'idDon' => 'Труба круглая нержавеющая',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-kruglaya',
-        'Труба круглая'
     ],
-	
-	[
-        'idDon' => 'Труба профильная нержавеющая',
-        'idSecondPrice' => '2',
-        'secCode' => 'truba-profilnaya-ner',
-        'Труба профильная'
+    [
+        'idDon' => '46',
+        'idSecondPrice' => '',
+        'secCode' => 'komplektuyushchie-dlya-peril',
+        'Комплектующие для перил'
     ],
-	
-	[
-        'idDon' => 'Круг нержавеющий',
-        'idSecondPrice' => '2',
-        'secCode' => 'krug-kalibrovannyy',
-        'Круг калиброванный'
-    ],
-	
-	[
-        'idDon' => 'Нержавеющие фитинги',
-        'idSecondPrice' => '2',
-        'secCode' => 'nerzhaveyushchie-fitingi',
-        'Нержавеющие фитинги'
-    ],
-	
-	[
-        'idDon' => 'Проволока нержавеющая',
-        'idSecondPrice' => '2',
+    [
+        'idDon' => '47',
+        'idSecondPrice' => '',
         'secCode' => 'zapornaya-i-soedinitelnaya-armatura',
         'Запорная и соединительная арматура'
     ],
-	
+    [
+        'idDon' => '48',
+        'idSecondPrice' => '',
+        'secCode' => 'svarochnye-materialy',
+        'Сварочные материалы'
+    ],
+    [
+        'idDon' => '49',
+        'idSecondPrice' => '',
+        'secCode' => 'shestigrannik',
+        'Шестигранник'
+    ],
+
 ];
 
 
