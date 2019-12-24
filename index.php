@@ -1,5 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("keywords", "главная страница");
 $APPLICATION->SetPageProperty("description", "Компания Металлинвест Плюс предлагает купить изделия из металлопроката в Воронеже по ценам производителя! Широкий ассортимент продукции в нашем каталоге!");
 $APPLICATION->SetPageProperty("title", "Металлинвест Плюс - изделия из металлопроката в Воронеже по низким ценам!");
 $APPLICATION->SetTitle("Металлинвест - изделия из металлопроката");
