@@ -500,6 +500,8 @@ jQuery(document).ready(function($) {
     $(this).addClass('active').siblings().removeClass('active')
     $(this).closest('.tab-container').find('.tab-item').removeClass('is-visible').eq($(this).index()).addClass('is-visible');
     $(this).closest('.container').find('.contact_right-column .tab-item').removeClass('is-visible').eq($(this).index()).addClass('is-visible');
+
+    $(this).closest('.tab-container').find('.tab-item').eq($(this).index()).find('.js-select').trigger('change');
   });
   var heightTopHead = $('.ui-header').outerHeight();
   jQuery(window).on("scroll load resize", function() {
