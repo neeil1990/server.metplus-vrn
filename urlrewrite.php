@@ -56,7 +56,7 @@ $arUrlRewrite=array (
     'PATH' => '/personal/index.php',
     'SORT' => 100,
   ),
-  12 => 
+  15 => 
   array (
     'CONDITION' => '#^/services/#',
     'RULE' => '',
