@@ -56,8 +56,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="rules">
-                    <a href="/upload/politics.pdf" target="_blank">Политика конфиденциальности.</a>
-                    <a href="/upload/compliance.pdf" target="_blank">Согласие на обработку персональных данных.</a>
+                    <a href="/upload/politics.pdf" target="_blank">Политика конфиденциальности</a>
+                    <a href="/upload/compliance.pdf" target="_blank">Согласие на обработку персональных данных</a>
                 </div>
             </div>
         </div>
