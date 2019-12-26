@@ -70,28 +70,6 @@
 <div class="cart-content">
     <div class="cart-content_first"></div>
     <div class="cart-content_second"></div>
-
-    <div class="cart-content_third">
-        <div class="container">
-            <div class="cart-close"></div>
-            <div class="cart-content_header">
-                <div class="cart-content_title">Заявка оформлена</div>
-                <ul class="cart-steps">
-                    <li class="cart-step_item">Шаг 1</li>
-                    <li class="cart-step_item cart-step_item-second">Шаг 2</li>
-                    <li class="cart-step_item active">Шаг 3</li>
-                </ul>
-            </div>
-            <div class="cart-content_body cart-content_body-mod text-center">
-                <div class="check-icon"></div>
-                <div class="thanks-text">
-                    Спасибо за Ваш заказ!
-                    <small>Специалист в ближайшее время с Вами свяжется и уточнит все детали</small>
-                </div>
-                <a href="" class="main-btn js-back-site_2">Вернуться на сайт</a>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div aria-hidden="true" class="modal fade js-modal" id="citySelect" role="dialog">

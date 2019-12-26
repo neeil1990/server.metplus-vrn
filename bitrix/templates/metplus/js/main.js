@@ -409,10 +409,7 @@ jQuery(document).ready(function($) {
     return false;
   });
 
-  $('.js-checkout-2').on('click', function() {
-    //$('.cart-content_third').addClass('is-open');
-    //return false;
-  });
+
   $('.js_back-site').on('click', function() {
     $('.cart-content').removeClass('is-open');
     $('html').removeClass('is-hidden');

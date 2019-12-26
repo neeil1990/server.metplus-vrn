@@ -84,9 +84,9 @@ if(check_bitrix_sessid() && $_SERVER["REQUEST_METHOD"] == "POST")
     }
 }
 
-if($arResult['ORDER_ID'])
-    return json_encode($arResult);
-else
-    $this->includeComponentTemplate();
+if(strlen($arResult['ORDER_ID']) > 0)
+    $this->setTemplateName('successful');
+
+$this->includeComponentTemplate();
 
 

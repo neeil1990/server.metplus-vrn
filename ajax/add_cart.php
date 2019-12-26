@@ -15,6 +15,4 @@ CModule::IncludeModule( 'catalog' );
 CModule::IncludeModule( 'sale' );
 
 Add2BasketByProductID( $id, $quantity );
-
-die;
 ?>
