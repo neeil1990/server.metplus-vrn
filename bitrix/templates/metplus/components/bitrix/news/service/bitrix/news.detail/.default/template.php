@@ -13,6 +13,7 @@
 $this->setFrameMode(true);
 ?>
 
+
 <? foreach ($arResult['ITEMS'] as $key => $arItem): ?>
 <div class="row services-detailed_box">
     <div class="left-column <? if($key % 2): ?>order-md-2<? endif;?>">
@@ -25,6 +26,6 @@ $this->setFrameMode(true);
 <?endforeach;?>
 
 <div class="services-detailed_footer">
-    <span class="text">Скачайте прайс-лист и узнайте стоимость всех услуг:</span>
+    <span class="text">Узнайте стоимость всех услуг</span>
     <a href="<?=$arResult['IBLOCK']['PICTURE']?>" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
 </div>
