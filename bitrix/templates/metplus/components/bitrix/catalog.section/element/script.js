@@ -59,8 +59,7 @@
 		}
 	};
 
-	window.JCCatalogSectionComponent.prototype =
-	{
+	window.JCCatalogSectionComponent.prototype = {
 		checkButton: function()
 		{
 			if (this.showMoreButton)

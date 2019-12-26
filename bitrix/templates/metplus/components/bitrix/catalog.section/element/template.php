@@ -90,7 +90,7 @@ if(!count($arResult['ITEMS']))
         <td><?=implode(', ', $price)?></td>
         <td><?=$arItem['PROPERTIES']['PRICE_CUTTING']['VALUE']?></td>
         <td>
-            <a href="" class="product-item_cart-btn main-btn"><span class="glipf-cart"></span></a>
+            <a href="javascript:void(0)" class="product-item_cart-btn main-btn" id="<?=$arItem['ID']?>"><span class="glipf-cart"></span></a>
         </td>
     </tr>
     <?endforeach;?>

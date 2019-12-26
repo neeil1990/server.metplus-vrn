@@ -90,6 +90,13 @@ jQuery(document).ready(function($) {
     }, 700, function() {
       $(this).remove();
     });
+
+    $.get("/ajax/", { component: "add_cart", id : $(this).attr('id') }).done(function(data) {
+      $.get("/ajax/", { component: "cart_small" }).done(function(cart) {
+        $('.head-cart').html(cart);
+      });
+    });
+
     return false;
   });
   $(".product-item_buy-btn").on("click", function() {
@@ -381,7 +388,7 @@ jQuery(document).ready(function($) {
     }
   });
 
-  $('.head-cart > a').on('click', function() {
+  $('.head-cart').on('click', 'a', function() {
 
     $.get("/ajax/", { component: "cart" }).done(function(data) {
       $('.cart-content > .cart-content_first').html(data);
