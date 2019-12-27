@@ -1334,10 +1334,104 @@ h3,
     background: #073F72;
     color: #fff;
   }
-  .dropdown-menu_item:hover > a .menu-icon {
-    -webkit-filter: brightness(0) invert(1);
-            filter: brightness(0) invert(1);
+
+  .dropdown-menu_item:hover > a .menu-icon_first:after {
+    width: 23px;
+    height: 21px;
+    background-position: -54px -20px;
   }
+
+  .dropdown-menu_item:hover > a .menu-icon_second:after {
+    width: 21px;
+    height: 21px;
+    background-position: -54px -81px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_third:after {
+    width: 21px;
+    height: 21px;
+    background-position: -54px -142px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_fourth:after {
+    width: 22px;
+    height: 21px;
+    background-position: -54px -203px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_fifth:after {
+    width: 19px;
+    height: 19px;
+    background-position: -54px -264px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_six:after {
+    width: 18px;
+    height: 18px;
+    background-position: -54px -323px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_seven:after {
+    width: 15px;
+    height: 16px;
+    background-position: -54px -381px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_eight:after {
+    width: 19px;
+    height: 19px;
+    background-position: -54px -437px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_nine:after {
+    width: 22px;
+    height: 22px;
+    background-position: -54px -496px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_ten:after {
+    width: 24px;
+    height: 24px;
+    background-position: -54px -558px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_eleven:after {
+    width: 28px;
+    height: 24px;
+    background-position: -54px -622px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_tvelwe:after {
+    width: 15px;
+    height: 15px;
+    background-position: -54px -686px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_thirteen:after {
+    width: 17px;
+    height: 17px;
+    background-position: -54px -741px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_fourteen:after {
+    width: 6px;
+    height: 21px;
+    background-position: -54px -798px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_fifteen:after {
+    width: 5px;
+    height: 19px;
+    background-position: -54px -859px;
+  }
+
+  .dropdown-menu_item:hover > a .menu-icon_sixteen:after {
+    width: 21px;
+    height: 22px;
+    background-position: -54px -918px;
+  }
+
+
   .fixed-menu_catalog:hover .dropdown-content {
     visibility: visible;
     -webkit-transform: translate(0, 0);
