@@ -73,12 +73,12 @@ $APPLICATION->SetTitle("Отзывы");
                 <div class="row align-items-center">
                     <div class="col-lg-4">
                         <div class="beam-img">
-                            <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/beams.png" alt="alt">
+                            <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/eo.png" alt="alt">
                         </div>
                     </div>
                     <div class="col-lg-8 form-content_mod-desc">
-                        <div class="form-content_title title-h3">Остались вопросы? <span class="blue-color">Задайте</span> их прямо сейчас</div>
-                        <span class="top-small_text">Напишите руководителю</span>
+                        <div class="form-content_title title-h3">Ваши предложения и пожелания руководителю компании</div>
+                        <span class="top-small_text"></span>
                         <form action="#" class="static-form">
                             <div class="row">
                                 <div class="col-md-4">
