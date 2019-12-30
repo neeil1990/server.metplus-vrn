@@ -105,7 +105,7 @@ $APPLICATION->SetTitle("Отзывы");
                                 </div>
                                 <div class="col-md-4">
                                     <img src="<?=SITE_TEMPLATE_PATH?>/img/static/captcha.jpg" alt="alt">
-                                    <input type="submit" class="form-static_submit-btn main-btn" value="Перезвонить">
+                                    <input type="submit" class="form-static_submit-btn main-btn" value="Отправить">
                                     <span class="form-static_policy-text">
 													Нажимая кнопку вы соглашаетес с правилами
 													обработки персональных данных

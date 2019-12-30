@@ -2842,6 +2842,10 @@ h3,
   padding: 0 15px;
 }
 
+.services-detailed_section .right-column ul{
+  list-style: none;
+}
+
 .services-detailed_img img {
   max-width: 100%;
 }
@@ -5460,7 +5464,7 @@ h3,
 }
 
 .transport-item_title {
-  font-size: 1.5625rem;
+  font-size: 1.3500rem;
   font-weight: 600;
   display: block;
   color: #fff;
