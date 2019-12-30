@@ -2842,7 +2842,7 @@ h3,
   padding: 0 15px;
 }
 
-.services-detailed_section .right-column ul{
+.services-detailed_section .right-column ul > li > ul{
   list-style: none;
 }
 
