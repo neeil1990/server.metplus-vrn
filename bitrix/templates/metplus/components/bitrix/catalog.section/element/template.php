@@ -56,7 +56,7 @@ if(!count($arResult['ITEMS']))
         ?>
     <tr>
         <td class="product-table_first-cell">
-            <span class="product-item_name"><?=$arItem['NAME']?></span>
+            <span class="product-item_name <? if($arItem['CATALOG_QUANTITY'] < 1000):?>product-item_name-mod<?endif;?>"><?=$arItem['NAME']?></span>
             <span class="product-availability">В наличии на складе.</span>
             <div class="product-item_popup">
                 <div class="product-item_popup-close"><span class="glipf-reset"></span></div>

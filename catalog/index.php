@@ -69,7 +69,7 @@ $APPLICATION->SetTitle("Каталог продукции Металлинвес
 		"SECTION_TOP_DEPTH" => "2",
 		"SECTIONS_VIEW_MODE" => "TILE",
 		"SECTIONS_SHOW_PARENT_NAME" => "N",
-		"PAGE_ELEMENT_COUNT" => "15",
+		"PAGE_ELEMENT_COUNT" => "30",
 		"LINE_ELEMENT_COUNT" => "3",
 		"ELEMENT_SORT_FIELD" => "desc",
 		"ELEMENT_SORT_ORDER" => "asc",
