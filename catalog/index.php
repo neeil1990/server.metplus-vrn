@@ -2,10 +2,21 @@
 define("HIDE_SIDEBAR", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог продукции Металлинвест Плюс");
-?>
+$IBLOCK_ID = 13;
 
+
+$link = explode('/', $APPLICATION->GetCurPage(false));
+TrimArr($link);
+$cat = array_shift($link);
+$code = array_pop($link);
+unset($link);
+if($code &&  $cat == "catalog"){
+    if($curSec = CIBlockSection::GetList(Array( $by => $order), Array('IBLOCK_ID' => $IBLOCK_ID, 'CODE' => $code), false, array('NAME','UF_TOP_PIC'))->GetNext())
+        $background = CFile::GetPath($curSec['UF_TOP_PIC']);
+}
+?>
 	<main class="main-content">
-		<div class="inner-page_title-section">
+		<div class="inner-page_title-section" <? if($background): ?>style="background: url(<?=$background?>) no-repeat center top;" <? endif; ?> >
 			<div class="container">
                 <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
                     false
@@ -19,7 +30,7 @@ $APPLICATION->SetTitle("Каталог продукции Металлинвес
 	"catalog", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "13",
+		"IBLOCK_ID" => $IBLOCK_ID,
 		"TEMPLATE_THEME" => "site",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"BASKET_URL" => "/personal/cart/",
