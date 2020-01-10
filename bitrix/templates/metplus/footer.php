@@ -161,6 +161,7 @@
 <link href="<?=SITE_TEMPLATE_PATH?>/css/min.css" rel="stylesheet" />
 <link href="<?=SITE_TEMPLATE_PATH?>/css/main.css" rel="stylesheet" />
 <script src="<?=SITE_TEMPLATE_PATH?>/js/min.js"></script>
+<script src="<?=SITE_TEMPLATE_PATH?>/libs/fancyTable.js"></script>
 <script src="<?=SITE_TEMPLATE_PATH?>/js/main.js"></script>
 </body>
 </html>

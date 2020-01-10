@@ -537,6 +537,13 @@ jQuery(document).ready(function($) {
     showMaskOnHover: false,
   });
 
+  $(".product-table").fancyTable({
+    sortColumn: 0,
+    sortable: false,
+    searchable: true,
+    globalSearch: true,
+    inputPlaceholder: "Введите название или марку стали",
+  });
 
 });
 if ($('.map-container').length) {
