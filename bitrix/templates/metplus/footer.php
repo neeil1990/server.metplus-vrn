@@ -158,6 +158,47 @@
         </div>
     </div>
 </div>
+
+<div aria-hidden="true" class="modal fade js-modal" id="callback" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-callback" role="document">
+        <div class="modal-content">
+            <button aria-label="Close" class="close uhified_close-btn" data-dismiss="modal" type="button"></button>
+
+            <?$APPLICATION->IncludeComponent("prime:main.feedback", "call", Array(
+                "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
+                    0 => "1",
+                ),
+                "IBLOCK_ID" => "30",	// Код информационного блока
+                "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
+                "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
+                "PROPERTY_CODE" => array(	// Поля формы
+                    0 => "NAME",
+                    1 => "PHONE"
+                ),
+                "USE_CAPTCHA" => "N",	// Использовать защиту от автоматических сообщений (CAPTCHA) для неавторизованных пользователей
+                "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+                "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9"
+            ),
+                false
+            );?>
+        </div>
+    </div>
+</div>
+
+<? if($_REQUEST["success"]): ?>
+    <div aria-hidden="true" class="modal fade js-modal" id="success_msg" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-callback" role="document">
+            <div class="modal-content">
+                <button aria-label="Close" class="close uhified_close-btn" data-dismiss="modal" type="button"></button>
+                <div class="form-callback_title">
+                    Сообщение отправлено!
+                    <small>Мы обязательно <span class="min">вам перезвоним.</span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+<? endif; ?>
+
 <link href="<?=SITE_TEMPLATE_PATH?>/css/min.css" rel="stylesheet" />
 <link href="<?=SITE_TEMPLATE_PATH?>/css/main.css" rel="stylesheet" />
 <script src="<?=SITE_TEMPLATE_PATH?>/js/min.js"></script>

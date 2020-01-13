@@ -70,36 +70,24 @@ $APPLICATION->SetTitle("Вакансии");
                     false
                 );?>
                 <div class="title-h3">Вы хотите работать с нами? Отправьте свое резюме</div>
-                <form action="#" class="static-form">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="text" class="form-input" placeholder="ФИО *">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="email" class="form-input" placeholder="E-mail">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea  class="form-textarea" placeholder="Краткое описание к резюме*"></textarea>
-                    </div>
-                    <div class="row form-static_footer">
-                        <div class="col-sm-6">
-                            <label class="input-file">
-                                <span class="input-file_icon glipf-paper-clip"></span>
-                                <span class="button">
-											<input type="file" name="photo" multiple="" class="requiredField callback-file" onchange="this.parentNode.nextSibling.value = this.value" tabindex="0">
-										</span><input class="input-file-text" placeholder="Прикрепить резюме">
-                            </label>
-                        </div>
-                        <div class="col-sm-6 static-form_right-column">
-                            <input type="submit" class="form-static_submit-btn form-static_submit-btn--mod main-btn" value="Выслать резюме">
-                        </div>
-                    </div>
-                </form>
+                <?$APPLICATION->IncludeComponent("prime:main.feedback", "vacancy", Array(
+                    "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
+                        0 => "1",
+                    ),
+                    "IBLOCK_ID" => "31",	// Код информационного блока
+                    "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
+                    "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
+                    "PROPERTY_CODE" => array(	// Поля формы
+                        0 => "NAME",
+                        1 => "EMAIL",
+                        2 => "FILE"
+                    ),
+                    "USE_CAPTCHA" => "N",	// Использовать защиту от автоматических сообщений (CAPTCHA) для неавторизованных пользователей
+                    "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+                    "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9"
+                ),
+                    false
+                );?>
             </div>
         </div>
         <!-- end vacancy-section -->

@@ -79,40 +79,24 @@ $APPLICATION->SetTitle("Отзывы");
                     <div class="col-lg-8 form-content_mod-desc">
                         <div class="form-content_title title-h3">Ваши предложения и пожелания руководителю компании</div>
                         <span class="top-small_text"></span>
-                        <form action="#" class="static-form">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" class="form-input" placeholder="ФИО *">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="tel" class="form-input" placeholder="Телефон *">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="email" class="form-input" placeholder="E-mail">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <textarea  class="form-textarea" placeholder="Введите текст сообщения"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/static/captcha.jpg" alt="alt">
-                                    <input type="submit" class="form-static_submit-btn main-btn" value="Отправить">
-                                    <span class="form-static_policy-text">
-													Нажимая кнопку вы соглашаетес с правилами
-													обработки персональных данных
-												</span>
-                                </div>
-                            </div>
-                        </form>
+                        <?$APPLICATION->IncludeComponent("prime:main.feedback", "reviews", Array(
+                            "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
+                                0 => "1",
+                            ),
+                            "IBLOCK_ID" => "29",	// Код информационного блока
+                            "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
+                            "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
+                            "PROPERTY_CODE" => array(	// Поля формы
+                                0 => "NAME",
+                                1 => "PHONE",
+                                2 => "EMAIL",
+                            ),
+                            "USE_CAPTCHA" => "Y",
+                            "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+                            "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+                        ),
+                            false
+                        );?>
                     </div>
                 </div>
             </div>

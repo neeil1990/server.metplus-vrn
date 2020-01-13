@@ -11,6 +11,7 @@
     <link href="<?=SITE_DIR?>apple-touch-icon.png" rel="apple-touch-icon" />
     <? $APPLICATION->ShowHead(); ?>
     <style>body{opacity: 0;}</style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <div id="panel"><? $APPLICATION->ShowPanel(); ?></div>
@@ -36,7 +37,7 @@
                         <div class="head_phone-box tablet-small_hidden">
                             <a href="tel:+74732075555" class="head_phone-number">+7 (473) 207-55-55 </a>
                             <div class="head_callback-btn">
-                                <a href="">
+                                <a href="#callback" data-toggle="modal">
                                     <span class="glipf-call-answer"></span>
                                     <span class="text">Заказать звонок</span>
                                 </a>
@@ -138,7 +139,7 @@
                     <div class="head_phone-box">
                         <a href="tel:+74732075555" class="head_phone-number">+7 (473) 207-55-55 </a>
                         <div class="head_callback-btn">
-                            <a href="">
+                            <a href="#callback" data-toggle="modal">
                                 <span class="glipf-call-answer"></span>
                                 <span class="text">Заказать звонок</span>
                             </a>

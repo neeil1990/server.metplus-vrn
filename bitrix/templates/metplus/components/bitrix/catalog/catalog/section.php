@@ -306,3 +306,32 @@ if ($isFilter)
     </section>
     <!-- end category-section -->
 
+<? if($arCurSection['DEPTH_LEVEL'] > 1): ?>
+<div class="form-content">
+    <div class="container">
+        <div class="form-content_title title-h3">Остались вопросы? <span class="blue-color">Задайте</span> их прямо сейчас</div>
+        <span class="top-small_text">Отправьте заявку и специалист свяжется с Вами</span>
+        <?$APPLICATION->IncludeComponent("prime:main.feedback", "catalog", Array(
+            "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
+                0 => "1",
+            ),
+            "IBLOCK_ID" => "32",	// Код информационного блока
+            "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
+            "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
+            "PROPERTY_CODE" => array(	// Поля формы
+                0 => "NAME",
+                1 => "PHONE",
+                2 => "EMAIL",
+                3 => "THEME",
+            ),
+            "USE_CAPTCHA" => "Y",
+            "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+            "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+        ),
+            false
+        );?>
+    </div>
+</div>
+<!-- end form-content -->
+<? endif; ?>
+

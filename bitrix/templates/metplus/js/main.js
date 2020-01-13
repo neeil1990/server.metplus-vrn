@@ -545,6 +545,8 @@ jQuery(document).ready(function($) {
     inputPlaceholder: "Введите название или марку стали",
   });
 
+  $('#success_msg').modal('show')
+
 });
 if ($('.map-container').length) {
   YaMapsShown = false;
