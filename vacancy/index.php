@@ -70,24 +70,28 @@ $APPLICATION->SetTitle("Вакансии");
                     false
                 );?>
                 <div class="title-h3">Вы хотите работать с нами? Отправьте свое резюме</div>
-                <?$APPLICATION->IncludeComponent("prime:main.feedback", "vacancy", Array(
-                    "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
-                        0 => "1",
-                    ),
-                    "IBLOCK_ID" => "31",	// Код информационного блока
-                    "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
-                    "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
-                    "PROPERTY_CODE" => array(	// Поля формы
-                        0 => "NAME",
-                        1 => "EMAIL",
-                        2 => "FILE"
-                    ),
-                    "USE_CAPTCHA" => "N",	// Использовать защиту от автоматических сообщений (CAPTCHA) для неавторизованных пользователей
-                    "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
-                    "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9"
-                ),
-                    false
-                );?>
+                <?$APPLICATION->IncludeComponent(
+	"prime:main.feedback", 
+	"vacancy", 
+	array(
+		"EVENT_MESSAGE_ID" => array(
+			0 => "85",
+		),
+		"IBLOCK_ID" => "32",
+		"IBLOCK_TYPE" => "feedback",
+		"OK_TEXT" => "Спасибо, ваше сообщение принято.",
+		"PROPERTY_CODE" => array(
+			0 => "NAME",
+			1 => "EMAIL",
+			2 => "FILE",
+		),
+		"USE_CAPTCHA" => "N",
+		"CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+		"CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+		"COMPONENT_TEMPLATE" => "vacancy"
+	),
+	false
+);?>
             </div>
         </div>
         <!-- end vacancy-section -->

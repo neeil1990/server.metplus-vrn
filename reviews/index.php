@@ -79,24 +79,28 @@ $APPLICATION->SetTitle("Отзывы");
                     <div class="col-lg-8 form-content_mod-desc">
                         <div class="form-content_title title-h3">Ваши предложения и пожелания руководителю компании</div>
                         <span class="top-small_text"></span>
-                        <?$APPLICATION->IncludeComponent("prime:main.feedback", "reviews", Array(
-                            "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
-                                0 => "1",
-                            ),
-                            "IBLOCK_ID" => "29",	// Код информационного блока
-                            "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
-                            "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
-                            "PROPERTY_CODE" => array(	// Поля формы
-                                0 => "NAME",
-                                1 => "PHONE",
-                                2 => "EMAIL",
-                            ),
-                            "USE_CAPTCHA" => "Y",
-                            "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
-                            "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
-                        ),
-                            false
-                        );?>
+                        <?$APPLICATION->IncludeComponent(
+	"prime:main.feedback", 
+	"reviews", 
+	array(
+		"EVENT_MESSAGE_ID" => array(
+			0 => "84",
+		),
+		"IBLOCK_ID" => "30",
+		"IBLOCK_TYPE" => "feedback",
+		"OK_TEXT" => "Спасибо, ваше сообщение принято.",
+		"PROPERTY_CODE" => array(
+			0 => "NAME",
+			1 => "PHONE",
+			2 => "EMAIL",
+		),
+		"USE_CAPTCHA" => "Y",
+		"CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+		"CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+		"COMPONENT_TEMPLATE" => "reviews"
+	),
+	false
+);?>
                     </div>
                 </div>
             </div>

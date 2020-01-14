@@ -313,9 +313,9 @@ if ($isFilter)
         <span class="top-small_text">Отправьте заявку и специалист свяжется с Вами</span>
         <?$APPLICATION->IncludeComponent("prime:main.feedback", "catalog", Array(
             "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
-                0 => "1",
+                0 => "87",
             ),
-            "IBLOCK_ID" => "32",	// Код информационного блока
+            "IBLOCK_ID" => "33",	// Код информационного блока
             "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
             "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
             "PROPERTY_CODE" => array(	// Поля формы

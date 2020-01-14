@@ -164,23 +164,27 @@
         <div class="modal-content">
             <button aria-label="Close" class="close uhified_close-btn" data-dismiss="modal" type="button"></button>
 
-            <?$APPLICATION->IncludeComponent("prime:main.feedback", "call", Array(
-                "EVENT_MESSAGE_ID" => array(	// Почтовые шаблоны для отправки письма
-                    0 => "1",
-                ),
-                "IBLOCK_ID" => "30",	// Код информационного блока
-                "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
-                "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
-                "PROPERTY_CODE" => array(	// Поля формы
-                    0 => "NAME",
-                    1 => "PHONE"
-                ),
-                "USE_CAPTCHA" => "N",	// Использовать защиту от автоматических сообщений (CAPTCHA) для неавторизованных пользователей
-                "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
-                "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9"
-            ),
-                false
-            );?>
+            <?$APPLICATION->IncludeComponent(
+	"prime:main.feedback", 
+	"call", 
+	array(
+		"EVENT_MESSAGE_ID" => array(
+			0 => "86",
+		),
+		"IBLOCK_ID" => "31",
+		"IBLOCK_TYPE" => "feedback",
+		"OK_TEXT" => "Спасибо, ваше сообщение принято.",
+		"PROPERTY_CODE" => array(
+			0 => "NAME",
+			1 => "PHONE",
+		),
+		"USE_CAPTCHA" => "N",
+		"CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+		"CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+		"COMPONENT_TEMPLATE" => "call"
+	),
+	false
+);?>
         </div>
     </div>
 </div>
