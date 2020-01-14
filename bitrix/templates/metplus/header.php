@@ -78,13 +78,12 @@
                                 <div class="hamburger-inner"></div>
                             </div>
                         </div>
-                        <form action="#" class="head_form-search mobile-hidden">
-                            <input type="text" class="head_form-search_input" placeholder="Введите ваш запрос">
-                            <div class="wrapper_submit-btn">
-                                <span class="glipf-search"></span>
-                                <input type="submit" class="form-search_submit-btn" value="">
-                            </div>
-                        </form>
+                        <?$APPLICATION->IncludeComponent("bitrix:search.form", "desktop", Array(
+                            "PAGE" => "#SITE_DIR#search/",	// Страница выдачи результатов поиска (доступен макрос #SITE_DIR#)
+                            "USE_SUGGEST" => "N",	// Показывать подсказку с поисковыми фразами
+                        ),
+                            false
+                        );?>
                         <div class="head-cart">
                             <?$APPLICATION->IncludeComponent("bitrix:sale.basket.basket.line", "basket.small", Array(
                                 "HIDE_ON_BASKET_PAGES" => "N",	// Не показывать на страницах корзины и оформления заказа
@@ -147,13 +146,12 @@
                     </div>
                 </div>
                 <div class="mobile-visible">
-                    <form action="#" class="head_form-search">
-                        <input type="text" class="head_form-search_input" placeholder="Введите ваш запрос">
-                        <div class="wrapper_submit-btn">
-                            <span class="glipf-search"></span>
-                            <input type="submit" class="form-search_submit-btn" value="">
-                        </div>
-                    </form>
+                    <?$APPLICATION->IncludeComponent("bitrix:search.form", "mobile", Array(
+                        "PAGE" => "#SITE_DIR#search/",	// Страница выдачи результатов поиска (доступен макрос #SITE_DIR#)
+                        "USE_SUGGEST" => "N",	// Показывать подсказку с поисковыми фразами
+                    ),
+                        false
+                    );?>
                 </div>
             </div>
         </nav>

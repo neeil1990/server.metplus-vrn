@@ -14,7 +14,7 @@
 $this->setFrameMode(true);
 ?>
 <div class="fixed-menu_catalog">
-    <a href="/catalog/" class="fixed-panel_catalog-btn"><span class="head-menu_text">каталог</span></a>
+    <a href="/catalog/" class="fixed-panel_catalog-btn"><span class="head-menu_text">КАТАЛОГ</span></a>
     <div class="dropdown-content">
         <ul class="dropdown-menu">
             <?foreach($arResult["MENU_STRUCTURE"] as $itemID => $arColumns):?>
