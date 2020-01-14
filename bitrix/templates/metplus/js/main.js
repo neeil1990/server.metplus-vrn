@@ -75,7 +75,7 @@ jQuery(document).ready(function($) {
       }
     });
   }
-  $(".product-item_cart-btn").on("click", function() {
+  $(".product-table").on("click", ".product-item_cart-btn", function() {
     $(this).clone().css({
       'position': 'absolute',
       'z-index': '1000',
@@ -537,7 +537,7 @@ jQuery(document).ready(function($) {
     showMaskOnHover: false,
   });
 
-  $(".product-table").fancyTable({
+  $("#product-table").fancyTable({
     sortColumn: 0,
     sortable: false,
     searchable: true,
