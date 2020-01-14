@@ -1,6 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("gost");
+$APPLICATION->SetPageProperty("title", "ГОСТЫ И ТУ");
+$APPLICATION->SetTitle("ГОСТЫ И ТУ");
 ?>
     <main class="main-content">
         <div class="inner-page_title-section">
