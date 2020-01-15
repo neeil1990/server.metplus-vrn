@@ -102,6 +102,10 @@ if ($isFilter)
 
                 <div class="catalog_right-column">
 
+                        <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                            false
+                        );?>
+
                         <?$APPLICATION->IncludeComponent(
                             "bitrix:catalog.section.list",
                             "section", array(

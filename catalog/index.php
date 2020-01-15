@@ -4,7 +4,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог продукции Металлинвест Плюс");
 $IBLOCK_ID = 13;
 
-
 $link = explode('/', $APPLICATION->GetCurPage(false));
 TrimArr($link);
 $cat = array_shift($link);
@@ -18,9 +17,13 @@ if($code &&  $cat == "catalog"){
 	<main class="main-content">
 		<div class="inner-page_title-section" <? if($background): ?>style="background: url(<?=$background?>) no-repeat center top;" <? endif; ?> >
 			<div class="container">
-                <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
-                    false
-                );?>
+                <?
+                if($APPLICATION->GetCurPage(false) == "/catalog/"){
+                    $APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                        false
+                    );
+                }
+                ?>
 				<h1>КАТАЛОГ ПРОДУКЦИИ</h1>
 			</div>
 		</div>
