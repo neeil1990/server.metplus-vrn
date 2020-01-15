@@ -102,7 +102,9 @@ if ($isFilter)
 
                 <div class="catalog_right-column">
 
-                        <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
+                        <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array(
+                                "SITE_ID" => SITE_ID
+                        ),
                             false
                         );?>
 
@@ -122,7 +124,7 @@ if ($isFilter)
                             "VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
                             "SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
                             "HIDE_SECTION_NAME" => (isset($arParams["SECTIONS_HIDE_SECTION_NAME"]) ? $arParams["SECTIONS_HIDE_SECTION_NAME"] : "N"),
-                            "ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
+                            "ADD_SECTIONS_CHAIN" => "N"
                         ),
                             $component,
                             array("HIDE_ICONS" => "Y")
@@ -286,7 +288,7 @@ if ($isFilter)
                             'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
 
                             'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
-                            "ADD_SECTIONS_CHAIN" => "N",
+                            "ADD_SECTIONS_CHAIN" => "Y",
                             'ADD_TO_BASKET_ACTION' => $basketAction,
                             'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
                             'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],

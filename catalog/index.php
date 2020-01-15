@@ -24,7 +24,7 @@ if($code &&  $cat == "catalog"){
                     );
                 }
                 ?>
-				<h1>КАТАЛОГ ПРОДУКЦИИ</h1>
+				<h1><?=($curSec['NAME']) ? $curSec['NAME'] : "КАТАЛОГ ПРОДУКЦИИ";?></h1>
 			</div>
 		</div>
 		<!-- end inner-page_title-section -->
@@ -46,7 +46,7 @@ if($code &&  $cat == "catalog"){
 		"SEF_FOLDER" => "/catalog/",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_STYLE" => "N",
 		"AJAX_OPTION_HISTORY" => "N",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
@@ -54,7 +54,7 @@ if($code &&  $cat == "catalog"){
 		"CACHE_GROUPS" => "Y",
 		"SET_TITLE" => "Y",
 		"ADD_SECTION_CHAIN" => "Y",
-		"ADD_ELEMENT_CHAIN" => "Y",
+		"ADD_ELEMENT_CHAIN" => "N",
 		"SET_STATUS_404" => "Y",
 		"DETAIL_DISPLAY_NAME" => "N",
 		"USE_ELEMENT_COUNTER" => "Y",
@@ -156,8 +156,7 @@ if($code &&  $cat == "catalog"){
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000000",
 		"PAGER_SHOW_ALL" => "N",
 		"ADD_PICT_PROP" => "MORE_PHOTO",
-		"LABEL_PROP" => array(
-		),
+		"LABEL_PROP" => "",
 		"PRODUCT_DISPLAY_MODE" => "Y",
 		"OFFER_ADD_PICT_PROP" => "MORE_PHOTO",
 		"OFFER_TREE_PROPS" => array(
@@ -180,7 +179,7 @@ if($code &&  $cat == "catalog"){
 		"DETAIL_VK_USE" => "N",
 		"DETAIL_FB_USE" => "Y",
 		"AJAX_OPTION_ADDITIONAL" => "",
-		"USE_STORE" => "Y",
+		"USE_STORE" => "N",
 		"BIG_DATA_RCM_TYPE" => "personal",
 		"FIELDS" => array(
 			0 => "SCHEDULE",
@@ -203,8 +202,7 @@ if($code &&  $cat == "catalog"){
 		"SIDEBAR_PATH" => "/catalog/sidebar.php",
 		"COMPONENT_TEMPLATE" => "catalog",
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-		"LABEL_PROP_MOBILE" => array(
-		),
+		"LABEL_PROP_MOBILE" => "",
 		"LABEL_PROP_POSITION" => "top-left",
 		"COMMON_SHOW_CLOSE_POPUP" => "N",
 		"PRODUCT_SUBSCRIPTION" => "Y",
@@ -221,7 +219,7 @@ if($code &&  $cat == "catalog"){
 		"DETAIL_STRICT_SECTION_CHECK" => "N",
 		"SET_LAST_MODIFIED" => "N",
 		"ADD_SECTIONS_CHAIN" => "Y",
-		"USE_SALE_BESTSELLERS" => "Y",
+		"USE_SALE_BESTSELLERS" => "N",
 		"FILTER_HIDE_ON_MOBILE" => "N",
 		"INSTANT_RELOAD" => "N",
 		"ADD_PROPERTIES_TO_BASKET" => "Y",
@@ -236,8 +234,8 @@ if($code &&  $cat == "catalog"){
 		"SEARCH_PAGE_RESULT_COUNT" => "50",
 		"SEARCH_RESTART" => "N",
 		"SEARCH_NO_WORD_LOGIC" => "Y",
-		"SEARCH_USE_LANGUAGE_GUESS" => "Y",
-		"SEARCH_CHECK_DATES" => "Y",
+		"SEARCH_USE_LANGUAGE_GUESS" => "N",
+		"SEARCH_CHECK_DATES" => "N",
 		"SECTIONS_HIDE_SECTION_NAME" => "N",
 		"LIST_PRODUCT_BLOCKS_ORDER" => "price,props,sku,quantityLimit,quantity,buttons",
 		"LIST_PRODUCT_ROW_VARIANTS" => "[{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false}]",
@@ -267,9 +265,9 @@ if($code &&  $cat == "catalog"){
 		"MESS_COMMENTS_TAB" => "Комментарии",
 		"DETAIL_SHOW_POPULAR" => "Y",
 		"DETAIL_SHOW_VIEWED" => "Y",
-		"USE_GIFTS_DETAIL" => "Y",
-		"USE_GIFTS_SECTION" => "Y",
-		"USE_GIFTS_MAIN_PR_SECTION_LIST" => "Y",
+		"USE_GIFTS_DETAIL" => "N",
+		"USE_GIFTS_SECTION" => "N",
+		"USE_GIFTS_MAIN_PR_SECTION_LIST" => "N",
 		"GIFTS_DETAIL_PAGE_ELEMENT_COUNT" => "4",
 		"GIFTS_DETAIL_HIDE_BLOCK_TITLE" => "N",
 		"GIFTS_DETAIL_BLOCK_TITLE" => "Выберите один из подарков",
@@ -296,7 +294,7 @@ if($code &&  $cat == "catalog"){
 		),
 		"SHOW_EMPTY_STORE" => "Y",
 		"SHOW_GENERAL_STORE_INFORMATION" => "N",
-		"USE_BIG_DATA" => "Y",
+		"USE_BIG_DATA" => "N",
 		"USE_ENHANCED_ECOMMERCE" => "N",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"LAZY_LOAD" => "N",
@@ -305,6 +303,9 @@ if($code &&  $cat == "catalog"){
 		"MESSAGE_404" => "",
 		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
 		"DETAIL_SET_VIEWED_IN_COMPONENT" => "N",
+		"DETAIL_ADD_TO_BASKET_ACTION_PRIMARY" => array(
+			0 => "BUY",
+		),
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",

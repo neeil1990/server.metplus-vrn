@@ -30,7 +30,7 @@ for($index = 0; $index < $itemSize; $index++)
 	else
 	{
 		$strReturn .= '
-			<li>'.$title.'</li>';
+			<li><a href="#">'.$title.'</a></li>';
 	}
 }
 $strReturn .= '</ul>';
