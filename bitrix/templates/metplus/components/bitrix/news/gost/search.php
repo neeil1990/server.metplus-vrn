@@ -51,7 +51,7 @@ $this->setFrameMode(false);
             "bitrix:search.page",
             "",
             Array(
-                "CHECK_DATES" => $arParams["CHECK_DATES"]!=="N"? "Y": "N",
+				"USE_TITLE_RANK" => "Y",
                 "arrWHERE" => Array("iblock_".$arParams["IBLOCK_TYPE"]),
                 "arrFILTER" => Array("iblock_".$arParams["IBLOCK_TYPE"]),
                 "SHOW_WHERE" => "N",
