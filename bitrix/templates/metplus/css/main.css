@@ -3651,6 +3651,10 @@ h3,
   position: relative;
 }
 
+.subcategory-section .catalog_right-column .breadcrumbs li{
+  color: #5C5C5C;
+}
+
 .breadcrumbs li:last-child:after {
   display: none;
 }
