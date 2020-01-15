@@ -15,11 +15,11 @@ if(!count($arResult["ITEMS"]))
     return false;
 ?>
 <div class="filter-box">
-    <div class="filter-box_title">
+    <div class="filter-box_title is-active">
         Фильтр
     </div>
 
-    <div class="filter-box_content">
+    <div class="filter-box_content" style="display:none;">
 
         <form name="<?echo $arResult["FILTER_NAME"]."_form"?>" action="<?echo $arResult["FORM_ACTION"]?>" method="get" style="display: contents;" class="smartfilter">
         <?foreach($arResult["HIDDEN"] as $arItem):?>

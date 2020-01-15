@@ -162,13 +162,6 @@ if ($isFilter)
                                     array('HIDE_ICONS' => 'Y')
                                 );
                             ?>
-
-                            <div class="catalog-product_text-block">
-                                <div class="title-h3"><?=$arCurSection['NAME']?></div>
-                                <p>
-                                    В ассортименте нашего интернет-магазина присутствуют только основные размеры товаров. Если Вам необходимы иные размеры - укажите их в комментарии.
-                                </p>
-                            </div>
                         </div>
                         <? endif;?>
 
