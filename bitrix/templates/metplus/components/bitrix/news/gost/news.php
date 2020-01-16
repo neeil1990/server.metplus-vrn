@@ -26,25 +26,22 @@ $this->setFrameMode(true);
                 );?>
 			</div>
 			<div class="right-column">
-				<form action="#" class="form-static_small">
-					<div class="form-static_small_title">Остались вопросы?</div>
-					<span class="text">Оставьте заявку на обратный звонок и мы вам перезвоним!</span>
-					<div class="row">
-						<div class="form-column">
-							<div class="form-group">
-								<input type="text" class="form-input" placeholder="Введите имя *">
-							</div>
-						</div>
-						<div class="form-column">
-							<div class="form-group">
-								<input type="tel" class="form-input" placeholder="Телефон *">
-							</div>
-						</div>
-						<div class="form-column">
-							<input type="submit" class="form-static_small-submit main-btn" value="Перезвонить">
-						</div>
-					</div>
-				</form>
+                <?$APPLICATION->IncludeComponent("prime:main.feedback", "gost", Array(
+                    "EVENT_MESSAGE_ID" => array('88'),	// Почтовые шаблоны для отправки письма
+                    "IBLOCK_ID" => "34",	// Код информационного блока
+                    "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
+                    "OK_TEXT" => "Спасибо, ваше сообщение принято.",	// Сообщение, выводимое пользователю после отправки
+                    "PROPERTY_CODE" => array(	// Поля формы
+                        0 => "NAME",
+                        1 => "PHONE",
+                    ),
+                    "USE_CAPTCHA" => "N",	// Использовать защиту от автоматических сообщений (CAPTCHA) для неавторизованных пользователей
+                    "CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
+                    "CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
+                    "COMPONENT_TEMPLATE" => "call"
+                ),
+                    false
+                );?>
 			</div>
 		</div>
 		<?$APPLICATION->IncludeComponent(
