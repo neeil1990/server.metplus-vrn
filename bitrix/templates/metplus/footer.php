@@ -79,80 +79,20 @@
             <button aria-label="Close" class="close uhified_close-btn" data-dismiss="modal" type="button"></button>
             <div class="row">
                 <ul class="modal-city_list-unstyled col-sm-6">
-                    <li>
-                        Балашиха
-                    </li>
-                    <li>
-                        Белгород
-                    </li>
-                    <li>
-                        Брянск
-                    </li>
-                    <li>
-                        Великий Новгород
-                    </li>
-                    <li>
-                        Владимир
-                    </li>
-                    <li>
-                        Волгоград
-                    </li>
+
                     <li>
                         Воронеж
                     </li>
                     <li>
-                        Екатеринбург
+                        Лиски
                     </li>
-                    <li>
-                        Ижевск
-                    </li>
-                    <li>
-                        Калининград
-                    </li>
-                    <li>
-                        Калуга
-                    </li>
-                    <li>
-                        Краснодар
-                    </li>
+                    
                 </ul>
                 <ul class="modal-city_list-unstyled col-sm-6">
                     <li>
-                        Балашиха
+                        Старый Оскол
                     </li>
-                    <li>
-                        Белгород
-                    </li>
-                    <li>
-                        Брянск
-                    </li>
-                    <li>
-                        Великий Новгород
-                    </li>
-                    <li>
-                        Владимир
-                    </li>
-                    <li>
-                        Волгоград
-                    </li>
-                    <li>
-                        Воронеж
-                    </li>
-                    <li>
-                        Екатеринбург
-                    </li>
-                    <li>
-                        Ижевск
-                    </li>
-                    <li>
-                        Калининград
-                    </li>
-                    <li>
-                        Калуга
-                    </li>
-                    <li>
-                        Краснодар
-                    </li>
+                   
                 </ul>
             </div>
         </div>
