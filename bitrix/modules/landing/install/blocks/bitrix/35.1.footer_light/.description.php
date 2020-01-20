@@ -93,11 +93,11 @@ return array(
 		),
 		'.landing-block-node-list-item' => array(
 			'name' => Loc::getMessage('LANDING_BLOCK_35.1.FOOTER_LIGHT_NODES_LANDINGBLOCKNODELISTITEM'),
-			'type' => 'typo',
+			'type' => 'typo-link',
 		),
 		'.landing-block-node-card-contact-link' => array(
 			'name' => Loc::getMessage('LANDING_BLOCK_35.1.FOOTER_LIGHT_STYLE_LANDINGBLOCKNODELINK'),
-			'type' => 'typo',
+			'type' => 'typo-link',
 		),
 	),
 );

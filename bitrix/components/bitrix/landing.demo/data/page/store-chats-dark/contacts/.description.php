@@ -63,7 +63,7 @@ return array(
 					0 => 'landing-block-node-title h2 g-color-white-opacity-0_7 text-left g-font-size-16 g-mb-5',
 				),
 				'#wrapper' => array(
-					0 => 'landing-block js-animation animation-none g-pt-10 g-pb-5 u-block-border-first g-rounded-6 u-block-border-margin-md u-block-border g-theme-bitrix-bg-dark-v1',
+					0 => 'landing-block js-animation animation-none g-pt-10 g-pb-5 u-block-border-first g-rounded-6 u-block-border-margin-md u-block-border g-theme-bitrix-bg-dark-v1 container',
 				),
 			),
 		),

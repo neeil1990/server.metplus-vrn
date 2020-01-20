@@ -12,6 +12,7 @@ return array(
 		'section' => array('partners'),
 		'dynamic' => false,
 		'version' => '19.0.100',
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-node-card' => array(

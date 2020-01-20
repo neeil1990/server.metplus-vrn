@@ -45,10 +45,16 @@ class LandingViewComponent extends LandingBaseComponent
 		$landing = Landing::createInstance($id);
 		if ($landing->exist())
 		{
-			\localRedirect(
-				$landing->getPublicUrl(false, true, true),
-				true
-			);
+			$url = $landing->getPublicUrl(false, true, true);
+			if ($this->arParams['DONT_LEAVE_AFTER_PUBLICATION'] == 'Y')
+			{
+				$uriPreview = new \Bitrix\Main\Web\Uri($url);
+				$uriPreview->addParams([
+					'IFRAME' => 'Y'
+				]);
+				$url = $uriPreview->getUri();
+			}
+			\localRedirect($url, true);
 		}
 
 		\Bitrix\Landing\Landing::setPreviewMode(false);
@@ -106,6 +112,7 @@ class LandingViewComponent extends LandingBaseComponent
 			'siteId' => $landing->getSiteId(),
 			'siteTitle' => $site['TITLE'],
 			'active' => $landing->isActive(),
+			'draftMode' => $this->arParams['DRAFT_MODE'] == 'Y',
 			'title' => $landing->getTitle(),
 			'pagesCount' => $this->getPagesCount(
 				$landing->getSiteId()
@@ -115,6 +122,7 @@ class LandingViewComponent extends LandingBaseComponent
 				!Manager::isB24() &&
 				Manager::isStoreEnabled()
 			),
+			'fullPublication' => $this->arParams['FULL_PUBLICATION'] == 'Y',
 			'urls' => $this->getUrls(
 				$landing
 			),
@@ -237,10 +245,17 @@ class LandingViewComponent extends LandingBaseComponent
 					);
 					return false;
 				}
-				else
+				else if ($this->arParams['DONT_LEAVE_AFTER_PUBLICATION'] != 'Y')
 				{
 					$url = $landing->getPublicUrl(false, true, true);
 					\localRedirect($this->getTimestampUrl($url), true);
+				}
+				else
+				{
+					$this->arResult['CUR_URI'] = $this->getUri(
+						['success' => 'Y']
+					);
+					return true;
 				}
 			}
 			else
@@ -294,8 +309,18 @@ class LandingViewComponent extends LandingBaseComponent
 				);
 				return false;
 			}
-			$url = $landing->getPublicUrl(false, true, true);
-			\localRedirect($this->getTimestampUrl($url), true);
+			if ($this->arParams['DONT_LEAVE_AFTER_PUBLICATION'] != 'Y')
+			{
+				$url = $landing->getPublicUrl(false, true, true);
+				\localRedirect($this->getTimestampUrl($url), true);
+			}
+			else
+			{
+				$this->arResult['CUR_URI'] = $this->getUri(
+					['success' => 'Y']
+				);
+				return true;
+			}
 		}
 
 		$this->setErrors(
@@ -342,15 +367,22 @@ class LandingViewComponent extends LandingBaseComponent
 			return $sitesCount;
 		}
 
+		$filter = [
+			'=TYPE' => $this->arParams['TYPE']
+		];
+		// in group mode exist only one site == current
+		if ($this->arParams['TYPE'] == 'GROUP')
+		{
+			$filter['ID'] = $this->arParams['SITE_ID'];
+		}
+
 		$res = Site::getList(array(
 			'select' => array(
 				new \Bitrix\Main\Entity\ExpressionField(
 					'CNT', 'COUNT(*)'
 				)
 			),
-			'filter' => array(
-				'=TYPE' => $this->arParams['TYPE']
-			)
+			'filter' => $filter
 		));
 		if ($row = $res->fetch())
 		{
@@ -428,6 +460,13 @@ class LandingViewComponent extends LandingBaseComponent
 				$options['version'] = Manager::getVersion();
 				$options['params'] = (array)$params['PARAMS'];
 				$options['params']['type'] = $params['TYPE'];
+				$options['params']['draftMode'] = $params['DRAFT_MODE'] == 'Y';
+				if ($options['params']['draftMode'])
+				{
+					$options['params']['editor'] = [
+						'externalUrlTarget' => '_blank'
+					];
+				}
 				$options['sites_count'] = $this->getSitesCount();
 				$options['pages_count'] = $this->getPagesCount($landing->getSiteId());
 				$options['syspages'] = array();
@@ -577,8 +616,19 @@ class LandingViewComponent extends LandingBaseComponent
 					}
 				}
 				// unset blocks not for this type
-				foreach ($options['blocks'] as &$section)
+				foreach ($options['blocks'] as $sectionCode => &$section)
 				{
+					if (isset($section['type']) && $section['type'])
+					{
+						if (!in_array(
+								$options['params']['type'],
+						  		array_map('strtoupper', (array)$section['type'])
+						))
+						{
+							unset($options['blocks'][$sectionCode]);
+							continue;
+						}
+					}
 					foreach ($section['items'] as $code => &$block)
 					{
 						if (
@@ -768,14 +818,21 @@ class LandingViewComponent extends LandingBaseComponent
 		$urls['landingEdit'] = new \Bitrix\Main\Web\Uri(
 			$replaceParamUrl('landing_edit')
 		);
+		$urls['landingEdit']->addParams([
+			'slider' => 'Y'
+		]);
 		$urls['landingSiteEdit'] = new \Bitrix\Main\Web\Uri(
 			$replaceParamUrl('site_edit')
 		);
+		$urls['landingSiteEdit']->addParams([
+			'slider' => 'Y'
+		]);
 		$urls['landingCatalogEdit'] = new \Bitrix\Main\Web\Uri(
 			$replaceParamUrl('site_edit')
 		);
 		$urls['landingCatalogEdit']->addParams([
-			'tpl' => 'catalog'
+			'tpl' => 'catalog',
+			'slider' => 'Y'
 		]);
 		$urls['landingFrame'] = new \Bitrix\Main\Web\Uri(
 			$replaceParamUrl('landing_view')
@@ -783,6 +840,12 @@ class LandingViewComponent extends LandingBaseComponent
 		$urls['landingFrame']->addParams([
 			'landing_mode' => 'edit'
 		]);
+		if ($this->arParams['DONT_LEAVE_AFTER_PUBLICATION'] == 'Y')
+		{
+			$urls['landingFrame']->addParams([
+				'IFRAME' => 'Y'
+			]);
+		}
 
 		return $urls;
 	}
@@ -800,7 +863,10 @@ class LandingViewComponent extends LandingBaseComponent
 		];
 		foreach ($sliderUrlKeys as $key)
 		{
-			if (isset($this->arParams['SEF'][$key]))
+			if (
+				isset($this->arParams['SEF'][$key]) &&
+				$this->arParams['SEF'][$key]
+			)
 			{
 				$url = $this->arParams['SEF'][$key];
 				$url = str_replace(
@@ -811,7 +877,11 @@ class LandingViewComponent extends LandingBaseComponent
 				$sliderConditions[$key] = $url;
 			}
 		}
-		$sliderConditions['site_show'] .= '(?!view)';
+
+		if (isset($sliderConditions['site_show']))
+		{
+			$sliderConditions['site_show'] .= '(?!view)';
+		}
 
 		return array_values($sliderConditions);
 	}
@@ -833,13 +903,26 @@ class LandingViewComponent extends LandingBaseComponent
 			$this->checkParam('PAGE_URL_LANDINGS', '');
 			$this->checkParam('PAGE_URL_LANDING_EDIT', '');
 			$this->checkParam('PAGE_URL_SITE_EDIT', '');
+			$this->checkParam('FULL_PUBLICATION', 'N');
+			$this->checkParam('PANEL_LIGHT_MODE', 'N');
+			$this->checkParam('DONT_LEAVE_AFTER_PUBLICATION', 'N');
+			$this->checkParam('DRAFT_MODE', 'N');
 			$this->checkParam('PARAMS', array());
+
+			\Bitrix\Landing\Site\Type::setScope(
+				$this->arParams['TYPE']
+			);
 
 			Landing::setEditMode();
 			$landing = Landing::createInstance($this->arParams['LANDING_ID']);
 
+			$this->arResult['SUCCESS_SAVE'] = $this->request('success') == 'Y';
 			$this->arResult['LANDING'] = $landing;
-			$this->arResult['~LANDING_FULL_URL'] = $landing->getPublicUrl(false, true, true);
+			$this->arResult['~LANDING_FULL_URL'] = $landing->getPublicUrl(
+				false,
+				true,
+				$this->arParams['DRAFT_MODE'] != 'Y'
+			);
 			$this->arResult['LANDING_FULL_URL'] = $this->getTimestampUrl(
 				$this->arResult['~LANDING_FULL_URL']
 			);
@@ -865,14 +948,8 @@ class LandingViewComponent extends LandingBaseComponent
 				if (\Bitrix\Landing\Manager::isB24())
 				{
 					$asset = \Bitrix\Main\Page\Asset::getInstance();
-					if (
-						method_exists($asset, 'disableOptimizeCss') &&
-						method_exists($asset, 'disableOptimizeJs')
-					)
-					{
-						$asset->disableOptimizeCss();
-						$asset->disableOptimizeJs();
-					}
+					$asset->disableOptimizeCss();
+					$asset->disableOptimizeJs();
 				}
 				// get settings placements
 				$this->arResult['PLACEMENTS_SETTINGS'] = array();

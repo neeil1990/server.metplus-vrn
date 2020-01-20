@@ -812,7 +812,12 @@ BX.adminMenu.prototype.showFavorites = function(el)
 
 BX.adminMenu.prototype.itemsStretchScroll = function()
 {
-	BX.onCustomEvent(BX.adminMenu, 'onAdminMenuItemsStretchScroll');
+	this.items.forEach(function(item) {
+		if (item && item.MSOVERMIRROR)
+		{
+			item.MSOVERMIRROR.style.display = 'none';
+		}
+	});
 };
 
 BX.adminMenu.prototype.setMinimizedState = function(state)
@@ -1106,7 +1111,6 @@ BX.adminMenu.prototype._registerItem = function(i)
 		case 'submenu-item':
 			BX.bind(this.items[i].NODE, 'mouseover', BX.proxy(this._item_onmouseover, this.items[i]));
 			BX.bind(this.items[i].NODE, 'mouseout', BX.proxy(this._item_onmouseout, this.items[i]));
-			BX.addCustomEvent(this, 'onAdminMenuItemsStretchScroll', BX.proxy(this._item_onmouseout, this.items[i]));
 		break;
 	}
 };

@@ -49,7 +49,12 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
             <input type="hidden" name="PARAMS_HASH" value="<?=$arResult["PARAMS_HASH"]?>">
             <input type="submit" name="submit" value="Перезвонить" class="form-static_submit-btn main-btn">
 
-            <span class="form-static_policy-text">Нажимая кнопку вы соглашаетес с правилами <span class="min">обработки персональных данных</span></span>
+            <span class="form-static_policy-text">
+Нажимая кнопку вы соглашаетес с 
+<a href="/upload/politics.pdf" target="_blank">политикой конфилициальности </a>
+и 
+<a href="/upload/compliance.pdf" target="_blank">правилами обработки персональных данных</a>
+</span>
         </div>
     </div>
 </form>

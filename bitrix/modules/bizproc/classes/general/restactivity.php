@@ -185,18 +185,18 @@ class CBPRestActivity
 
 		\Bitrix\Rest\OAuthService::getEngine()->getClient()->sendEvent($queryItems);
 
-		if (is_callable(['\Bitrix\Rest\StatTable', 'logRobot']))
+		if (is_callable(['\Bitrix\Rest\UsageStatTable', 'logRobot']))
 		{
 			if ($activityData['IS_ROBOT'] === 'Y')
 			{
-				\Bitrix\Rest\StatTable::logRobot($activityData['APP_ID']);
+				\Bitrix\Rest\UsageStatTable::logRobot($activityData['APP_ID'], $activityData['CODE']);
 			}
 			else
 			{
-				\Bitrix\Rest\StatTable::logActivity($activityData['APP_ID']);
+				\Bitrix\Rest\UsageStatTable::logActivity($activityData['APP_ID'], $activityData['CODE']);
 			}
 
-			\Bitrix\Rest\StatTable::finalize();
+			\Bitrix\Rest\UsageStatTable::finalize();
 		}
 
 		if ($this->SetStatusMessage == 'Y')

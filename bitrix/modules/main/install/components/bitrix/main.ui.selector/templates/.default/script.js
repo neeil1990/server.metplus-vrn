@@ -43,6 +43,8 @@
 		this.entityTypes = {};
 		this.auxObject = null;
 		this.selectorInstance = null;
+
+		this.eventOpenBinded = false;
 	};
 
 	BX.Main.SelectorV2.controls = {};
@@ -128,6 +130,7 @@
 					userNameTemplate: this.getOption('userNameTemplate'),
 					siteDepartmentId: this.getOption('siteDepartmentId'), // siteDepartmentID
 					showCloseIcon: 'Y',
+					popupAutoHide: (this.getOption('popupAutoHide') == 'N' ? 'N' : 'Y'),
 					last: {
 						disable: (this.getOption('disableLast') == 'Y' ? 'Y' : 'N'), // lastTabDisable
 					},
@@ -414,8 +417,12 @@
 								id: this.id
 							} ]);
 
-							if (typeof this.options.eventOpen != 'undefined')
+							if (
+								typeof this.options.eventOpen != 'undefined'
+								&& !this.eventOpenBinded
+							)
 							{
+								this.eventOpenBinded = true;
 								BX.addCustomEvent(window, this.options.eventOpen, function(params) {
 
 									if (

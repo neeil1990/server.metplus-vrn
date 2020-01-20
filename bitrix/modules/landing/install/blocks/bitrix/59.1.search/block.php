@@ -9,11 +9,12 @@
 			<div class="form-group g-mb-20">
 				<div class="u-shadow-v21 rounded g-mb-15">
 					<div class="input-group-append d-flex align-items-center g-bg-white g-brd-white g-pa-2">
-						<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15 g-font-open-sans g-color-gray-light-v1"
-							   type="text">
-						<div class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20">
+						<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15 g-font-open-sans g-color-gray-light-v1 g-pointer-events-none--edit-mode"
+							   type="text" name="q">
+						<button class="landing-block-button btn u-btn-primary g-font-size-16 g-py-15 g-px-20 g-bg-primary"
+								type="submit">
 							<i class="icon-magnifier g-pos-rel g-top-1"></i>
-						</div>
+						</button>
 					</div>
 				</div>
 				<div class="landing-block-node-text form-text g-opacity-0_8 g-font-size-14 g-font-open-sans g-color-gray-dark-v3">

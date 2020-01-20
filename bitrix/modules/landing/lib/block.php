@@ -1,6 +1,7 @@
 <?php
 namespace Bitrix\Landing;
 
+use Bitrix\Main\Page\Asset;
 use \Bitrix\Main\Web\HttpClient;
 use \Bitrix\Main\Web\Json;
 use \Bitrix\Main\Web\DOM;
@@ -175,6 +176,12 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 	protected $active = false;
 
 	/**
+	 * Active or not page of current block.
+	 * @var boolean
+	 */
+	protected $landingActive = false;
+
+	/**
 	 * Deleted or not current block.
 	 * @var boolean
 	 */
@@ -241,6 +248,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			$data = parent::getList(array(
 				'select' => array(
 					'*',
+					'LANDING_ACTIVE' => 'LANDING.ACTIVE',
 					'SITE_ID' => 'LANDING.SITE_ID',
 					'MANIFEST' => 'MANIFEST_DB.MANIFEST',
 					'MANIFEST_MODIFY' => 'MANIFEST_DB.DATE_MODIFY'
@@ -268,6 +276,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		$this->code = isset($data['CODE']) ? trim($data['CODE']) : '';
 		$this->anchor = isset($data['ANCHOR']) ? trim($data['ANCHOR']) : '';
 		$this->active = isset($data['ACTIVE']) && $data['ACTIVE'] == 'Y';
+		$this->landingActive = isset($data['LANDING_ACTIVE']) && $data['LANDING_ACTIVE'] == 'Y';
 		$this->deleted = isset($data['DELETED']) && $data['DELETED'] == 'Y';
 		$this->public = isset($data['PUBLIC']) && $data['PUBLIC'] == 'Y';
 		$this->content = (!$this->deleted && isset($data['CONTENT'])) ? trim($data['CONTENT']) : '';
@@ -334,6 +343,8 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			$res = parent::getList(array(
 				'select' => array(
 					'*',
+					'LANDING_ACTIVE' => 'LANDING.ACTIVE',
+					'SITE_ID' => 'LANDING.SITE_ID',
 					'MANIFEST' => 'MANIFEST_DB.MANIFEST',
 					'MANIFEST_MODIFY' => 'MANIFEST_DB.DATE_MODIFY'
 				),
@@ -659,6 +670,8 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 					$fields['SOURCE_PARAMS']
 				);
 			}
+			// index search
+			$block->save();
 			// get all images from block to local storage
 			if (self::ADD_FILES_TO_LOCAL_STORAGE)
 			{
@@ -981,7 +994,11 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 					$insertCodes = array();
 					foreach ($json['result'] as $sectionCode => $sectionItem)
 					{
-						$sections[$sectionCode] = $sectionItem['name'];
+						$sections[$sectionCode] = $sectionItem;
+						if (isset($sections[$sectionCode]['items']))
+						{
+							unset($sections[$sectionCode]['items']);
+						}
 						if (
 							isset($sectionItem['items']) &&
 							is_array($sectionItem['items'])
@@ -1034,7 +1051,9 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 						}
 						if (!isset($sections['last']))
 						{
-							$sections['last'] = Loc::getMessage('LD_BLOCK_SECTION_LAST');
+							$sections['last'] = [
+								'name' => Loc::getMessage('LD_BLOCK_SECTION_LAST')
+							];
 						}
 						// blocks
 						while ((($entry = readdir($handle)) !== false))
@@ -1162,11 +1181,16 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		$blocks += $blocksRepo;
 
 		// create new section in repo
-		$createNewSection = function($title)
+		$createNewSection = function($item)
 		{
 			return array(
-				'name' => $title,
+				'name' => isset($item['name'])
+						? (string) $item['name']
+						: (string) $item,
 				'new' => false,
+				'type' => isset($item['type'])
+						? $item['type']
+						: null,
 				'separator' => false,
 				'app_code' => false,
 				'items' => array()
@@ -1175,10 +1199,14 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 
 		// set by sections
 		$md5s = array();
-		foreach ($sections as $code => $title)
+		foreach ($sections as $code => $item)
 		{
+			$title = isset($item['name'])
+					? $item['name']
+					: $item;
+			$title = (string) $title;
 			$title = trim($title);
-			$blocksCats[$code] = $createNewSection($title);
+			$blocksCats[$code] = $createNewSection($item);
 			$md5s[md5(strtolower($title))] = $code;
 		}
 		foreach ($blocks as $key => $block)
@@ -1347,6 +1375,10 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		{
 			$params['wrapper_show'] = true;
 		}
+		if ($editMode)
+		{
+			$params['force_unactive'] = true;
+		}
 
 		ob_start();
 		$block = new self($id);
@@ -1388,6 +1420,8 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			}
 			$return = array(
 				'id' => $id,
+				'active' => $block->isActive(),
+				'anchor' => $block->getLocalAnchor(),
 				'content' => $content,
 				'content_ext' => $extContent,
 				'css' => $block->getCSS(),
@@ -1402,6 +1436,14 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			{
 				$return['requiredUserAction'] = $return['manifest']['requiredUserAction'];
 			}
+			
+			// add ajax initiated assets to output
+			$ajaxAssets = self::getAjaxInitiatedAssets();
+			$return['js'] = array_merge($return['js'], $ajaxAssets['js']);
+			$return['css'] = array_merge($return['css'], $ajaxAssets['css']);
+			// todo: what about strings, langs?
+			// todo: what about core.js in strings. And etc relative extensions, which already init
+			
 			return $return;
 		}
 		else
@@ -1785,7 +1827,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 				}
 			}
 			// set empty array if no exists
-			foreach (array('cards', 'nodes', 'attrs') as $code)
+			foreach (['cards', 'nodes', 'attrs', 'menu'] as $code)
 			{
 				if (!isset($manifest[$code]) || !is_array($manifest[$code]))
 				{
@@ -2214,6 +2256,10 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		{
 			$params['wrapper_show'] = true;
 		}
+		if (!isset($params['force_unactive']))
+		{
+			$params['force_unactive'] = false;
+		}
 		if (
 			!$edit &&
 			$params['wrapper_show'] &&
@@ -2228,7 +2274,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			return;
 		}
 
-		if ($edit || $this->active)
+		if ($edit || $this->active || $params['force_unactive'])
 		{
 			$assets = Assets\Manager::getInstance();
 			if ($css = $this->getCSS())
@@ -2421,7 +2467,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 				}
 			}
 		}
-		elseif ($this->active)
+		elseif ($this->active || $params['force_unactive'])
 		{
 			// @todo make better
 			static $sysPages = null;
@@ -2439,7 +2485,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 				}
 				if (!empty($sysPages))
 				{
-					$urls = Landing::getPublicUrl($sysPages);
+					$urls = $landing->getPublicUrl($sysPages);
 					foreach ($sysPages as $code => $lid)
 					{
 						if (isset($urls[$lid]))
@@ -2522,6 +2568,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		if ($this->content)
 		{
 			$data['CONTENT'] = $this->content;
+			$data['SEARCH_CONTENT'] = $this->getSearchContent();
 		}
 		$res = parent::update($this->id, $data);
 		$this->error->addFromResult($res);
@@ -2904,7 +2951,17 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			];
 			// gets list or singleton data
 			$sourceData = [];
-			$source = $sourceList->getDataLoader($sourceId, $sourceParameters);
+			$source = $sourceList->getDataLoader(
+				$sourceId,
+				$sourceParameters,
+				[
+					'context_filter' => [
+						'SITE_ID' => $this->siteId,
+						'LANDING_ID' => $this->lid,
+						'LANDING_ACTIVE' => $this->landingActive ? 'Y' : ['Y', 'N']
+					]
+				]
+			);
 			if (is_object($source))
 			{
 				// detail page
@@ -2954,6 +3011,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 								? $manifest['nodes'][$selector]['type']
 								: NodeType::TEXT;
 					// fill ever selector with data, if data exist
+					$detailPageData = [];
 					foreach ($sourceData as $dataItem)
 					{
 						// set link to the card
@@ -2970,7 +3028,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 										$detailPage['text'] = isset($field['text'])
 															? $field['text']
 															: '';
-										$update[$selector][] = $getDetailPage(
+										$update[$selector][] = $detailPageData[$selector][] = $getDetailPage(
 											$detailPage,
 											$filterId,
 											$dataItem['ID']
@@ -2992,59 +3050,95 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 										}
 										break;
 									}
+								case 'landing':
+									{
+										if (isset($dataItem['LINK']))
+										{
+											$update[$selector][] = $detailPageData[$selector][] = $getDetailPage([
+												'text' => isset($field['text'])
+														? $field['text']
+														: '',
+												'href' => $dataItem['LINK'],
+												'target' => '_self'
+											]);
+										}
+									}
 							}
 						}
-						else
+						else if ($fieldType != NodeType::LINK)
 						{
-							// other data
 							$value = isset($dataItem[$fieldCode])
 								? $dataItem[$fieldCode]
 								: '';
-							// @todo: refactor
-							if (
-								$fieldType == NodeType::IMAGE ||
-								$fieldType == NodeType::TEXT
-							)
-							{
-								if (isset($field['link']))
-								{
-									if ($fieldType == NodeType::IMAGE)
-									{
-										$value = (array) $value;
-									}
-									else
-									{
-										$value = [
-											'text' => (string) $value
-										];
-									}
-									$value['url'] = [
-										'enabled' => false
-									];
-									if (UtilsAction::isTrue($field['link']))
-									{
-										$urlPicture = $getDetailPage(
-											$detailPage,
-											$filterId,
-											$dataItem['ID']
-										);
-										if ($urlPicture)
-										{
-											unset($urlPicture['text']);
-											$urlPicture['enabled'] = true;
-											$value['url'] = $urlPicture;
-										}
-									}
-								}
-							}
-
 							$update[$selector][] = $value;
+							if ($detailPage)
+							{
+								$detailPageData[$selector][] = $getDetailPage(
+									$detailPage,
+									$filterId,
+									$dataItem['ID']
+								);;
+							}
+							else if (isset($dataItem['LINK']))
+							{
+								$detailPageData[$selector][] = $getDetailPage([
+									'text' => isset($field['text'])
+										? $field['text']
+										: '',
+									'href' => $dataItem['LINK'],
+									'target' => '_self'
+								]);
+							}
 						}
 					}
 					// not touch the selector, if there is no data
 					if (!$update[$selector])
 					{
 						unset($update[$selector]);
+					}
+					// set detail url for nodes
+					// @todo: refactor
+					else if (
+						isset($field['link']) &&
+						(
+							$fieldType == NodeType::IMAGE ||
+							$fieldType == NodeType::TEXT
+						)
+					)
+					{
+						if (!isset($detailPageData[$selector]))
+						{
+							continue;
+						}
+						foreach ($update[$selector] as $i => &$value)
+						{
+							if ($fieldType == NodeType::IMAGE)
+							{
+								$value = (array) $value;
+							}
+							else
+							{
+								$value = [
+									'text' => (string) $value
+								];
+							}
+							if (
+								$detailPageData[$selector][$i] &&
+								UtilsAction::isTrue($field['link'])
+							)
+							{
+								$detailPageData[$selector][$i]['enabled'] = true;
+							}
+							else
+							{
+								$detailPageData[$selector][$i]['enabled'] = false;
+							}
+							if ($detailPageData[$selector][$i]['enabled'])
+							{
+								$value['url'] = $detailPageData[$selector][$i];
+							}
+						}
+						unset($value);
 					}
 				}
 				if (!$itemDetail)
@@ -3143,7 +3237,11 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		if (!isset($doc[$this->id]))
 		{
 			$doc[$this->id] = new DOM\Document;
-			$doc[$this->id]->loadHTML($this->content);
+			try
+			{
+				$doc[$this->id]->loadHTML($this->content);
+			}
+			catch (\Exception $e) {}
 		}
 
 		return $doc[$this->id];
@@ -3483,16 +3581,143 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 					Node\Type::getClassName($node['type']),
 					'saveNode'
 				), array(
-					&$this,
+					$this,
 					$selector,
 					$data[$selector],
 					$additional
 				));
 			}
 		}
+
+		// additional work with menu
+		if (isset($additional['appendMenu']) && $additional['appendMenu'])
+		{
+			$export = $this->export();
+		}
+		else
+		{
+			$additional['appendMenu'] = false;
+		}
+		foreach ($manifest['menu'] as $selector => $node)
+		{
+			if (isset($data[$selector]) && is_array($data[$selector]))
+			{
+				if (isset($data[$selector][0][0]))
+				{
+					$data[$selector] = array_shift($data[$selector]);
+				}
+				if ($additional['appendMenu'] && isset($export['menu'][$selector]))
+				{
+					$data[$selector] = array_merge(
+						$export['menu'][$selector],
+						$data[$selector]
+					);
+				}
+
+				$resultList = $doc->querySelectorAll($selector);
+				foreach ($resultList as $pos => $resultNode)
+				{
+					$parentNode = $resultNode->getParentNode();
+					if ($parentNode)
+					{
+						$parentNode->setInnerHtml(
+							$this->getMenuHtml(
+								$data[$selector],
+								$node
+							)
+						);
+					}
+					break;// we need only first position
+				}
+			}
+		}
+
 		// save rebuild html as text
 		$this->saveContent($doc->saveHTML());
 		return true;
+	}
+
+	/**
+	 * Returns menu html with child submenu.
+	 * @param array $data Data array.
+	 * @param array $manifestNode Manifest node for current selector.
+	 * @param string $level Level (root or children).
+	 * @return string
+	 */
+	protected function getMenuHtml($data, $manifestNode, $level = 'root')
+	{
+		if (!is_array($data) || !isset($manifestNode[$level]))
+		{
+			return '';
+		}
+
+		$htmlContent = '';
+		$rootSelector = $manifestNode[$level];
+
+		if (
+			isset($rootSelector['ulClassName']) &&
+			isset($rootSelector['liClassName']) &&
+			isset($rootSelector['aClassName']) &&
+			is_string($rootSelector['ulClassName']) &&
+			is_string($rootSelector['liClassName']) &&
+			is_string($rootSelector['aClassName'])
+		)
+		{
+			foreach ($data as $menuItem)
+			{
+				if (
+					isset($menuItem['text']) && is_string($menuItem['text']) &&
+					isset($menuItem['href']) && is_string($menuItem['href'])
+				)
+				{
+					if ($menuItem['href'] == '#landing0')
+					{
+						$res = Landing::add([
+							'TITLE' => $menuItem['text'],
+							'SITE_ID' => $this->getSiteId()
+						]);
+						if ($res->isSuccess())
+						{
+							$menuItem['href'] = '#landing' . $res->getId();
+						}
+					}
+					if (isset($menuItem['target']) && is_string($menuItem['target']))
+					{
+						$target = $menuItem['target'];
+					}
+					else
+					{
+						$target = '_self';
+					}
+					$htmlContent .= '<li class="' . \htmlspecialcharsbx($rootSelector['liClassName']) . '">';
+					$htmlContent .= 	'<a href="' . \htmlspecialcharsbx($menuItem['href']) . '" target="' . $target . '" 
+											class="' . \htmlspecialcharsbx($rootSelector['aClassName']) . '">';
+					$htmlContent .= 		\htmlspecialcharsbx($menuItem['text']);
+					$htmlContent .= 	'</a>';
+					if (isset($menuItem['children']))
+					{
+						$htmlContent .= $this->getMenuHtml(
+							$menuItem['children'],
+							$manifestNode,
+							'children'
+						);
+					}
+					$htmlContent .= '</li>';
+				}
+			}
+			if ($htmlContent)
+			{
+				$htmlContent = '<ul class="' . \htmlspecialcharsbx($rootSelector['ulClassName']) . '">' .
+							   		$htmlContent .
+								'</ul>';
+			}
+			else if ($level == 'root')
+			{
+				$htmlContent = '<ul class="' . \htmlspecialcharsbx($rootSelector['ulClassName']) . '"></ul>';
+			}
+		}
+
+		return $htmlContent;
 	}
 
 	/**
@@ -4036,6 +4261,32 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 	}
 
 	/**
+	 * Returns search content for this block.
+	 * @return string
+	 */
+	public function getSearchContent()
+	{
+		$manifest = $this->getManifest();
+		$search = [];
+
+		// get content nodes
+		if (isset($manifest['nodes']))
+		{
+			foreach ($manifest['nodes'] as $selector => $node)
+			{
+				/** @var Node $class */
+				$class = '\\Bitrix\\Landing\\Node\\' . $node['type'];
+				if (is_callable([$class, 'getSearchableNode']))
+				{
+					$search = array_merge($search, $class::getSearchableNode($this, $selector));
+				}
+			}
+		}
+
+		return $search ? implode(' ', $search) : '';
+	}
+
+	/**
 	 * Export nodes, style, attrs, etc. from block.
 	 * @param array $params Some params.
 	 * @return array
@@ -4047,6 +4298,7 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 
 		$cards = [];
 		$nodes = [];
+		$menu = [];
 		$styles = [];
 		$allAttrs = [];
 
@@ -4113,6 +4365,43 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 			{
 				$class = '\\Bitrix\\Landing\\Node\\' . $node['type'];
 				$nodes[$selector] = $class::getNode($this, $selector);
+			}
+		}
+		if (isset($manifest['menu']))
+		{
+			// recursive getting menu
+			$exportMenu = function($resultList) use(&$exportMenu)
+			{
+				$menu = [];
+				foreach ($resultList->getChildNodesArray() as $pos => $node)
+				{
+					$menu[$pos] = [];
+					if ($node->getNodeName() == 'LI')
+					{
+						foreach ($node->getChildNodesArray() as $nodeInner)
+						{
+							if ($nodeInner->getNodeName() == 'A')
+							{
+								$menu[$pos]['text'] = trim($nodeInner->getTextContent());
+								$menu[$pos]['href'] = trim($nodeInner->getAttribute('href'));
+								$menu[$pos]['target'] = trim($nodeInner->getAttribute('target'));
+							}
+							else if ($nodeInner->getNodeName() == 'UL')
+							{
+								$menu[$pos]['children'] = $exportMenu($nodeInner);
+							}
+						}
+					}
+					if (!$menu[$pos])
+					{
+						unset($menu[$pos]);
+					}
+				}
+				return array_values($menu);
+			};
+			foreach ($manifest['menu'] as $selector => $menuNode)
+			{
+				$menu[$selector] = $exportMenu($doc->querySelector($selector));
 			}
 		}
 		// get actual css from nodes
@@ -4270,10 +4559,39 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		return [
 			'cards' => $cards,
 			'nodes' => $nodes,
+			'menu' => $menu,
 			'style' => $styles,
 			'attrs' => $allAttrs,
 			'dynamic' => $this->dynamicParams
 		];
+	}
+
+	/**
+	 * Search in blocks.
+	 * @param string $query Query string.
+	 * @param array $filter Filter array.
+	 * @param array $select Select fields.
+	 * @return array
+	 */
+	public static function search($query, array $filter = [], array $select = ['LID'])
+	{
+		$result = [];
+
+		$filter['*%SEARCH_CONTENT'] = $query;
+
+		$res = Internals\BlockTable::getList([
+			'select' => $select,
+			'filter' => $filter,
+			'group' => [
+				'LID'
+			]
+		]);
+		while ($row = $res->fetch())
+		{
+			$result[] = $row;
+		}
+
+		return $result;
 	}
 
 	/**
@@ -4363,5 +4681,53 @@ class Block extends \Bitrix\Landing\Internals\BaseTable
 		{
 			return parent::getList($fields);
 		}
+	}
+	
+	/**
+	 * In ajax hit may be initiated some assets (JS extensions), but will not be added on page.
+	 * We need get them all and add to output.
+	 * @return array
+	 * @throws \Bitrix\Main\ArgumentNullException
+	 * @throws \Bitrix\Main\ArgumentOutOfRangeException
+	 */
+	protected static function getAjaxInitiatedAssets()
+	{
+		Asset::getInstance()->getJs();
+		Asset::getInstance()->getCss();
+		Asset::getInstance()->getStrings();
+		
+		$targetTypeList = array('JS', 'CSS');
+		$CSSList = $JSList = $stringsList = [];
+		
+		foreach ($targetTypeList as $targetType)
+		{
+			$targetAssetList = Asset::getInstance()->getTargetList($targetType);
+			
+			foreach ($targetAssetList as $targetAsset)
+			{
+				$assetInfo = Asset::getInstance()->getAssetInfo($targetAsset['NAME'], \Bitrix\Main\Page\AssetMode::ALL);
+				
+				if (!empty($assetInfo['JS']))
+				{
+					$JSList = array_merge($JSList, $assetInfo['JS']);
+				}
+				
+				if (!empty($assetInfo['CSS']))
+				{
+					$CSSList = array_merge($CSSList, $assetInfo['CSS']);
+				}
+				
+				if (!empty($assetInfo['STRINGS']))
+				{
+					$stringsList = array_merge($stringsList, $assetInfo['STRINGS']);
+				}
+			}
+		}
+		
+		return [
+			'js' => array_unique($JSList),
+			'css' => array_unique($CSSList),
+			'strings' => array_unique($stringsList),
+		];
 	}
 }

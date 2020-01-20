@@ -1,35 +1,51 @@
 <section class="landing-block g-pt-30 g-pb-30">
 	<div class="container g-px-0">
-		<nav class="landing-block-node-navbar g-px-15 navbar navbar-expand-lg g-brd-0 u-navbar-color-gray-dark-v5 u-navbar-color-primary--hover">
+		<nav class="landing-block-node-navbar g-px-15 navbar navbar-expand-md g-brd-0 u-navbar-color-gray-dark-v5 u-navbar-color-primary--hover">
 			<div class="collapse navbar-collapse align-items-center" id="navBar">
-				<ul class="landing-block-node-list navbar-nav js-scroll-nav flex-column list-unstyled w-100 g-mb-0">
-					<li class="landing-block-node-list-item nav-item g-brd-bottom g-brd-gray-light-v3 g-brd-1">
-						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-mx-5 d-block"
+				<ul class="landing-block-node-menu navbar-nav g-menu-multilevel js-scroll-nav flex-column list-unstyled w-100 g-mb-0">
+					<li class="landing-block-node-menu-item nav-item">
+						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
 						   href="#about">
 							About us
 						</a>
+						<ul class="landing-block-node-list navbar-nav g-menu-sublevel g-pl-20 js-scroll-nav flex-column list-unstyled w-100 g-mb-0">
+							<li class="landing-block-node-menu-item nav-item">
+								<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
+								   href="#product">
+									Product
+								</a>
+							</li>
+							<li class="landing-block-node-menu-item nav-item">
+								<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
+								   href="#development">
+									Development
+								</a>
+							</li>
+						</ul>
 					</li>
 
-					<li class="landing-block-node-list-item nav-item g-brd-bottom g-brd-gray-light-v3 g-brd-1">
-						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-mx-5 d-block"
-						   href="#contacts">
-							Contacts
+					<li class="landing-block-node-menu-item nav-item">
+						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
+						   href="#information">
+							Information
 						</a>
+						
 					</li>
 
-					<li class="landing-block-node-list-item nav-item g-brd-bottom g-brd-gray-light-v3 g-brd-1">
-						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-mx-5 d-block"
+					<li class="landing-block-node-menu-item nav-item">
+						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
 						   href="#faq">
 							FAQ
 						</a>
 					</li>
 
-					<li class="landing-block-node-list-item nav-item g-brd-bottom g-brd-gray-light-v3 g-brd-1">
-						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-mx-5 d-block"
-						   href="#information">
-							Information
+					<li class="landing-block-node-menu-item nav-item">
+						<a class="landing-block-node-link g-text-decoration-none--hover g-py-12 g-px-5 d-block g-brd-bottom g-brd-gray-light-v3 g-brd-1"
+						   href="#contacts">
+							Contacts
 						</a>
 					</li>
+					
 				</ul>
 			</div>
 

@@ -17,10 +17,8 @@ class Payment extends Controller
 {
 	public function getPrimaryAutoWiredParameter()
 	{
-		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
-
 		return new ExactParameter(
-			$registry->getPaymentClassName(),
+			Sale\Payment::class,
 			'payment',
 			function($className, $id) {
 

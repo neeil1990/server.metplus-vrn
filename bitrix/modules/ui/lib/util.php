@@ -48,7 +48,7 @@ class Util
 				break;
 
 			case "la":
-				$helpdeskUrl = "helpdesk.bitrix24.es";
+				$helpdeskUrl = "https://helpdesk.bitrix24.es";
 				break;
 
 			default:
@@ -58,5 +58,21 @@ class Util
 		return $helpdeskUrl;
 	}
 
+	/**
+	 * @param string $code Article code.
+	 * @return string|null
+	 */
+	public static function getArticleUrlByCode(string $code): ?string
+	{
+		if (preg_match('/([\w]+)/', $code, $matches))
+		{
+			$articleUrl = self::getHelpdeskUrl();
+			$articleUrl .= '/open/code_' . $code . '/';
+
+			return $articleUrl;
+		}
+
+		return null;
+	}
 }
 

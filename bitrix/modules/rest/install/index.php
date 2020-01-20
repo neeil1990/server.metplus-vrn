@@ -108,7 +108,7 @@ class rest extends CModule
 
 		\CAgent::AddAgent("Bitrix\\Rest\\Marketplace\\Client::getNumUpdates();", "rest", "N", 86400);
 		\CAgent::AddAgent("Bitrix\\Rest\\EventOfflineTable::cleanProcessAgent();", "rest", "N", 86400);
-		\CAgent::AddAgent("\\Bitrix\\Rest\\StatTable::cleanUpAgent();", "rest", "N", 86400);
+		\CAgent::AddAgent("Bitrix\\Rest\\UsageStatTable::cleanUpAgent();", "rest", "N", 86400);
 
 
 		return true;
@@ -173,6 +173,7 @@ class rest extends CModule
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/rest/install/js", $_SERVER["DOCUMENT_ROOT"]."/bitrix/js", true, true);
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/rest/install/tools", $_SERVER["DOCUMENT_ROOT"]."/bitrix/tools", true, true);
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/rest/install/services", $_SERVER["DOCUMENT_ROOT"]."/bitrix/services", true, true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/rest/install/images",  $_SERVER["DOCUMENT_ROOT"]."/bitrix/images/rest", true, true);
 
 		// delete old urlrewrite rule
 		CUrlRewriter::Delete(array(
@@ -301,7 +302,11 @@ class rest extends CModule
 						"b_rest_placement" => "APP_ID",
 						"b_rest_event_offline" => "APP_ID",
 						"b_rest_stat" => "APP_ID",
+						"b_rest_stat_app" => "APP_ID",
 						"b_rest_app_log" => "APP_ID",
+					),
+					"CODE" => array(
+						"b_rest_stat_app" => "APP_CODE",
 					)
 				),
 				"b_rest_ap" => array(

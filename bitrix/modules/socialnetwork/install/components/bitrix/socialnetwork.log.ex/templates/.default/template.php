@@ -106,7 +106,8 @@ if (!$arResult["AJAX_CALL"])
 				'ENABLE_CALENDAR_EVENT_ADD' => true,
 				'ENABLE_EMAIL_ADD' => true,
 				'ENABLE_TOOLBAR' => false,
-				'EDITOR_ITEMS' => array()
+				'EDITOR_ITEMS' => array(),
+				'SKIP_VISUAL_COMPONENTS' => 'Y'
 			),
 			null,
 			array('HIDE_ICONS' => 'Y')
@@ -1081,7 +1082,7 @@ else
 			"JS" => $arAdditionalData["SCRIPTS"],
 			"CSS" => $arAdditionalData["CSS"]
 		),
-		"LAST_TS" => ($arResult["dateLastPageTS"] ? intval($arResult["dateLastPageTS"]) : 0),
+		"LAST_TS" => ($arResult["LAST_ENTRY_DATE_TS"] ? intval($arResult["LAST_ENTRY_DATE_TS"]) : 0),
 		"LAST_ID" => ($arResult["dateLastPageId"] ? intval($arResult["dateLastPageId"]) : 0)
 	));
 	CMain::FinalActions($strText);

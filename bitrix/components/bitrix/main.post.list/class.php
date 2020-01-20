@@ -39,7 +39,11 @@ final class MainPostList extends CBitrixComponent
 		$this->sign = (new \Bitrix\Main\Security\Sign\Signer());
 		if ($this->request->get("EXEMPLAR_ID"))
 			$this->exemplarId = $this->request->get("EXEMPLAR_ID");
-		else if ($this->request->isPost())
+		else if (
+			$this->request->isPost() ||
+			$this->request->get("sessid") !== null ||
+			$this->request->get("logajax") !== null/*socialnetwork*/
+		)
 			$this->exemplarId = implode("_", [$this->getUser()->getId(), randString(6)]);
 		else
 			$this->exemplarId = implode("_", [$this->getUser()->getId(), $this->randString(6)]);

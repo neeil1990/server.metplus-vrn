@@ -47,6 +47,13 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
 
     <br>
     <div class="text-center">
-        <span class="form-static_policy-text">Нажимая кнопку вы соглашаетес с правилами обработки персональных данных</span>
+        <span class="form-static_policy-text">
+
+Нажимая кнопку вы соглашаетес с 
+<a href="/upload/politics.pdf" target="_blank">политикой конфилициальности </a>
+и 
+<a href="/upload/compliance.pdf" target="_blank">правилами обработки персональных данных</a>
+
+</span>
     </div>
 </form>

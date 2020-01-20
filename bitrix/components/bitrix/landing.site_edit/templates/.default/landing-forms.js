@@ -380,6 +380,10 @@ function deleteAccessRow(link)
 	BX.Landing.Custom503 = function()
 	{
 		var select = BX('landing-form-503-select');
+		if (!select)
+		{
+			return;
+		}
 		BX.bind(select, 'change', function ()
 		{
 			if(this.value === '')
@@ -646,6 +650,11 @@ function deleteAccessRow(link)
 
 	BX.Landing.Metrika = function()
 	{
+		if (!BX('field-gacounter_counter-use'))
+		{
+			return;
+		}
+
 		var inputGa = BX('field-gacounter_counter-use');
 		var inputGaClick = BX('field-gacounter_send_click-use');
 		var inputGaShow = BX('field-gacounter_send_show-use');

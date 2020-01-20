@@ -288,7 +288,6 @@
 
 				this.lastValue = this.getValue();
 				this.node.contentEditable = true;
-				this.node.focus();
 
 				this.node.setAttribute("title", "");
 			}

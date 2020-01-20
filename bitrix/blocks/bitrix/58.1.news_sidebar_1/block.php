@@ -59,7 +59,3 @@
 		</div>
 	</div>
 </section>
-			</article>
-		</div>
-	</div>
-</section>

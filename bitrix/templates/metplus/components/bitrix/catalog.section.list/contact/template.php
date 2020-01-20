@@ -70,7 +70,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                                 <div class="row">
                                     <? if($arItem['PROPERTIES']['PRICE']['VALUE']):?>
                                     <div class="col-sm-6">
-                                        <a href="<?=CFile::GetPath($arItem['PROPERTIES']['PRICE']['VALUE'])?>" class="driving-directions_btn main-btn">
+                                        <a href="<?=CFile::GetPath($arItem['PROPERTIES']['PRICE']['VALUE'])?>" class="driving-directions_btn main-btn" download>
                                             <span class="glipf-download"></span><?=$arItem['PROPERTIES']['PRICE']['NAME']?>
                                         </a>
                                     </div>
@@ -78,7 +78,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
 
                                     <? if($arItem['PROPERTIES']['DOC']['VALUE']):?>
                                     <div class="col-sm-6">
-                                        <a href="<?=CFile::GetPath($arItem['PROPERTIES']['DOC']['VALUE'])?>" class="download-details_btn">
+                                        <a href="<?=CFile::GetPath($arItem['PROPERTIES']['DOC']['VALUE'])?>" class="download-details_btn" download>
                                             <span class="glipf-pdf"></span>
                                             <?=$arItem['PROPERTIES']['DOC']['NAME']?>
                                         </a>

@@ -68,7 +68,7 @@ if ($result !== true || !$USER->IsAuthorized())
 	{
 		if ($result["CODE"] === 'ERROR_NETWORK')
 		{
-			sendResponse($answer, "521 Internal Bitrix24.Network error");
+			sendResponse($answer, "500 Internal Bitrix24.Network error");
 			exit;
 		}
 
@@ -182,23 +182,12 @@ function isAccessAllowed()
 		return true;
 	}
 
-	global $USER;
-
-	$userId = $USER->GetID();
-	$userData = \Bitrix\Intranet\UserTable::getByPrimary($userId, ['select' => ['USER_TYPE_INNER']])->fetch();
-	if ($userData && $userData['USER_TYPE_INNER'] === 'employee')
+	if (\Bitrix\Intranet\Util::isIntranetUser())
 	{
 		return true;
 	}
 
-	if (!\Bitrix\Main\ModuleManager::isModuleInstalled('extranet'))
-	{
-		return false;
-	}
-
-	$extranetGroupId = (int)\Bitrix\Main\Config\Option::get('extranet', 'extranet_group', 0);
-	$userGroups = array_map(function($value) { return (int)$value; }, $USER->GetUserGroupArray());
-	if ($extranetGroupId && in_array($extranetGroupId, $userGroups, true))
+	if (\Bitrix\Intranet\Util::isExtranetUser())
 	{
 		return true;
 	}

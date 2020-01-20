@@ -77,7 +77,7 @@ return array(
 		),
 		'.landing-block-node-card-link' => array(
 			'name' => Loc::getMessage('LANDING_BLOCK_5_BLOCKS_CAROUSEL_STYLE_LANDINGBLOCKNODECARDLINK'),
-			'type' => 'typo',
+			'type' => 'typo-link',
 		),
 		'.landing-block-node-card-bg' => array(
 			'name' => Loc::getMessage('LANDING_BLOCK_5_BLOCKS_CAROUSEL_STYLE_LANDINGBLOCKNODECARD'),

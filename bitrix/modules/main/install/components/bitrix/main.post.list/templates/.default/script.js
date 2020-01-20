@@ -1287,8 +1287,7 @@
 
 			var pos = BX.pos(bodyBlock);
 			var pos2 = BX.pos(textBlock);
-
-			if (pos.height > pos2.height)
+			if (pos.height >= pos2.height)
 			{
 				moreButtonBlock.style.display = "none";
 			}

@@ -10,6 +10,7 @@ return array(
 	'block' => array(
 		'name' => Loc::getMessage('LANDING_BLOCK_11.2.THREE_COLS_FIX_TARIFFS_BLACK_NAME'),
 		'section' => array('tariffs'),
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-node-card' => array(

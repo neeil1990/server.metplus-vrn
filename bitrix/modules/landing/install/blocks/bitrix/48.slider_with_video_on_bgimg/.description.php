@@ -57,7 +57,7 @@ return array(
 			),
 			'.landing-block-node-card-link' => array(
 				'name' => Loc::getMessage('LANDING_BLOCK_48.SLIDER_WITH_VIDEO_ON_BGIMG_NODES_LANDINGBLOCKNODECARDLINK'),
-				'type' => 'typo',
+				'type' => 'typo-link',
 			),
 			'.landing-block-node-card-button' => array(
 				'name' => Loc::getMessage('LANDING_BLOCK_48.SLIDER_WITH_VIDEO_ON_BGIMG_NODES_LANDINGBLOCKNODECARDBUTTON'),

@@ -7,6 +7,7 @@
 /** @var CBitrixComponentTemplate $this */
 /** @var CBitrixComponent $component */
 
+use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Config\Option;
 
@@ -236,6 +237,30 @@ if($shouldStartRebuildSeachableContent):?>
 		});
 	</script>
 <?endif;
+
+if (Loader::includeModule("socialnetwork"))
+{
+	$helper = new Bitrix\Socialnetwork\Copy\Integration\StepperHelper();
+	$helper->setStepper('Bitrix\Iblock\Copy\Stepper\Iblock');
+	$helper->setModuleId("iblock");
+	$helper->setQueueOption("IblockGroupQueue");
+	$helper->setCheckerOption("IblockGroupChecker_");
+	$helper->setStepperOption("IblockGroupStepper_");
+	$helper->setErrorOption("IblockGroupError_");
+	$helper->setTitle(GetMessage("CT_BLL_GROUP_STEPPER_PROGRESS_TITLE"));
+	$helper->setError(GetMessage("CT_BLL_GROUP_STEPPER_PROGRESS_ERROR"));
+
+	$APPLICATION->includeComponent(
+		"bitrix:socialnetwork.copy.checker",
+		"",
+		[
+			"QUEUE_ID" => $arResult["IBLOCK_ID"],
+			"HELPER" => $helper
+		],
+		$component,
+		["HIDE_ICONS" => "Y"]
+	);
+}
 
 $APPLICATION->IncludeComponent(
 	"bitrix:main.ui.grid",

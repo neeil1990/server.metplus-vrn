@@ -10,4 +10,7 @@ access/*
 bitrix/html_pages/*
 bitrix/backup/*
 *.log
+sitemap.xml
+sitemap-iblock-*.xml
+sitemap-files.xml
 

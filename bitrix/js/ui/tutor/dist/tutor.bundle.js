@@ -12,7 +12,10 @@ this.BX.UI = this.BX.UI || {};
 	    var _this;
 
 	    babelHelpers.classCallCheck(this, Step);
-	    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Step).call(this, options));
+	    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Step).call(this));
+
+	    _this.setEventNamespace('BX.UI.Tutor.Step');
+
 	    options = main_core.Type.isPlainObject(options) ? options : {};
 	    _this.id = options.id || null;
 	    _this.title = options.title || null;
@@ -152,7 +155,7 @@ this.BX.UI = this.BX.UI || {};
 	  }], [{
 	    key: "getFullEventName",
 	    value: function getFullEventName(shortName) {
-	      return "Step:" + shortName;
+	      return shortName;
 	    }
 	  }]);
 	  return Step;
@@ -273,18 +276,44 @@ this.BX.UI = this.BX.UI || {};
 	  babelHelpers.inherits(Manager, _Event$EventEmitter);
 
 	  function Manager() {
+	    var _this;
+
 	    babelHelpers.classCallCheck(this, Manager);
-	    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Manager).call(this));
+	    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Manager).call(this));
+
+	    _this.setEventNamespace('BX.UI.Tutor.Manager');
+
+	    return _this;
 	  }
 
 	  babelHelpers.createClass(Manager, [{
 	    key: "setOptions",
-	    value: function setOptions(options) {
+	    value: function setOptions(options, domain, feedbackFormId) {
 	      options = options || {};
 	      this.tutorialData = options.tutorialData || {};
 	      this.eventService = options.eventService || {};
 	      this.lastCheckTime = options.lastCheckTime || 0;
 	      this.domain = options.domain || '';
+	      this.feedbackFormId = options.feedbackFormId || '';
+
+	      if (main_core.Type.isString(domain) && domain.length > 0) {
+	        this.domain = domain;
+	      }
+
+	      if (main_core.Type.isString(feedbackFormId) && feedbackFormId.length > 0) {
+	        this.feedbackFormId = feedbackFormId;
+	      }
+	    }
+	  }, {
+	    key: "showFeedbackForm",
+	    value: function showFeedbackForm() {
+	      if (this.feedbackFormId) {
+	        this.feedBackForm = BX.UI.Feedback.Form.getById(this.feedbackFormId);
+
+	        if (this.feedBackForm) {
+	          this.feedBackForm.openPanel();
+	        }
+	      }
 	    }
 	  }, {
 	    key: "getDomain",
@@ -326,21 +355,18 @@ this.BX.UI = this.BX.UI || {};
 	    }
 	  }, {
 	    key: "init",
-	    value: function init(options) {
+	    value: function init(options, domain, feedbackFormId) {
 	      var instance = this.getInstance();
 
 	      if (!(instance instanceof Manager)) {
 	        this.instance = new Manager();
 	        instance = this.getInstance();
-	        var eventName = 'bx.ui.tutor.manager.init';
-	        main_core.Event.EventEmitter.emit(eventName); //compatibility
-
-	        BX.onCustomEvent(eventName);
+	        this.emit('onInitManager');
 	      } else {
 	        instance = this.getInstance();
 	      }
 
-	      instance.setOptions(options);
+	      instance.setOptions(options, domain, feedbackFormId);
 	      return instance;
 	    }
 	  }, {
@@ -351,10 +377,7 @@ this.BX.UI = this.BX.UI || {};
 	      if (!(instance instanceof Scenario)) {
 	        this.scenarioInstance = new Scenario();
 	        instance = this.getScenarioInstance();
-	        var eventName = 'bx.ui.tutor.manager.scenario.init';
-	        main_core.Event.EventEmitter.emit(eventName); //compatibility
-
-	        BX.onCustomEvent(eventName);
+	        this.emit('onInitScenario');
 	      } else {
 	        instance = this.getScenarioInstance();
 	      }
@@ -380,7 +403,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getImButton",
 	    value: function getImButton(animation) {
-	      var _this = this;
+	      var _this2 = this;
 
 	      if (!this.layout.imButton) {
 	        var buttonWrapper = this.getRootImButton();
@@ -396,8 +419,12 @@ this.BX.UI = this.BX.UI || {};
 	          main_core.Dom.addClass(buttonWrapper, 'ui-tutor-btn-wrap-show');
 	          this.layout.imButton = buttonWrapper;
 	          main_core.Event.bind(this.layout.imButton, "click", function () {
-	            _this.emit(_this.getFullEventName('clickImButton'));
+	            _this2.emit('clickImButton');
 	          });
+
+	          if (document.querySelector('#bx-im-btn-call')) {
+	            document.querySelector('.bx-im-users-wrap').style.bottom = '120px';
+	          }
 	        }
 	      }
 
@@ -416,56 +443,70 @@ this.BX.UI = this.BX.UI || {};
 	    }
 	  }, {
 	    key: "hideSmallPopup",
-	    value: function hideSmallPopup() {
+	    value: function hideSmallPopup(skipAnimation) {
+	      skipAnimation = skipAnimation === true;
+
+	      var removeHandler = function () {
+	        main_core.Dom.remove(this.getSmallPopup());
+
+	        if (this.hasOwnProperty('smallPopup')) {
+	          delete this.smallPopup;
+	        }
+
+	        this.emit('onCompleteHideSmallPopup');
+	      }.bind(this);
+
 	      main_core.Dom.removeClass(this.getSmallPopup(), 'ui-tutor-popup-welcome-show');
 	      main_core.Dom.addClass(this.getSmallPopup(), 'ui-tutor-popup-welcome-hide');
-	      setTimeout(function () {
-	        main_core.Dom.remove(this.getSmallPopup());
-	        this.fireEvent('onCompleteHideWelcomePopup');
-	      }.bind(this), 300);
+
+	      if (skipAnimation) {
+	        removeHandler();
+	      } else {
+	        setTimeout(removeHandler, 300);
+	      }
 	    }
 	  }, {
 	    key: "showWelcomePopup",
 	    value: function showWelcomePopup(text) {
-	      this.fireEvent('onShowWelcomePopup');
+	      this.emit('onShowWelcomePopup');
 	      this.showSmallPopup(text);
 	    }
 	  }, {
 	    key: "hideWelcomePopup",
 	    value: function hideWelcomePopup() {
-	      this.fireEvent('onBeforeHideWelcomePopup');
+	      this.emit('onBeforeHideWelcomePopup');
 	      this.hideSmallPopup();
-	      this.fireEvent('onAfterHideWelcomePopup');
+	      this.emit('onAfterHideWelcomePopup');
 	    }
 	  }, {
 	    key: "showNoticePopup",
 	    value: function showNoticePopup(text) {
-	      this.fireEvent('onShowNoticePopup');
+	      this.emit('onShowNoticePopup');
 	      this.showSmallPopup(text);
 	    }
 	  }, {
 	    key: "hideNoticePopup",
 	    value: function hideNoticePopup() {
-	      this.fireEvent('onBeforeHideNoticePopup');
+	      this.emit('onBeforeHideNoticePopup');
 	      this.hideSmallPopup();
-	      this.fireEvent('onAfterHideNoticePopup');
+	      this.emit('onAfterHideNoticePopup');
 	    }
 	  }, {
 	    key: "getSmallPopup",
 	    value: function getSmallPopup() {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      var clickWelcomePopupHandler = function clickWelcomePopupHandler() {
-	        _this2.emit(_this2.getFullEventName('onClickWelcomePopupBtn'));
+	      var clickSmallPopupHandler = function clickSmallPopupHandler() {
+	        _this3.emit('onClickSmallPopupBtn');
 	      };
 
 	      if (!this.smallPopup) {
-	        this.smallPopup = main_core.Tag.render(_templateObject2(), clickWelcomePopupHandler.bind(this), main_core.Loc.getMessage('JS_UI_TUTOR_TITLE'), this.smallPopupText);
-	        this.fireEvent('onCreateWelcomePopupNode');
+	        this.smallPopup = main_core.Tag.render(_templateObject2(), clickSmallPopupHandler.bind(this), main_core.Loc.getMessage('JS_UI_TUTOR_TITLE'), this.smallPopupText);
+	        this.emit('onCreateSmallPopupNode');
 	        main_core.Dom.addClass(this.smallPopup, 'ui-tutor-popup-welcome-show');
-	        this.fireEvent('onBeforeAppendWelcomePopupNode');
+	        this.emit('onBeforeAppendSmallPopupNode');
 	        main_core.Dom.append(this.smallPopup, document.body);
-	        this.fireEvent('onAfterAppendWelcomePopupNode');
+	        this.emit('onAfterAppendSmallPopupNode');
 	      }
 
 	      return this.smallPopup;
@@ -473,16 +514,10 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "showStartPopup",
 	    value: function showStartPopup(title, text) {
-	      this.fireEvent('onShowStartPopup');
-
-	      if (window.event && this.smallPopup) {
-	        return;
-	      }
-
+	      this.emit('onShowStartPopup');
 	      this.startTitle = title;
 	      this.startText = text;
 	      main_core.Dom.addClass(this.getStartPopup(), 'ui-tutor-popup-show');
-	      main_core.Dom.remove(this.getSmallPopup());
 	      this.startPopup.style.display = 'flex';
 	      this.startTitle = '';
 	      this.startText = '';
@@ -498,9 +533,9 @@ this.BX.UI = this.BX.UI || {};
 	    value: function getStartPopup() {
 	      if (!this.startPopup) {
 	        this.startPopup = main_core.Tag.render(_templateObject3(), main_core.Loc.getMessage('JS_UI_TUTOR_TITLE'), this.startTitle, this.startText, this.getBeginBtn(), this.getDeferBtn());
-	        this.fireEvent('onCreateStartPopupNode');
+	        this.emit('onCreateStartPopupNode');
 	        main_core.Dom.append(this.startPopup, document.body);
-	        this.fireEvent('onAfterAppendStartPopupNode');
+	        this.emit('onAfterAppendStartPopupNode');
 	      }
 
 	      return this.startPopup;
@@ -508,12 +543,12 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getBeginBtn",
 	    value: function getBeginBtn() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      if (!this.beginBtn) {
 	        this.beginBtn = main_core.Tag.render(_templateObject4(), main_core.Loc.getMessage('JS_UI_TUTOR_BTN_BEGIN'));
 	        main_core.Event.bind(this.beginBtn, "click", function () {
-	          _this3.fireEvent('clickBeginBtn');
+	          _this4.emit('clickBeginBtn');
 	        });
 	      }
 
@@ -522,12 +557,12 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getDeferBtn",
 	    value: function getDeferBtn() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      if (!this.deferBtn) {
 	        this.deferBtn = main_core.Tag.render(_templateObject5(), main_core.Loc.getMessage('JS_UI_TUTOR_CLOSE_POPUP_BTN'));
 	        main_core.Event.bind(this.deferBtn, "click", function () {
-	          _this4.fireEvent('clickDeferBtn');
+	          _this5.emit('clickDeferBtn');
 	        });
 	      }
 
@@ -540,7 +575,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getFullEventName",
 	    value: function getFullEventName(shortName) {
-	      return "UI.Tutor.Manager:" + shortName;
+	      return shortName;
 	    }
 	    /**
 	     * @public
@@ -567,7 +602,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "setCount",
 	    value: function setCount(num) {
-	      this.fireEvent('onBeforeSetCount');
+	      this.emit('onBeforeSetCount');
 
 	      if (num < 1) {
 	        this.removeInformer();
@@ -578,7 +613,7 @@ this.BX.UI = this.BX.UI || {};
 	        this.isInformerShow = true;
 	      }
 
-	      this.fireEvent('onAfterSetCount');
+	      this.emit('onAfterSetCount');
 	    }
 	    /**
 	     * @private
@@ -601,10 +636,10 @@ this.BX.UI = this.BX.UI || {};
 	    value: function showCollapsedBlock(step, withGuide, showAfterAnimation) {
 	      withGuide = withGuide !== false;
 	      showAfterAnimation = showAfterAnimation !== false;
-	      this.fireEvent('onBeforeShowCollapsedBlock');
+	      this.emit('onBeforeShowCollapsedBlock');
 
 	      if (!this.isCollapsedShow) {
-	        this.fireEvent('onStartShowCollapsedBlock');
+	        this.emit('onStartShowCollapsedBlock');
 
 	        if (!(step instanceof Step)) {
 	          step = new Step(step);
@@ -630,7 +665,7 @@ this.BX.UI = this.BX.UI || {};
 	        }
 
 	        this.isCollapsedShow = true;
-	        this.fireEvent('onShowCollapsedBlock');
+	        this.emit('onShowCollapsedBlock');
 	      }
 
 	      if (withGuide) {
@@ -652,7 +687,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "checkButtonsState",
 	    value: function checkButtonsState() {
-	      this.fireEvent('onCheckButtonsState');
+	      this.emit('onCheckButtonsState');
 	      var step = this.collapsedStep;
 
 	      if (!step) {
@@ -687,11 +722,11 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "showGuide",
 	    value: function showGuide() {
-	      this.fireEvent('onBeforeShowGuide');
+	      this.emit('onBeforeShowGuide');
 	      var step = this.collapsedStep;
 
 	      if (!this.activeGuide && step) {
-	        this.fireEvent('onStartShowGuide');
+	        this.emit('onStartShowGuide');
 	        this.activeGuide = new ui_tour.Guide({
 	          simpleMode: true,
 	          steps: [step.getHighlightOptions()]
@@ -699,7 +734,7 @@ this.BX.UI = this.BX.UI || {};
 	        this.activeGuide.subscribe(ui_tour.Guide.getFullEventName("onFinish"), this.finishGuide.bind(this));
 	        this.activeGuide.start();
 	        main_core.Dom.remove(this.activeGuide.getPopup().closeIcon);
-	        this.fireEvent('showCollapseWithGuide');
+	        this.emit('showCollapseWithGuide');
 	        this.checkButtonsState();
 	      }
 	    }
@@ -708,7 +743,7 @@ this.BX.UI = this.BX.UI || {};
 	    value: function closeGuide() {
 	      if (this.activeGuide instanceof ui_tour.Guide) {
 	        this.activeGuide.close();
-	        this.fireEvent('onAfterGuide');
+	        this.emit('onAfterGuide');
 	      }
 	    }
 	    /**
@@ -721,9 +756,9 @@ this.BX.UI = this.BX.UI || {};
 	    value: function getCollapseBlock() {
 	      if (!this.layout.collapseBlock) {
 	        this.layout.collapseBlock = main_core.Tag.render(_templateObject7(), this.clickCollapseBlockHandler.bind(this), main_core.Loc.getMessage('JS_UI_TUTOR_STEP_TITLE'), this.getCollapseTitle(), this.getStartBtn(), this.getRepeatBtn(), this.getCompletedBtn());
-	        this.fireEvent('onCreateCollapsedBlockNode');
+	        this.emit('onCreateCollapsedBlockNode');
 	        main_core.Dom.append(this.layout.collapseBlock, document.body);
-	        this.fireEvent('onAfterAppendCollapsedBlockNode');
+	        this.emit('onAfterAppendCollapsedBlockNode');
 	      }
 
 	      return this.layout.collapseBlock;
@@ -736,14 +771,14 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getStartBtn",
 	    value: function getStartBtn() {
-	      var _this5 = this;
+	      var _this6 = this;
 
 	      if (!this.startBtn) {
 	        this.startBtn = main_core.Tag.render(_templateObject8(), main_core.Loc.getMessage('JS_UI_TUTOR_BTN_START'));
 	        main_core.Event.bind(this.startBtn, "click", function (event) {
 	          event.stopPropagation();
 
-	          _this5.fireEvent('clickStartBtn');
+	          _this6.emit('clickStartBtn');
 	        });
 	      }
 
@@ -757,14 +792,14 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getRepeatBtn",
 	    value: function getRepeatBtn() {
-	      var _this6 = this;
+	      var _this7 = this;
 
 	      if (!this.repeatBtn) {
 	        this.repeatBtn = main_core.Tag.render(_templateObject9(), main_core.Loc.getMessage('JS_UI_TUTOR_BTN_REPEAT'));
 	        main_core.Event.bind(this.repeatBtn, "click", function (event) {
 	          event.stopPropagation();
 
-	          _this6.fireEvent('clickRepeatBtn');
+	          _this7.emit('clickRepeatBtn');
 	        });
 	      }
 
@@ -778,14 +813,14 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "getCompletedBtn",
 	    value: function getCompletedBtn() {
-	      var _this7 = this;
+	      var _this8 = this;
 
 	      if (!this.completedBtn) {
 	        this.completedBtn = main_core.Tag.render(_templateObject10(), main_core.Loc.getMessage('JS_UI_TUTOR_BTN_COMPLETED_SHORT'));
 	        main_core.Event.bind(this.completedBtn, "click", function (event) {
 	          event.stopPropagation();
 
-	          _this7.fireEvent('clickCompletedBtn');
+	          _this8.emit('clickCompletedBtn');
 	        });
 	      }
 
@@ -814,7 +849,7 @@ this.BX.UI = this.BX.UI || {};
 	    key: "closeCollapsePopup",
 	    value: function closeCollapsePopup(event) {
 	      this.closeCollapseEntity();
-	      this.fireEvent('clickCloseCollapseBlock');
+	      this.emit('clickCloseCollapseBlock');
 	    }
 	    /**
 	     * @private
@@ -823,19 +858,19 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "clickCollapseBlockHandler",
 	    value: function clickCollapseBlockHandler() {
-	      this.fireEvent('clickCollapseBlock');
+	      this.emit('clickCollapseBlock');
 	    }
 	  }, {
 	    key: "finishGuide",
 	    value: function finishGuide() {
 	      delete this.activeGuide;
 	      this.checkButtonsState();
-	      this.fireEvent('completeCloseGuide');
+	      this.emit('completeCloseGuide');
 	    }
 	  }, {
 	    key: "closeCollapseEntity",
 	    value: function closeCollapseEntity() {
-	      this.fireEvent('onBeforeHideCollapsedBlock');
+	      this.emit('onBeforeHideCollapsedBlock');
 	      this.getCollapseBlock().style.display = 'none';
 	      this.getImButton().style.display = 'block';
 
@@ -849,12 +884,12 @@ this.BX.UI = this.BX.UI || {};
 
 	      delete this.collapsedStep;
 	      this.isCollapsedShow = false;
-	      this.fireEvent('onHideCollapsedBlock');
+	      this.emit('onHideCollapsedBlock');
 	    }
 	  }, {
 	    key: "showLoader",
 	    value: function showLoader() {
-	      this.fireEvent('onBeforeShowLoader');
+	      this.emit('onBeforeShowLoader');
 	      this.startTitle = '';
 	      this.startText = '';
 	      this.layout.loader = new main_loader.Loader({
@@ -864,7 +899,7 @@ this.BX.UI = this.BX.UI || {};
 	      this.layout.loader.show();
 	      this.getStartPopup().style.display = 'flex';
 	      main_core.Dom.addClass(this.getStartPopup(), "ui-tutor-popup-load");
-	      this.fireEvent('onAfterShowLoader');
+	      this.emit('onAfterShowLoader');
 	    }
 	  }, {
 	    key: "hideLoader",
@@ -877,7 +912,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "showCollapsedLoader",
 	    value: function showCollapsedLoader() {
-	      this.fireEvent('onBeforeShowCollapsedLoader');
+	      this.emit('onBeforeShowCollapsedLoader');
 	      this.layout.collapseLoader = new main_loader.Loader({
 	        target: this.getCollapseBlock(),
 	        size: 34
@@ -885,12 +920,12 @@ this.BX.UI = this.BX.UI || {};
 	      this.layout.collapseLoader.show();
 	      this.getCollapseBlock().style.display = 'flex';
 	      main_core.Dom.addClass(this.getCollapseBlock(), "ui-tutor-popup-collapse-load");
-	      this.fireEvent('onAfterShowCollapsedLoader');
+	      this.emit('onAfterShowCollapsedLoader');
 	    }
 	  }, {
 	    key: "hideCollapsedLoader",
 	    value: function hideCollapsedLoader() {
-	      this.fireEvent('onBeforeHideCollapsedLoader');
+	      this.emit('onBeforeHideCollapsedLoader');
 
 	      if (this.layout.collapseLoader) {
 	        this.layout.collapseLoader.destroy();
@@ -898,7 +933,7 @@ this.BX.UI = this.BX.UI || {};
 	        this.getCollapseBlock().style.display = 'none';
 	      }
 
-	      this.fireEvent('onAfterHideCollapsedLoader');
+	      this.emit('onAfterHideCollapsedLoader');
 	    }
 	  }, {
 	    key: "showNode",
@@ -913,7 +948,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "checkFollowLink",
 	    value: function checkFollowLink(step, scenario) {
-	      this.fireEvent('onStartCheckFollowLink');
+	      this.emit('onStartCheckFollowLink');
 	      step = step || this.collapsedStep;
 
 	      if (step instanceof Step) {
@@ -943,12 +978,12 @@ this.BX.UI = this.BX.UI || {};
 	        }
 	      }
 
-	      this.fireEvent('onFinishCheckFollowLink');
+	      this.emit('onFinishCheckFollowLink');
 	    }
 	  }, {
 	    key: "fireEvent",
 	    value: function fireEvent(eventName) {
-	      this.emit(this.getFullEventName(eventName));
+	      this.emit(eventName);
 	    }
 	  }]);
 	  return Manager;
@@ -1228,7 +1263,7 @@ this.BX.UI = this.BX.UI || {};
 	}
 
 	function _templateObject3$1() {
-	  var data = babelHelpers.taggedTemplateLiteral(["\n\t\t\t\t\t<div class=\"ui-tutor-popup-footer\">\n\t\t\t\t\t\t", "\n\t\t\t\t\t\t", "\n\t\t\t\t\t\t", "\n\t\t\t\t\t</div>\n\t\t\t\t"]);
+	  var data = babelHelpers.taggedTemplateLiteral(["\n\t\t\t\t\t<div class=\"ui-tutor-popup-footer\">\n\t\t\t\t\t\t", "\n\t\t\t\t\t\t", "\n\t\t\t\t\t</div>\n\t\t\t\t"]);
 
 	  _templateObject3$1 = function _templateObject3() {
 	    return data;
@@ -1266,7 +1301,10 @@ this.BX.UI = this.BX.UI || {};
 
 	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	    babelHelpers.classCallCheck(this, Scenario);
-	    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Scenario).call(this, options));
+	    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Scenario).call(this));
+
+	    _this.setEventNamespace('BX.UI.Tutor.Scenario');
+
 	    _this.stepPopup = null;
 	    _this.arrowTimer = null;
 	    _this.guide = null;
@@ -1313,7 +1351,7 @@ this.BX.UI = this.BX.UI || {};
 
 	    _this.loadYoutubeApiScript();
 
-	    _this.subscribe("UI.Tutor.Scenario:onYouTubeReady", function () {
+	    _this.subscribe("onYouTubeReady", function () {
 	      _this.setVideoItems();
 	    });
 
@@ -1324,7 +1362,7 @@ this.BX.UI = this.BX.UI || {};
 	    key: "loadYoutubeApiScript",
 	    value: function loadYoutubeApiScript() {
 	      var onYouTubeReadyEvent = function () {
-	        this.emit(this.constructor.getFullEventName("onYouTubeReady"), {
+	        this.emit("onYouTubeReady", {
 	          scenario: this
 	        });
 	      }.bind(this);
@@ -1437,7 +1475,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "start",
 	    value: function start(complexAnimation) {
-	      this.emit(this.constructor.getFullEventName("onStart"), {
+	      this.emit("onStart", {
 	        scenario: this
 	      });
 
@@ -1486,7 +1524,7 @@ this.BX.UI = this.BX.UI || {};
 	      var _this3 = this;
 
 	      var clickOnCloseIcon = function clickOnCloseIcon() {
-	        _this3.emit(_this3.constructor.getFullEventName("onClickOnCloseIcon"), {
+	        _this3.emit("onClickOnCloseIcon", {
 	          scenario: _this3
 	        });
 	      };
@@ -1523,7 +1561,11 @@ this.BX.UI = this.BX.UI || {};
 	    key: "getFooter",
 	    value: function getFooter() {
 	      if (!this.layout.footer) {
-	        this.layout.footer = main_core.Tag.render(_templateObject3$1(), this.getNavigation(), this.getBtnContainer(), this.getSupportLink());
+	        this.layout.footer = main_core.Tag.render(_templateObject3$1(), this.getNavigation(), this.getBtnContainer());
+
+	        if (Manager.getInstance().feedbackFormId) {
+	          main_core.Dom.append(this.getSupportLink(), this.layout.footer);
+	        }
 	      }
 
 	      return this.layout.footer;
@@ -1706,7 +1748,7 @@ this.BX.UI = this.BX.UI || {};
 	          items: [{
 	            text: main_core.Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_HOUR'),
 	            onclick: function () {
-	              this.emit(this.constructor.getFullEventName("onDeferOneHour"), {
+	              this.emit("onDeferOneHour", {
 	                scenario: this
 	              });
 	              deferMenu.close();
@@ -1714,7 +1756,7 @@ this.BX.UI = this.BX.UI || {};
 	          }, {
 	            text: main_core.Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_TOMORROW'),
 	            onclick: function () {
-	              this.emit(this.constructor.getFullEventName("onDeferTomorrow"), {
+	              this.emit("onDeferTomorrow", {
 	                scenario: this
 	              });
 	              deferMenu.close();
@@ -1722,7 +1764,7 @@ this.BX.UI = this.BX.UI || {};
 	          }, {
 	            text: main_core.Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_WEEK'),
 	            onclick: function () {
-	              this.emit(this.constructor.getFullEventName("onDeferWeek"), {
+	              this.emit("onDeferWeek", {
 	                scenario: this
 	              });
 	              deferMenu.close();
@@ -1730,7 +1772,7 @@ this.BX.UI = this.BX.UI || {};
 	          }, {
 	            text: main_core.Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_FOREVER'),
 	            onclick: function () {
-	              this.emit(this.constructor.getFullEventName("onDeferForever"), {
+	              this.emit("onDeferForever", {
 	                scenario: this
 	              });
 	              deferMenu.close();
@@ -1869,7 +1911,8 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "supportLinkHandler",
 	    value: function supportLinkHandler() {
-	      this.emit(this.constructor.getFullEventName('supportLinkClick'));
+	      this.emit('supportLinkClick');
+	      Manager.getInstance().showFeedbackForm();
 	    }
 	    /**
 	     * @public
@@ -2009,7 +2052,7 @@ this.BX.UI = this.BX.UI || {};
 	  }, {
 	    key: "handleClickLinkHandler",
 	    value: function handleClickLinkHandler() {
-	      this.emit(this.constructor.getFullEventName('helpLinkClick'));
+	      this.emit('helpLinkClick');
 	    }
 	    /**
 	     * @public
@@ -2382,10 +2425,10 @@ this.BX.UI = this.BX.UI || {};
 	      }
 
 	      if (currentStep && fireStepEvent) {
-	        currentStep.emit(currentStep.constructor.getFullEventName(eventName), data);
+	        currentStep.emit(eventName, data);
 	      }
 
-	      this.emit(this.constructor.getFullEventName(eventName), data);
+	      this.emit(eventName, data);
 	    }
 	    /**
 	     * @private
@@ -2429,7 +2472,11 @@ this.BX.UI = this.BX.UI || {};
 	      }
 
 	      main_core.Dom.replace(this.getFinishedBlock(), this.getHelpBlock());
-	      main_core.Dom.append(this.getSupportLink(), this.getFooter());
+
+	      if (Manager.getInstance().feedbackFormId) {
+	        main_core.Dom.append(this.getSupportLink(), this.getFooter());
+	      }
+
 	      main_core.Dom.prepend(this.getNavigation(), this.getFooter());
 	      main_core.Dom.prepend(this.getDescription(), this.getContentInner());
 	      main_core.Dom.prepend(this.getTitle(), this.getContentInner());
@@ -2676,7 +2723,7 @@ this.BX.UI = this.BX.UI || {};
 	  }], [{
 	    key: "getFullEventName",
 	    value: function getFullEventName(shortName) {
-	      return "UI.Tutor.Scenario:" + shortName;
+	      return shortName;
 	    }
 	  }, {
 	    key: "getInstance",

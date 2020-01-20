@@ -142,6 +142,11 @@
     padding-right: 0;
 }
 
+.bitrix24-dark-theme .ui-toolbar-btn-box.ui-toolbar-title-box,
+.bitrix24-light-theme .ui-toolbar-btn-box.ui-toolbar-title-box {
+	padding-right: 12px;
+}
+
 .ui-toolbar .ui-btn {
 	display: flex;
 	align-items: center;

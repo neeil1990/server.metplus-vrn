@@ -8,14 +8,15 @@ use \Bitrix\Main\Localization\Loc;
 
 return array(
 	'block' => array(
-		// 'name' => Loc::getMessage('LANDING_BLOCK_MENU_24-NAME'),
+		'name' => Loc::getMessage('LANDING_BLOCK_MENU_24-NAME'),
 		'section' => array('sidebar', 'menu'),
+		'type' => ['knowledge', 'group'],
 		'dynamic' => false,
 		'subtype' => 'menu',
 		'subtype_params' => array(
 			'source' => 'catalog',
 		),
-		'version' => '19.0.300',	//and may be more
+		'version' => '20.0.0',
 	),
 	'cards' => array(
 		'.landing-block-node-menu-item' => array(

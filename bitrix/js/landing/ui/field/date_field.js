@@ -76,7 +76,12 @@
 				this.input.innerText = BX.date.format(this.getFormat(), new Date(value * 1000));
 				this.hiddenInput.value = this.formatValue(value);
 				this.onValueChangeHandler(this);
-				fireCustomEvent(this, "BX.Landing.UI.Field:change", [this.getValue()]);
+
+				var event = new BX.Event.BaseEvent({
+					data: {value: this.getValue()},
+					compatData: [this.getValue()],
+				});
+				this.emit('change', event);
 			}
 		},
 

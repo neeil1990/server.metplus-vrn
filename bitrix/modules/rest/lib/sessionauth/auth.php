@@ -39,6 +39,12 @@ class Auth
 			return true;
 		}
 
+		// case for LDAP users mask LDAP#1
+		if (substr($externalAuthId, 0, 4) === 'LDAP')
+		{
+			return true;
+		}
+
 		// fake user like as BOT, IMCONNECTOR, SHOP
 		$blackList = UserTable::getExternalUserTypes();
 		if (in_array($externalAuthId, $blackList, true))

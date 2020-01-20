@@ -18,14 +18,14 @@ Loc::loadMessages(
 	<div class="container">
 		<form class="landing-block-node-form input-group g-font-open-sans">
 			<input class="form-control g-brd-gray-light-v3 g-brd-primary--focus g-color-gray-dark-v3 g-bg-white g-font-size-13 g-px-20 g-height-45"
-				   type="text">
-			<span class="input-group-append g-z-index-4">
-				<button class="landing-block-node-button btn u-btn-lightgray g-color-gray-dark-v4 g-color-primary--hover g-font-weight-600 g-font-size-13 text-uppercase g-pl-20 g-pr-20"
+				   type="text" name="q">
+			<div class="landing-block-node-button input-group-append g-z-index-4 g-bg-black-opacity-0_1 g-color-gray-dark-v4 g-color-primary--hover">
+				<button class="btn g-font-weight-600 g-font-size-13 text-uppercase g-pl-20 g-pr-20"
 						type="submit">
-					<span class="d-none d-md-block"><?=Loc::getMessage("LANDING_BLOCK_59_2-SEARCH")?></span>
+					<div class="d-none d-md-block"><?=Loc::getMessage("LANDING_BLOCK_59_2-SEARCH")?></div>
 					<i class="d-block d-md-none fa fa-search"></i>
 				</button>
-			</span>
+			</div>
 		</form>
 	</div>
 </section>

@@ -1,6 +1,7 @@
-<?
+<?php
 namespace Bitrix\Bizproc;
 
+use Bitrix\Bizproc\Workflow\Entity\WorkflowInstanceTable;
 use \Bitrix\Main\Loader;
 use \Bitrix\Rest\AppLangTable;
 use \Bitrix\Rest\AppTable;
@@ -704,7 +705,7 @@ class RestService extends \IRestService
 
 		$select = static::getSelect($params['SELECT'], $fields, array('ID'));
 		$filter = static::getFilter($params['FILTER'], $fields, array('MODIFIED'));
-		$filter['!AUTO_EXECUTE'] = \CBPDocumentEventType::Automation;
+		$filter['<AUTO_EXECUTE'] = \CBPDocumentEventType::Automation;
 
 		$order = static::getOrder($params['ORDER'], $fields, array('ID' => 'ASC'));
 

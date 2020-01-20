@@ -17,10 +17,8 @@ class BasketProperties extends Controller
 {
 	public function getPrimaryAutoWiredParameter()
 	{
-		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
-
 		return new ExactParameter(
-			$registry->getBasketPropertyItemClassName(),
+			Sale\BasketPropertyItem::class,
 			'basketProperty',
 			function($className, $id) {
 				$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);

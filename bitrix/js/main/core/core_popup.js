@@ -2738,7 +2738,6 @@ BX.PopupMenuItem = function(options)
 	this._items = BX.type.isArray(options.items) ? options.items : [];
 	this.disabled = options.disabled === true;
 	this.cacheable = options.cacheable === true;
-	this.ajaxOptions = (options.ajaxOptions ? options.ajaxOptions : null);
 
 	/**
 	 *
@@ -2962,7 +2961,7 @@ BX.PopupMenuItem.prototype = {
 
 	hasSubMenu: function()
 	{
-		return this.subMenuWindow !== null || this._items.length || this.ajaxOptions;
+		return this.subMenuWindow !== null || this._items.length;
 	},
 
 	showSubMenu: function()
@@ -2994,12 +2993,6 @@ BX.PopupMenuItem.prototype = {
 	 */
 	addSubMenu: function(items)
 	{
-		if (this.ajaxOptions && !items.length)
-		{
-			this.addSubMenuByAjax();
-			return null;
-		}
-
 		if (this.subMenuWindow !== null || !BX.type.isArray(items) || !items.length)
 		{
 			return null;
@@ -3032,38 +3025,6 @@ BX.PopupMenuItem.prototype = {
 		BX.addClass(this.layout.item, "menu-popup-item-submenu");
 
 		return this.subMenuWindow;
-	},
-
-	addSubMenuByAjax: function()
-	{
-		if (this.ajaxOptions.mode === "component")
-		{
-			BX.ajax.runComponentAction(this.ajaxOptions.component, this.ajaxOptions.action, {
-				mode: this.ajaxOptions.componentMode,
-				signedParameters: (this.ajaxOptions.signedParameters ? this.ajaxOptions.signedParameters : {}),
-				data: this.ajaxOptions.data,
-			}).then(function(response) {
-				this.showSubMenuByAjax(response.data);
-			}.bind(this));
-		}
-		else
-		{
-			BX.ajax.runAction(this.ajaxOptions.action, {
-				data: this.ajaxOptions.data,
-			}).then(function(response) {
-				this.showSubMenuByAjax(response.data);
-			}.bind(this));
-		}
-	},
-
-	showSubMenuByAjax: function(items)
-	{
-		if (!BX.type.isArray(items) || !items.length)
-		{
-			return null;
-		}
-		this._items = items;
-		this.showSubMenu();
 	},
 
 	handleSubMenuDestroy: function()

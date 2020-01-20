@@ -190,7 +190,7 @@ diskController.prototype = {
 						{
 							diskController.dndCatcher[id].dropZone = new BX.DD.dropFiles(manager.eventNode);
 
-							BX.addCustomEvent(manager.eventNode, "OnImageDataUriHandle", BX.delegate(function(editor, imageBase64)
+							BX.addCustomEvent(manager.eventNode, "OnImageDataUriHandle", function(editor, imageBase64)
 							{
 								if (BX["UploaderUtils"])
 								{
@@ -207,7 +207,7 @@ diskController.prototype = {
 										BX.onCustomEvent(editor, "OnImageDataUriCaught", [imageBase64]);
 									}
 								}
-							}, this));
+							}.bind(this));
 
 							BX.addCustomEvent(diskController.dndCatcher[id].dropZone, "dropFiles", diskController.dndCatcher[id]["drop"]);
 							BX.addCustomEvent(diskController.dndCatcher[id].dropZone, "dragEnter", diskController.dndCatcher[id]["dragover"]);
@@ -1923,7 +1923,7 @@ LHEPostForm.prototype = {
 		BX.addCustomEvent(editor, "OnIframeDrop", BX.proxy(function(){BX.onCustomEvent(this.eventNode, "OnIframeDrop", arguments);}, this));
 		BX.addCustomEvent(editor, "OnIframeDragOver", BX.proxy(function(){BX.onCustomEvent(this.eventNode, "OnIframeDragOver", arguments);}, this));
 		BX.addCustomEvent(editor, "OnIframeDragLeave", BX.proxy(function(){BX.onCustomEvent(this.eventNode, "OnIframeDragLeave", arguments);}, this));
-		BX.addCustomEvent(editor, "OnImageDataUriHandle", BX.proxy(function(){BX.onCustomEvent(this.eventNode, "OnImageDataUriHandle", arguments);}, this));
+		BX.addCustomEvent(editor, "OnImageDataUriHandle", function() { BX.onCustomEvent(this.eventNode, "OnImageDataUriHandle", Array.prototype.slice.call(arguments)); }.bind(this));
 
 		BX.addCustomEvent(editor, "OnAfterUrlConvert", this.OnAfterUrlConvert.bind(this));
 		BX.addCustomEvent(editor, "OnAfterLinkInserted", this.OnAfterUrlConvert.bind(this));

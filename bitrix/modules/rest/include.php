@@ -37,7 +37,11 @@ class CRestEventHandlers
 
 CJSCore::registerExt('marketplace', array(
 	'js' => '/bitrix/js/rest/marketplace.js',
+	'css' => '/bitrix/js/rest/css/marketplace.css',
 	'lang' => BX_ROOT.'/modules/rest/lang/'.LANGUAGE_ID.'/jsmarketplace.php',
+	'lang_additional' => array(
+		'REST_MARKETPLACE_CATEGORY_URL' => \Bitrix\Rest\Marketplace\Url::getCategoryUrl()
+	),
 	'rel' => array('ajax', 'popup', 'access', 'sidepanel'),
 ));
 
@@ -46,7 +50,7 @@ CJSCore::registerExt('applayout', array(
 	'css' => '/bitrix/js/rest/css/applayout.css',
 	'lang' => BX_ROOT.'/modules/rest/lang/'.LANGUAGE_ID.'/jsapplayout.php',
 	'lang_additional' => array(
-		'REST_APPLICATION_URL' => '/bitrix/components/bitrix/app.layout/lazyload.ajax.php'
+		'REST_APPLICATION_URL' => \Bitrix\Rest\Marketplace\Url::getApplicationUrl()
 	),
 	'rel' => array('ajax', 'popup', 'sidepanel'),
 ));
@@ -57,9 +61,8 @@ CJSCore::registerExt('appplacement', array(
 ));
 
 CJSCore::registerExt('restclient', array(
-	'js' => '/bitrix/js/rest/client/rest.client.js',
 	'skip_core' => true,
-	'rel' => array('promise'),
+	'rel' => array('rest.client'),
 ));
 
 CJSCore::registerExt('rest_userfield', array(

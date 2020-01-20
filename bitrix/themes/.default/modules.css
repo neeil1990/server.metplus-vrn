@@ -3379,6 +3379,10 @@ img.linked
 {
 	background-position:  center -118px;
 }
+.kda_exportexcel_menu_export_icon
+{
+	background: url(icons/kda.exportexcel/icon_16.png) 10px 5px no-repeat;
+}
 .adm-list-table-cell .learning_icon_courses {
 	background-position: center -1814px;
 }

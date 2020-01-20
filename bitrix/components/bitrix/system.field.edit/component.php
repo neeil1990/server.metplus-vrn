@@ -137,8 +137,8 @@ if($arUserField["USER_TYPE"])
 						$arResult["VALUE"][] = $arEnum["ID"];
 				}
 			}
-			$arUserField["USER_TYPE"]["FIELDS"] = $enum;
 		}
+		$arUserField["USER_TYPE"]["FIELDS"] = $enum;
 	}
 
 	$arParams["form_name"] = !empty($arParams["form_name"]) ? $arParams["form_name"] : "form1";

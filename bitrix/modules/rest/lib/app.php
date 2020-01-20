@@ -47,6 +47,7 @@ class AppTable extends Main\Entity\DataManager
 	const STATUS_PAID = 'P';
 	const STATUS_DEMO = 'D';
 	const STATUS_TRIAL = 'T';
+	const STATUS_SUBSCRIPTION = 'S';
 
 	const PAID_NOTIFY_DAYS = 30;
 	const PAID_GRACE_PERIOD = -14;
@@ -132,6 +133,7 @@ class AppTable extends Main\Entity\DataManager
 					static::STATUS_PAID,
 					static::STATUS_DEMO,
 					static::STATUS_TRIAL,
+					static::STATUS_SUBSCRIPTION,
 				),
 			),
 			'DATE_FINISH' => array(

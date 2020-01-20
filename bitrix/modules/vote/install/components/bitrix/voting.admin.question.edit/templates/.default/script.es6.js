@@ -24,6 +24,7 @@ class answer {
 		this.data =  {
 			MESSAGE : "",
 			MESSAGE_TYPE : "text",
+			IMAGE_ID : "",
 			FIELD_TYPE : 0,
 			FIELD_WIDTH : 0, //out of date
 			FIELD_HEIGHT : 0, //out of date
@@ -494,7 +495,7 @@ const prepareForm = function(form, gridId/*, gridInstanceId*/) {
 	if (grid)
 	{
 		const rows = grid.getRows().getRows();
-		let attrs, j, id;
+		let attrs, id;
 		rows.forEach(function(current) {
 			if (current.getIndex() < 1)
 				return;
@@ -508,22 +509,35 @@ const prepareForm = function(form, gridId/*, gridInstanceId*/) {
 				}
 			));
 			attrs = BX.parseJSON(BX.data(current.getNode(), "item"), current);
-			if (BX.type.isPlainObject(attrs))
+			var func = function(prefix, params, depth)
 			{
-				for (j in attrs)
+				var key;
+				for (var j in params)
 				{
-					if (attrs.hasOwnProperty(j))
+					if (params.hasOwnProperty(j))
 					{
-						form.appendChild(BX.create('INPUT', {
-								props : {
-									type : "hidden",
-									name : "ANSWER[" + id + "][" + String(j).toUpperCase() + "]",
-									value : attrs[j]
+						key = "[" + (depth > 0 ? j : String(j).toUpperCase()) + "]";
+						if (BX.type.isPlainObject(params[j]))
+						{
+							func(prefix + key, params[j], depth + 1);
+						}
+						else
+						{
+							form.appendChild(BX.create('INPUT', {
+									props : {
+										type : "hidden",
+										name : prefix + key,
+										value : params[j]
+									}
 								}
-							}
-						));
+							));
+						}
 					}
 				}
+			};
+			if (BX.type.isPlainObject(attrs))
+			{
+				func("ANSWER[" + id + "]", attrs, 0);
 			}
 		});
 	}

@@ -240,12 +240,13 @@ BX.UI.Selector.prototype.openDialogPromiseFulfilled = function(result)
 		this.popups.main = new BX.PopupWindow({
 			id: 'bx-selector-dialog-' + this.id,
 			bindElement: popupBind,
-			autoHide: true,
+			autoHide: (this.getOption('popupAutoHide') != 'N'),
 			zIndex: 1200,
 			className: this.getRenderInstance().class.popup,
 			offsetLeft: this.bindOptions.offsetLeft,
 			offsetTop: this.bindOptions.offsetTop,
 			bindOptions: this.bindOptions,
+			cacheable: false,
 			closeByEsc: true,
 			closeIcon: (
 				this.getOption('showCloseIcon') == 'Y'
@@ -274,12 +275,6 @@ BX.UI.Selector.prototype.openDialogPromiseFulfilled = function(result)
 					)
 					{
 						this.popups.inviteEmailUser.close();
-					}
-				}.bind(this),
-				onPopupClose: function() {
-					if (this.popups.main)
-					{
-						this.popups.main.destroy();
 					}
 				}.bind(this),
 				onPopupDestroy : function() {
@@ -345,12 +340,13 @@ BX.UI.Selector.prototype.openContainer = function()
 	this.popups.container = new BX.PopupWindow({
 		id: 'bx-selector-dialog-' + this.id + '-container',
 		bindElement: this.getPopupBind(),
-		autoHide: true,
+		autoHide: (this.getOption('popupAutoHide') != 'N'),
 		zIndex: 1200,
 		className: this.getRenderInstance().class.popup,
 		offsetLeft: this.bindOptions.offsetLeft,
 		offsetTop: this.bindOptions.offsetTop,
 		bindOptions: this.bindOptions,
+		cacheable: false,
 		closeByEsc: true,
 		closeIcon: (
 			this.getOption('showCloseIcon') == 'Y'
@@ -381,12 +377,6 @@ BX.UI.Selector.prototype.openContainer = function()
 					this.popups.inviteEmailUser.close();
 				}
 
-			}.bind(this),
-			onPopupClose: function() {
-				if (this.popups.container)
-				{
-					this.popups.container.destroy();
-				}
 			}.bind(this),
 			onPopupDestroy : function() {
 				this.popups.container = null;
@@ -470,6 +460,7 @@ BX.UI.Selector.prototype.openSearch = function(params)
 			offsetLeft: this.bindOptions.offsetLeft,
 			offsetTop: this.bindOptions.offsetTop,
 			bindOptions: this.bindOptions,
+			cacheable: false,
 			closeByEsc: true,
 			closeIcon: false,
 			lightShadow: true,
@@ -493,12 +484,6 @@ BX.UI.Selector.prototype.openSearch = function(params)
 						this.popups.inviteEmailUser.close();
 					}
 
-				}.bind(this),
-				onPopupClose: function() {
-					if (this.popups.search)
-					{
-						this.popups.search.destroy();
-					}
 				}.bind(this),
 				onPopupDestroy : function() {
 					this.popups.search = null;
@@ -2584,7 +2569,10 @@ BX.UI.Selector.prototype.deleteLastItem = function()
 		}
 	}
 
-	if (lastId)
+	if (
+		lastId
+		&& !BX.util.in_array(lastId, this.itemsUndeletable)
+	)
 	{
 		var entityType = this.itemsSelected[lastId];
 

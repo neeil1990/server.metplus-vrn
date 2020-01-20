@@ -6,21 +6,38 @@ Loader::includeModule('socialnetwork');
 
 final class SocialnetworkLogList extends \Bitrix\Socialnetwork\Component\LogList
 {
-	public function executeComponent()
+	/**
+	 * Prepares filter for the gratUserId gratitudes list
+	 *
+	 * @param \Bitrix\Main\Event $event Event.
+	 * @return void
+	 */
+	private function prepareGratPostFilter()
 	{
 		global $APPLICATION;
 
 		$this->arResult['GRAT_POST_FILTER'] = [];
 		$this->arResult['RETURN_EMPTY_LIST'] = false;
 
-		if (
+		$userId = (
 			!empty($_GET['gratUserId'])
 			&& intval($_GET['gratUserId']) > 0
+				? intval($_GET['gratUserId'])
+				: false
+		);
+
+		$gratCode = (
+			isset($_GET['gratCode'])
+			&& strlen($_GET['gratCode']) > 0
+				? $_GET['gratCode']
+				: false
+		);
+
+		if (
+			$userId
 			&& \Bitrix\Main\ModuleManager::isModuleInstalled('intranet')
 		)
 		{
-			$userId = intval($_GET['gratUserId']);
-
 			$res = \CUser::getByID($userId);
 			$gratUserName = '';
 			if ($userFields = $res->fetch())
@@ -33,9 +50,9 @@ final class SocialnetworkLogList extends \Bitrix\Socialnetwork\Component\LogList
 				'userId' => $userId
 			];
 
-			if (!empty($_GET['gratCode']))
+			if ($gratCode)
 			{
-				$filterParams['gratCode'] = $_GET['gratCode'];
+				$filterParams['gratCode'] = $gratCode;
 			}
 
 			$gratitudesData = \Bitrix\Socialnetwork\Component\LogList::getGratitudesIblockData($filterParams);
@@ -69,6 +86,11 @@ final class SocialnetworkLogList extends \Bitrix\Socialnetwork\Component\LogList
 				]));
 			}
 		}
+	}
+
+	public function executeComponent()
+	{
+		$this->prepareGratPostFilter();
 
 		return $this->__includeComponent();
 	}

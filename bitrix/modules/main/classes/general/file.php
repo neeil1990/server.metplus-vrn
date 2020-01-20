@@ -691,7 +691,7 @@ class CAllFile
 		{
 			foreach($source as $field => $sub_source)
 			{
-				CAllFile::ConvertFilesToPost($sub_source, $target, $field);
+				self::ConvertFilesToPost($sub_source, $target, $field);
 			}
 		}
 		else
@@ -701,7 +701,7 @@ class CAllFile
 				if(!array_key_exists($id, $target))
 					$target[$id] = array();
 				if(is_array($sub_source))
-					CAllFile::ConvertFilesToPost($sub_source, $target[$id], $field);
+					self::ConvertFilesToPost($sub_source, $target[$id], $field);
 				else
 					$target[$id][$field] = $sub_source;
 			}

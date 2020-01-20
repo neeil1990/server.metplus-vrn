@@ -524,9 +524,11 @@ function __logChangeFavorites(log_id, node, newState, bFromMenu)
 		return;
 	}
 
+	var menuItem = null;
+
 	if (!!bFromMenu)
 	{
-		var menuItem = BX.proxy_context;
+		menuItem = BX.proxy_context;
 		if (!BX.hasClass(BX(menuItem), 'menu-popup-item-text'))
 		{
 			menuItem = BX.findChild(BX(menuItem), {'className': 'menu-popup-item-text'}, true);
@@ -549,7 +551,7 @@ function __logChangeFavorites(log_id, node, newState, bFromMenu)
 	{
 		BX.addClass(BX(nodeToAdjust), "feed-post-important-switch-active");
 		BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleY');
-		if (typeof menuItem != 'undefined')
+		if (menuItem)
 		{
 			BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleY');
 		}
@@ -558,56 +560,46 @@ function __logChangeFavorites(log_id, node, newState, bFromMenu)
 	{
 		BX.removeClass(BX(nodeToAdjust), "feed-post-important-switch-active");
 		BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleN');
-		if (typeof menuItem != 'undefined')
+		if (menuItem)
 		{
 			BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleN');
 		}
 	}
 
-	var actionUrl = BX.message('sonetLESetPath');
-	actionUrl = BX.util.add_url_param(actionUrl, {
-		b24statAction: (newState == 'Y' ? 'addFavorites' : 'removeFavorites')
-	});
-
-	BX.ajax({
-		url: actionUrl,
-		method: 'POST',
-		dataType: 'json',
+	BX.ajax.runAction('socialnetwork.api.livefeed.changeFavorites', {
 		data: {
-			sessid : BX.bitrix_sessid(),
-			site : BX.message('SITE_ID'),
-			log_id : log_id,
-			action : 'change_favorites'
+			logId: log_id,
+			value: newState
 		},
-		onsuccess: function(data)
+		analyticsLabel: {
+			b24statAction: (newState == 'Y' ? 'addFavorites' : 'removeFavorites')
+		}
+	}).then(function(response) {
+		if (
+			BX.type.isNotEmptyString(response.data.newValue)
+			&& BX.util.in_array(response.data.newValue, ['Y', 'N'])
+		)
 		{
-			if (
-				typeof data.bResult != 'undefined'
-				&& (BX.util.in_array(data.bResult, ['Y', 'N']))
-			)
+			if (response.data.newValue == "Y")
 			{
-				if (data.bResult == "Y")
+				BX.addClass(BX(nodeToAdjust), "feed-post-important-switch-active");
+				BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleY');
+				if (menuItem)
 				{
-					BX.addClass(BX(nodeToAdjust), "feed-post-important-switch-active");
-					BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleY');
-					if (typeof menuItem != 'undefined')
-					{
-						BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleY');
-					}
-				}
-				else
-				{
-					BX.removeClass(BX(nodeToAdjust), "feed-post-important-switch-active");
-					BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleN');
-					if (typeof menuItem != 'undefined')
-					{
-						BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleN');
-					}
+					BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleY');
 				}
 			}
-		},
-		onfailure: function(data) {
+			else
+			{
+				BX.removeClass(BX(nodeToAdjust), "feed-post-important-switch-active");
+				BX(nodeToAdjust).title = BX.message('sonetLMenuFavoritesTitleN');
+				if (menuItem)
+				{
+					BX(menuItem).innerHTML = BX.message('sonetLMenuFavoritesTitleN');
+				}
+			}
 		}
+	}, function(response) {
 	});
 }
 
@@ -1234,10 +1226,10 @@ BitrixLF.prototype.getNextPage = function()
 				&& typeof (data.PROPS) != 'undefined'
 				&& typeof (data.PROPS.CONTENT) != 'undefined'
 				&& data.PROPS.CONTENT.length > 0
+				&& typeof data.LAST_TS != 'undefined'
+				&& parseInt(data.LAST_TS) > 0
 				&& (
-					typeof data.LAST_TS == 'undefined'
-					|| parseInt(data.LAST_TS) <= 0
-					|| parseInt(oLF.firstPageLastTS) <= 0
+					parseInt(oLF.firstPageLastTS) <= 0
 					|| parseInt(data.LAST_TS) < parseInt(oLF.firstPageLastTS)
 					|| (
 						parseInt(data.LAST_TS) == parseInt(oLF.firstPageLastTS)
@@ -1560,6 +1552,13 @@ BitrixLF.prototype.recalcMoreButton = function()
 
 		for (i = 0; i < this.arMoreButtonID.length; i++)
 		{
+			if (
+				!this.arMoreButtonID.hasOwnProperty(i)
+				|| !BX.type.isNotEmptyObject(this.arMoreButtonID[i])
+			)
+			{
+				continue;
+			}
 
 			arPos = BX.pos(BX(this.arMoreButtonID[i].bodyBlockID));
 

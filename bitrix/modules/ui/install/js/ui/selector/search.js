@@ -516,7 +516,7 @@ BX.UI.Selector.Search.prototype.runSearch = function(params)
 							if (partsItem.hasOwnProperty(k))
 							{
 								partsItem[k] = BX.util.htmlspecialcharsback(partsItem[k]);
-								tmpString = partsItem[k].replace(/(["\(\)\xAB\xBB])/g, ''); // strip quotes and brackets
+								tmpString = partsItem[k].replace(/(["\(\)\xAB\xBB\u201C\u201D])/g, ''); // strip quotes and brackets
 
 								if (tmpString.length != partsItem[k].length)
 								{

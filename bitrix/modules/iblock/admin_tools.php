@@ -341,7 +341,21 @@ function _ShowFilePropertyField($name, $property_fields, $values, $max_file_size
 			{
 				$prop = $prop[$number];
 				if (!empty($prop) && is_array($prop))
-					$values = $prop;
+				{
+					$clearProp = array();
+					foreach ($prop as $valueRowId => $valueRow)
+					{
+						$correct = true;
+						if (preg_match('/^n\d+$/', $valueRowId) && is_string($valueRow))
+						{
+							if (!preg_match('/^\d+$/', $valueRow))
+								$correct = false;
+						}
+						if ($correct)
+							$clearProp[$valueRowId] = $valueRow;
+					}
+					$values = $clearProp;
+				}
 			}
 
 			$inputName = array();

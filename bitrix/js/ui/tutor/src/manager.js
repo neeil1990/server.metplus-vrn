@@ -1,16 +1,19 @@
-import { Dom, Event, Tag, Loc } from 'main.core';
+import { Dom, Event, Tag, Loc, Type } from 'main.core';
 import { Scenario } from './scenario';
 import { Step } from './step';
 import { Guide } from 'ui.tour';
 import { Loader } from "main.loader";
+import 'ui.feedback.form';
 
-export class Manager extends Event.EventEmitter {
+export class Manager extends Event.EventEmitter
+{
 	constructor()
 	{
 		super();
+		this.setEventNamespace('BX.UI.Tutor.Manager');
 	}
 
-	setOptions(options)
+	setOptions(options, domain, feedbackFormId)
 	{
 		options = options || {};
 
@@ -18,6 +21,27 @@ export class Manager extends Event.EventEmitter {
 		this.eventService = options.eventService || {};
 		this.lastCheckTime = options.lastCheckTime || 0;
 		this.domain = options.domain || '';
+		this.feedbackFormId = options.feedbackFormId || '';
+		if(Type.isString(domain) && domain.length > 0)
+		{
+			this.domain = domain;
+		}
+		if(Type.isString(feedbackFormId) && feedbackFormId.length > 0)
+		{
+			this.feedbackFormId = feedbackFormId;
+		}
+	}
+
+	showFeedbackForm()
+	{
+		if (this.feedbackFormId)
+		{
+			this.feedBackForm = BX.UI.Feedback.Form.getById(this.feedbackFormId);
+			if (this.feedBackForm)
+			{
+				this.feedBackForm.openPanel();
+			}
+		}
 	}
 
 	getDomain()
@@ -56,23 +80,20 @@ export class Manager extends Event.EventEmitter {
 		return this.scenarioInstance;
 	}
 
-	static init(options)
+	static init(options, domain, feedbackFormId)
 	{
 		let instance = this.getInstance();
 		if (!(instance instanceof Manager))
 		{
 			this.instance = new Manager();
 			instance = this.getInstance();
-			let eventName = 'bx.ui.tutor.manager.init';
-			Event.EventEmitter.emit(eventName);
-			//compatibility
-			BX.onCustomEvent(eventName);
+			this.emit('onInitManager');
 		}
 		else
 		{
 			instance = this.getInstance();
 		}
-		instance.setOptions(options);
+		instance.setOptions(options, domain, feedbackFormId);
 
 		return instance;
 	}
@@ -84,10 +105,7 @@ export class Manager extends Event.EventEmitter {
 		{
 			this.scenarioInstance = new Scenario();
 			instance = this.getScenarioInstance();
-			let eventName = 'bx.ui.tutor.manager.scenario.init';
-			Event.EventEmitter.emit(eventName);
-			//compatibility
-			BX.onCustomEvent(eventName);
+			this.emit('onInitScenario');
 		}
 		else
 		{
@@ -131,8 +149,13 @@ export class Manager extends Event.EventEmitter {
 				Dom.addClass(buttonWrapper, 'ui-tutor-btn-wrap-show');
 				this.layout.imButton = buttonWrapper;
 				Event.bind(this.layout.imButton, "click", () => {
-					this.emit(this.getFullEventName('clickImButton'));
+					this.emit('clickImButton');
 				});
+
+				if (document.querySelector('#bx-im-btn-call'))
+				{
+					document.querySelector('.bx-im-users-wrap').style.bottom = '120px';
+				}
 			}
 		}
 
@@ -151,54 +174,65 @@ export class Manager extends Event.EventEmitter {
 		}
 	}
 
-	static hideSmallPopup()
+	static hideSmallPopup(skipAnimation)
 	{
+		skipAnimation = skipAnimation === true;
+		const removeHandler = function() {
+			Dom.remove(this.getSmallPopup());
+			if(this.hasOwnProperty('smallPopup'))
+			{
+				delete this.smallPopup;
+			}
+			this.emit('onCompleteHideSmallPopup');
+		}.bind(this);
 		Dom.removeClass(this.getSmallPopup(), 'ui-tutor-popup-welcome-show');
 		Dom.addClass(this.getSmallPopup(), 'ui-tutor-popup-welcome-hide');
-
-		setTimeout(function() {
-			Dom.remove(this.getSmallPopup());
-			this.fireEvent('onCompleteHideWelcomePopup');
-		}.bind(this), 300);
+		if(skipAnimation)
+		{
+			removeHandler();
+		}
+		else
+		{
+			setTimeout(removeHandler, 300);
+		}
 	}
 
 	static showWelcomePopup(text)
 	{
-		this.fireEvent('onShowWelcomePopup');
+		this.emit('onShowWelcomePopup');
 		this.showSmallPopup(text);
 	}
 
 	static hideWelcomePopup()
 	{
-		this.fireEvent('onBeforeHideWelcomePopup');
+		this.emit('onBeforeHideWelcomePopup');
 		this.hideSmallPopup();
-		this.fireEvent('onAfterHideWelcomePopup');
+		this.emit('onAfterHideWelcomePopup');
 	}
 
 	static showNoticePopup(text)
 	{
-		this.fireEvent('onShowNoticePopup');
+		this.emit('onShowNoticePopup');
 		this.showSmallPopup(text);
 	}
 
 	static hideNoticePopup()
 	{
-		this.fireEvent('onBeforeHideNoticePopup');
+		this.emit('onBeforeHideNoticePopup');
 		this.hideSmallPopup();
-		this.fireEvent('onAfterHideNoticePopup');
+		this.emit('onAfterHideNoticePopup');
 	}
 
 	static getSmallPopup()
 	{
-		const clickWelcomePopupHandler = () => {
-			this.emit(this.getFullEventName('onClickWelcomePopupBtn'));
+		const clickSmallPopupHandler = () => {
+			this.emit('onClickSmallPopupBtn');
 		};
-
 		if (!this.smallPopup)
 		{
 			this.smallPopup =
 				Tag.render`
-					<div class="ui-tutor-popup" onclick="${clickWelcomePopupHandler.bind(this)}">
+					<div class="ui-tutor-popup" onclick="${clickSmallPopupHandler.bind(this)}">
 						<div class="ui-tutor-popup-header">
 							<span class="ui-tutor-popup-header-icon"></span>
 							<span class="ui-tutor-popup-header-title-wrap">
@@ -211,11 +245,11 @@ export class Manager extends Event.EventEmitter {
 						<div class="ui-tutor-popup-icon-angle"></div>
 					</div>
 				`;
-			this.fireEvent('onCreateWelcomePopupNode');
+			this.emit('onCreateSmallPopupNode');
 			Dom.addClass(this.smallPopup, 'ui-tutor-popup-welcome-show');
-			this.fireEvent('onBeforeAppendWelcomePopupNode');
+			this.emit('onBeforeAppendSmallPopupNode');
 			Dom.append(this.smallPopup, document.body);
-			this.fireEvent('onAfterAppendWelcomePopupNode');
+			this.emit('onAfterAppendSmallPopupNode');
 		}
 
 		return this.smallPopup;
@@ -223,15 +257,10 @@ export class Manager extends Event.EventEmitter {
 
 	static showStartPopup(title, text)
 	{
-		this.fireEvent('onShowStartPopup');
-		if (window.event && this.smallPopup)
-		{
-			return;
-		}
+		this.emit('onShowStartPopup');
 		this.startTitle = title;
 		this.startText = text;
 		Dom.addClass(this.getStartPopup(), 'ui-tutor-popup-show');
-		Dom.remove(this.getSmallPopup());
 		this.startPopup.style.display = 'flex';
 		this.startTitle = '';
 		this.startText = '';
@@ -269,9 +298,9 @@ export class Manager extends Event.EventEmitter {
 						<div class="ui-tutor-popup-icon-angle"></div>
 					</div>
 				`;
-			this.fireEvent('onCreateStartPopupNode');
+			this.emit('onCreateStartPopupNode');
 			Dom.append(this.startPopup, document.body);
-			this.fireEvent('onAfterAppendStartPopupNode');
+			this.emit('onAfterAppendStartPopupNode');
 		}
 
 		return this.startPopup;
@@ -289,7 +318,7 @@ export class Manager extends Event.EventEmitter {
 				`;
 
 			Event.bind(this.beginBtn, "click", ()=> {
-				this.fireEvent('clickBeginBtn');
+				this.emit('clickBeginBtn');
 			});
 		}
 
@@ -308,7 +337,7 @@ export class Manager extends Event.EventEmitter {
 				`;
 
 			Event.bind(this.deferBtn, "click", () => {
-				this.fireEvent('clickDeferBtn');
+				this.emit('clickDeferBtn');
 			});
 		}
 
@@ -320,7 +349,7 @@ export class Manager extends Event.EventEmitter {
 	 */
 	static getFullEventName(shortName)
 	{
-		return "UI.Tutor.Manager:" + shortName;
+		return shortName;
 	}
 
 	/**
@@ -350,7 +379,7 @@ export class Manager extends Event.EventEmitter {
 
 	static setCount(num)
 	{
-		this.fireEvent('onBeforeSetCount');
+		this.emit('onBeforeSetCount');
 		if (num < 1)
 		{
 			this.removeInformer();
@@ -362,7 +391,7 @@ export class Manager extends Event.EventEmitter {
 			this.getInformer().textContent = num;
 			this.isInformerShow = true;
 		}
-		this.fireEvent('onAfterSetCount');
+		this.emit('onAfterSetCount');
 	}
 
 	/**
@@ -384,10 +413,10 @@ export class Manager extends Event.EventEmitter {
 	{
 		withGuide = withGuide !== false;
 		showAfterAnimation = showAfterAnimation !== false;
-		this.fireEvent('onBeforeShowCollapsedBlock');
+		this.emit('onBeforeShowCollapsedBlock');
 		if(!this.isCollapsedShow)
 		{
-			this.fireEvent('onStartShowCollapsedBlock');
+			this.emit('onStartShowCollapsedBlock');
 			if(!(step instanceof Step))
 			{
 				step = new Step(step);
@@ -412,7 +441,7 @@ export class Manager extends Event.EventEmitter {
 				Dom.append(this.getInformer(), collapsedBlock);
 			}
 			this.isCollapsedShow = true;
-			this.fireEvent('onShowCollapsedBlock');
+			this.emit('onShowCollapsedBlock');
 		}
 
 		if (withGuide)
@@ -437,7 +466,7 @@ export class Manager extends Event.EventEmitter {
 
 	static checkButtonsState()
 	{
-		this.fireEvent('onCheckButtonsState');
+		this.emit('onCheckButtonsState');
 		let step = this.collapsedStep;
 		if(!step)
 		{
@@ -480,11 +509,11 @@ export class Manager extends Event.EventEmitter {
 
 	static showGuide()
 	{
-		this.fireEvent('onBeforeShowGuide');
+		this.emit('onBeforeShowGuide');
 		let step = this.collapsedStep;
 		if (!this.activeGuide && step)
 		{
-			this.fireEvent('onStartShowGuide');
+			this.emit('onStartShowGuide');
 			this.activeGuide = new Guide({
 				simpleMode: true,
 				steps: [
@@ -494,7 +523,7 @@ export class Manager extends Event.EventEmitter {
 			this.activeGuide.subscribe(Guide.getFullEventName("onFinish"), this.finishGuide.bind(this));
 			this.activeGuide.start();
 			Dom.remove(this.activeGuide.getPopup().closeIcon);
-			this.fireEvent('showCollapseWithGuide');
+			this.emit('showCollapseWithGuide');
 			this.checkButtonsState();
 		}
 	}
@@ -504,7 +533,7 @@ export class Manager extends Event.EventEmitter {
 		if(this.activeGuide instanceof Guide)
 		{
 			this.activeGuide.close();
-			this.fireEvent('onAfterGuide');
+			this.emit('onAfterGuide');
 		}
 	}
 
@@ -530,9 +559,9 @@ export class Manager extends Event.EventEmitter {
 						</div>
 					</div>
 				`;
-			this.fireEvent('onCreateCollapsedBlockNode');
+			this.emit('onCreateCollapsedBlockNode');
 			Dom.append(this.layout.collapseBlock, document.body);
-			this.fireEvent('onAfterAppendCollapsedBlockNode');
+			this.emit('onAfterAppendCollapsedBlockNode');
 		}
 
 		return this.layout.collapseBlock;
@@ -555,7 +584,7 @@ export class Manager extends Event.EventEmitter {
 
 			Event.bind(this.startBtn, "click", (event) => {
 				event.stopPropagation();
-				this.fireEvent('clickStartBtn');
+				this.emit('clickStartBtn');
 			});
 		}
 
@@ -579,7 +608,7 @@ export class Manager extends Event.EventEmitter {
 
 			Event.bind(this.repeatBtn, "click", (event) => {
 				event.stopPropagation();
-				this.fireEvent('clickRepeatBtn');
+				this.emit('clickRepeatBtn');
 			});
 		}
 
@@ -603,7 +632,7 @@ export class Manager extends Event.EventEmitter {
 
 			Event.bind(this.completedBtn, "click", (event) => {
 				event.stopPropagation();
-				this.fireEvent('clickCompletedBtn');
+				this.emit('clickCompletedBtn');
 			});
 		}
 
@@ -634,7 +663,7 @@ export class Manager extends Event.EventEmitter {
 	static closeCollapsePopup(event)
 	{
 		this.closeCollapseEntity();
-		this.fireEvent('clickCloseCollapseBlock');
+		this.emit('clickCloseCollapseBlock');
 	}
 
 	/**
@@ -642,19 +671,19 @@ export class Manager extends Event.EventEmitter {
 	 */
 	static clickCollapseBlockHandler()
 	{
-		this.fireEvent('clickCollapseBlock');
+		this.emit('clickCollapseBlock');
 	}
 
 	static finishGuide()
 	{
 		delete this.activeGuide;
 		this.checkButtonsState();
-		this.fireEvent('completeCloseGuide');
+		this.emit('completeCloseGuide');
 	}
 
 	static closeCollapseEntity()
 	{
-		this.fireEvent('onBeforeHideCollapsedBlock');
+		this.emit('onBeforeHideCollapsedBlock');
 		this.getCollapseBlock().style.display = 'none';
 		this.getImButton().style.display = 'block';
 		if(this.activeGuide instanceof Guide)
@@ -667,12 +696,12 @@ export class Manager extends Event.EventEmitter {
 		}
 		delete this.collapsedStep;
 		this.isCollapsedShow = false;
-		this.fireEvent('onHideCollapsedBlock');
+		this.emit('onHideCollapsedBlock');
 	}
 
 	static showLoader()
 	{
-		this.fireEvent('onBeforeShowLoader');
+		this.emit('onBeforeShowLoader');
 		this.startTitle = '';
 		this.startText = '';
 		this.layout.loader = new Loader({
@@ -682,7 +711,7 @@ export class Manager extends Event.EventEmitter {
 		this.layout.loader.show();
 		this.getStartPopup().style.display = 'flex';
 		Dom.addClass(this.getStartPopup(), "ui-tutor-popup-load");
-		this.fireEvent('onAfterShowLoader');
+		this.emit('onAfterShowLoader');
 	}
 
 	static hideLoader()
@@ -696,7 +725,7 @@ export class Manager extends Event.EventEmitter {
 
 	static showCollapsedLoader()
 	{
-		this.fireEvent('onBeforeShowCollapsedLoader');
+		this.emit('onBeforeShowCollapsedLoader');
 		this.layout.collapseLoader = new Loader({
 			target: this.getCollapseBlock(),
 			size: 34
@@ -704,19 +733,19 @@ export class Manager extends Event.EventEmitter {
 		this.layout.collapseLoader.show();
 		this.getCollapseBlock().style.display = 'flex';
 		Dom.addClass(this.getCollapseBlock(), "ui-tutor-popup-collapse-load");
-		this.fireEvent('onAfterShowCollapsedLoader');
+		this.emit('onAfterShowCollapsedLoader');
 	}
 
 	static hideCollapsedLoader()
 	{
-		this.fireEvent('onBeforeHideCollapsedLoader');
+		this.emit('onBeforeHideCollapsedLoader');
 		if (this.layout.collapseLoader)
 		{
 			this.layout.collapseLoader.destroy();
 			Dom.removeClass(this.getCollapseBlock(), "ui-tutor-popup-collapse-load");
 			this.getCollapseBlock().style.display = 'none';
 		}
-		this.fireEvent('onAfterHideCollapsedLoader');
+		this.emit('onAfterHideCollapsedLoader');
 	}
 
 	static showNode (node)
@@ -731,7 +760,7 @@ export class Manager extends Event.EventEmitter {
 
 	static checkFollowLink(step, scenario)
 	{
-		this.fireEvent('onStartCheckFollowLink');
+		this.emit('onStartCheckFollowLink');
 		step = step || this.collapsedStep;
 		if(step instanceof Step)
 		{
@@ -764,12 +793,12 @@ export class Manager extends Event.EventEmitter {
 				}
 			}
 		}
-		this.fireEvent('onFinishCheckFollowLink');
+		this.emit('onFinishCheckFollowLink');
 	}
 
 	static fireEvent(eventName)
 	{
-		this.emit(this.getFullEventName(eventName));
+		this.emit(eventName);
 	}
 }
 

@@ -6,6 +6,7 @@
 	background: #fff;
 	border: 1px solid #c6cdd3;
 	border-radius: 2px;
+	font: 13px/29px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 .ui-tile-selector-selector-wrap.readonly {
@@ -24,15 +25,12 @@
 	height: 29px;
 }
 
-.ui-tile-selector-select-container:before {
-	content: '';
-	display: inline-block;
-	vertical-align: middle;
-	height: 100%;
+.ui-tile-selector-select-container {
+	display: inline-flex;
+	align-items: center;
 }
 
 .ui-tile-selector-item {
-	font: 13px/29px "Helvetica Neue", Arial, Helvetica, sans-serif;
 	padding: 0 30px 0 13px;
 	background-color: #bcedfc;
 	color: #1066bb !important;
@@ -69,21 +67,22 @@
 	position: relative;
 	display: inline-block;
 	margin: 0 7px 0 18px;
-	border-bottom: 1px solid transparent;
-	font: bold 13px/17px "Helvetica Neue", Arial, Helvetica, sans-serif;
-	color: #2067b0;
 	vertical-align: middle;
-	transition: border-bottom-color .2s linear;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	line-height: 17px;
+	font-weight: bold;
+	color: #2067b0;
+	transition: .1s;
 	cursor: pointer;
 }
 
 .ui-tile-selector-select:before {
 	content: '';
-	position: absolute;
-	top: 5px;
-	left: -14px;
+	display: inline-block;
 	height: 8px;
 	width: 8px;
+	margin: 0 6px 0 -12px;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAH0lEQVQoz2NgQAIK6Rv+gzADLkCeApggLkxYAe0dCQDF5T3p5/14OgAAAABJRU5ErkJggg==) no-repeat center;
 }
 
@@ -96,7 +95,7 @@
 	top: 50%;
 	right: 15px;
 	display: inline-block;
-	margin: 1px 0 0 0;
+	margin: 1px 0 0;
 	border-bottom: 1px solid transparent;
 	font: bold 13px/17px "Helvetica Neue", Arial, Helvetica, sans-serif;
 	color: #2067b0;
@@ -105,6 +104,7 @@
 	transform: translate(0,-50%);
 	cursor: pointer;
 }
+
 .ui-tile-selector-add:before {
 	content: '';
 	position: absolute;
@@ -114,6 +114,7 @@
 	width: 8px;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAH0lEQVQoz2NgQAIK6Rv+gzADLkCeApggLkxYAe0dCQDF5T3p5/14OgAAAABJRU5ErkJggg==) no-repeat center;
 }
+
 .ui-tile-selector-add:after {
 	content: '';
 	position: absolute;
@@ -124,6 +125,7 @@
 	background: rgba(130,139,149,.2);
 	transform: translate(0,-50%);
 }
+
 .ui-tile-selector-add:hover {
 	border-bottom-color: #2067b0;
 }
@@ -319,7 +321,6 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	outline: 1px dashed #f00;
 	background-color: rgba(255,255,255,.5);
 }
 .ui-tile-selector-selector-mask-active {

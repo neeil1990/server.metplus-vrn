@@ -4,7 +4,8 @@ export class Step extends Event.EventEmitter
 {
 	constructor(options)
 	{
-		super(options);
+		super();
+		this.setEventNamespace('BX.UI.Tutor.Step');
 		options = Type.isPlainObject(options) ? options : {};
 
 		this.id = options.id || null;
@@ -132,6 +133,6 @@ export class Step extends Event.EventEmitter
 	 */
 	static getFullEventName(shortName)
 	{
-		return "Step:" + shortName;
+		return shortName;
 	}
 }

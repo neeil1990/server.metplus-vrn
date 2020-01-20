@@ -25,6 +25,7 @@ Extension::load([
 	'popup_menu',
 	'marketplace',
 	'applayout',
+	'landing_master'
 ]);
 $assets = Assets\Manager::getInstance();
 $assets->addAsset(
@@ -114,7 +115,7 @@ if ($arResult['ERRORS'])
 					{
 						landingAlertMessage(
 							'<?= \CUtil::jsEscape($errorMessage);?>',
-							false
+							<?= $component->isTariffError($errorCode) ? 'true' : 'false';?>
 						);
 					}
 				});
@@ -134,9 +135,30 @@ if ($arResult['FATAL'])
 $site = $arResult['SITE'];
 $context = \Bitrix\Main\Application::getInstance()->getContext();
 $request = $context->getRequest();
+$successSave = $arResult['SUCCESS_SAVE'];
 $curUrl = $arResult['CUR_URI'];
 $urls = $arResult['TOP_PANEL_CONFIG']['urls'];
 $this->getComponent()->initAPIKeys();
+
+if ($request->get('close') == 'Y')
+{
+	?>
+	<script type="text/javascript">
+		if (top.window !== window)
+		{
+			top.window.location.reload();
+		}
+	</script>
+	<div class="landing-view-loader-container">
+		<div class="main-ui-loader main-ui-show" data-is-shown="true" style="">
+			<svg class="main-ui-loader-svg" viewBox="25 25 50 50">
+				<circle class="main-ui-loader-svg-circle" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle>
+			</svg>
+		</div>
+	</div>
+	<?
+	return;
+}
 
 // top panel
 if (!$request->offsetExists('landing_mode')):
@@ -152,8 +174,10 @@ if (!$request->offsetExists('landing_mode')):
 	// tpl vars
 	$helpUrl = \Bitrix\Landing\Help::getHelpUrl('LANDING_EDIT');
 	$startChain = $component->getMessageType('LANDING_TPL_START_PAGE');
+	$lightMode = $arParams['PANEL_LIGHT_MODE'] == 'Y';
+	$panelModifier = $lightMode ? ' landing-ui-panel-top-light' : '';
 	?>
-	<div class="landing-ui-panel landing-ui-panel-top">
+	<div class="landing-ui-panel landing-ui-panel-top<?= $panelModifier;?>">
 		<div class="landing-ui-panel-top-logo">
 		<?if ($arParams['PAGE_URL_URL_SITES']):?>
 			<a href="<?= $arParams['PAGE_URL_URL_SITES'];?>" data-slider-ignore-autobinding="true"><?
@@ -204,24 +228,37 @@ if (!$request->offsetExists('landing_mode')):
 			<span class="landing-ui-panel-top-history-button landing-ui-panel-top-history-redo landing-ui-disabled"></span>
 		</div>
 		<div class="landing-ui-panel-top-menu" id="landing-panel-settings">
-			<span class="ui-btn ui-btn-link ui-btn-icon-setting landing-ui-panel-top-menu-link landing-ui-panel-top-menu-link-settings" title="<?= Loc::getMessage('LANDING_TPL_SETTINGS_URL');?>"></span>
+			<span class="ui-btn ui-btn-light-border ui-btn-icon-setting landing-ui-panel-top-menu-link landing-ui-panel-top-menu-link-settings" title="<?= Loc::getMessage('LANDING_TPL_SETTINGS_URL');?>"></span>
 			<span class="ui-btn ui-btn-xs ui-btn-light ui-btn-round landing-ui-panel-top-chain-link landing-ui-panel-top-menu-link-settings">
 				<?= Loc::getMessage('LANDING_TPL_SETTINGS_URL');?>
 			</span>
+
+			<?if ($arParams['DRAFT_MODE'] != 'Y'):?>
 			<a href="<?= $urls['preview']->getUri();?>" id="landing-urls-preview" <?
 				?>data-slider-ignore-autobinding="true" <?
 				?>class="ui-btn ui-btn-light-border landing-ui-panel-top-menu-link landing-btn-menu" <?
-				?>target="_blank">
+				?>target="<?= ($arParams['DONT_LEAVE_AFTER_PUBLICATION'] == 'Y') ? '_self' : '_blank';?>">
 				<?= Loc::getMessage('LANDING_TPL_PREVIEW_URL');?>
 			</a>
-			<div class="ui-btn-split ui-btn-primary landing-btn-menu<?= !$arResult['CAN_PUBLIC_SITE'] ? ' ui-btn-disabled' : '';?>">
-				<a href="<?= ($arParams['TYPE'] == 'STORE') ? $urls['publicationAll']->getUri() : $urls['publication']->getUri();?>" <?
+			<?endif;?>
+
+			<?if (!$lightMode && $arParams['DRAFT_MODE'] != 'Y'):?>
+				<div class="ui-btn-split ui-btn-primary landing-btn-menu<?= !$arResult['CAN_PUBLIC_SITE'] ? ' ui-btn-disabled' : '';?>">
+					<a href="<?= ($arParams['FULL_PUBLICATION'] == 'Y') ? $urls['publicationAll']->getUri() : $urls['publication']->getUri();?>" <?
 					?>id="landing-publication" data-slider-ignore-autobinding="true" <?
-					?>class="ui-btn-main" target="_blank">
+					?>class="ui-btn-main" <?
+					?>target="<?= ($arParams['DONT_LEAVE_AFTER_PUBLICATION'] == 'Y') ? '_self' : '_blank';?>">
+						<?= Loc::getMessage('LANDING_TPL_PUBLIC_URL');?>
+					</a>
+					<span id="landing-publication-submenu" class="ui-btn-extra"></span>
+				</div>
+			<?elseif ($arParams['DRAFT_MODE'] != 'Y'):?>
+				<a href="<?= ($arParams['FULL_PUBLICATION'] == 'Y') ? $urls['publicationAll']->getUri() : $urls['publication']->getUri();?>" id="landing-publication"
+					class="ui-btn ui-btn-primary landing-btn-menu<?= !$arResult['CAN_PUBLIC_SITE'] ? ' ui-btn-disabled' : '';?>" <?
+					?>target="<?= ($arParams['DONT_LEAVE_AFTER_PUBLICATION'] == 'Y') ? '_self' : '_blank';?>">
 					<?= Loc::getMessage('LANDING_TPL_PUBLIC_URL');?>
 				</a>
-				<span id="landing-publication-submenu" class="ui-btn-extra"></span>
-			</div>
+			<?endif;?>
 			<?if ($helpUrl):?>
 			<a href="<?= $helpUrl;?>" class="ui-btn ui-btn-light ui-btn-round landing-ui-panel-top-menu-link landing-ui-panel-top-menu-link-help" target="_blank">
 				<span class="landing-ui-panel-top-menu-link-help-icon">?</span>
@@ -238,7 +275,7 @@ if (!$request->offsetExists('landing_mode')):
 	{
 		BX.message({
 			LANDING_PUBLIC_PAGE_REACHED: '<?= \CUtil::jsEscape(Loc::getMessage('LANDING_PUBLIC_PAGE_REACHED'));?>',
-			LANDING_TPL_SETTINGS_SITE_URL: '<?= \CUtil::jsEscape(Loc::getMessage('LANDING_TPL_SETTINGS_SITE_URL'));?>',
+			LANDING_TPL_SETTINGS_SITE_URL: '<?= \CUtil::jsEscape($component->getMessageType('LANDING_TPL_SETTINGS_SITE_URL'));?>',
 			LANDING_TPL_SETTINGS_CATALOG_URL: '<?= \CUtil::jsEscape(Loc::getMessage('LANDING_TPL_SETTINGS_CATALOG_URL'));?>',
 			LANDING_TPL_SETTINGS_UNPUBLIC: '<?= \CUtil::jsEscape(Loc::getMessage('LANDING_TPL_SETTINGS_UNPUBLIC'));?>',
 			LANDING_TPL_PUBLIC_URL_PAGE: '<?= \CUtil::jsEscape(Loc::getMessage('LANDING_TPL_PUBLIC_URL_PAGE'));?>',
@@ -319,6 +356,12 @@ else
 	</style>
 	<script type="text/javascript">
 		BX.ready(function() {
+			<?if ($successSave):?>
+			if (typeof BX.SidePanel !== 'undefined')
+			{
+				BX.SidePanel.Instance.close();
+			}
+			<?endif;?>
 			BX.Landing.Component.View.create(
 				<?= \CUtil::phpToJSObject($arResult['TOP_PANEL_CONFIG']);?>,
 				true

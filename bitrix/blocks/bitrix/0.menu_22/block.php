@@ -1,41 +1,55 @@
 <section class="landing-block landing-block-menu landing-block-menu-store g-pt-25 g-pb-25">
 	<div class="container">
-		<nav class="landing-block-node-navbar g-pa-0 g-mb-0 navbar navbar-expand-lg g-brd-0 u-navbar-color-main u-navbar-color-primary--hover">
+		<nav class="landing-block-node-navbar g-pa-0 g-mb-0 navbar navbar-expand-md g-brd-0 u-navbar-color-main u-navbar-color-primary--hover">
 
 			<div class="collapse navbar-collapse align-items-center" id="navBar">
-				<ul class="landing-block-node-menu navbar-nav flex-column list-unstyled js-scroll-nav">
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
-						   href="#design">
-							Design
+				<ul class="landing-block-node-menu navbar-nav g-menu-multilevel flex-column list-unstyled js-scroll-nav">
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
+						   href="#about">
+							About us
+						</a>
+						<ul class="landing-block-node-menu navbar-nav g-menu-sublevel g-ml-20 flex-column list-unstyled js-scroll-nav">
+							<li class="landing-block-node-menu-item nav-item g-mt-14">
+								<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
+								   href="#product">
+									Product
+								</a>
+							</li>
+							<li class="landing-block-node-menu-item nav-item g-mt-14">
+								<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
+								   href="#development">
+									Development
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
+						   href="#information">
+							Information
 						</a>
 					</li>
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
-						   href="#development">
-							Development
-						</a>
-					</li>
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
 						   href="#services">
 							Services
 						</a>
 					</li>
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
 						   href="#support">
 							Support
 						</a>
 					</li>
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
 						   href="#investment">
 							Investment
 						</a>
 					</li>
-					<li class="landing-block-node-menu-item nav-item mb-3">
-						<a class="landing-block-node-menu-link d-flex justify-content-between u-link-v5"
+					<li class="landing-block-node-menu-item nav-item g-mb-14">
+						<a class="landing-block-node-menu-link justify-content-between u-link-v5 mb-3"
 						   href="#financing">
 							Financing
 						</a>

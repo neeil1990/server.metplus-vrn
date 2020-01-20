@@ -986,24 +986,27 @@ EOT;
 
 			$tag = '<select '.static::buildTagAttributes($attrList).'>';
 
-			foreach($arUserField["USER_TYPE"]["FIELDS"] as $key => $val)
+			if(isset($arUserField["USER_TYPE"]["FIELDS"]) && is_array($arUserField["USER_TYPE"]["FIELDS"]))
 			{
-				$bSelected = in_array($key, $value) && (
-						(!$bWasSelect) ||
-						($arUserField["MULTIPLE"] == "Y")
-					);
-				$bWasSelect = $bWasSelect || $bSelected;
-
-				$attrList = array(
-					'value' => $key,
-				);
-
-				if($bSelected)
+				foreach($arUserField["USER_TYPE"]["FIELDS"] as $key => $val)
 				{
-					$attrList['selected'] = 'selected';
-				}
+					$bSelected = in_array($key, $value) && (
+							(!$bWasSelect) ||
+							($arUserField["MULTIPLE"] == "Y")
+						);
+					$bWasSelect = $bWasSelect || $bSelected;
 
-				$tag .= '<option '.static::buildTagAttributes($attrList).'>'.htmlspecialcharsbx($val).'</option>';
+					$attrList = array(
+						'value' => $key,
+					);
+
+					if($bSelected)
+					{
+						$attrList['selected'] = 'selected';
+					}
+
+					$tag .= '<option '.static::buildTagAttributes($attrList).'>'.htmlspecialcharsbx($val).'</option>';
+				}
 			}
 			$tag .= '</select>';
 

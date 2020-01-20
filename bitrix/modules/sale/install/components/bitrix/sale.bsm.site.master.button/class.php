@@ -9,6 +9,8 @@ use \Bitrix\Main\ModuleManager,
  */
 class SaleBsmSiteMasterButton extends \CBitrixComponent
 {
+	private const IS_SALE_CRM_SITE_MASTER_FINISH = "~IS_SALE_CRM_SITE_MASTER_FINISH";
+
 	/**
 	 * @return mixed|void
 	 * @throws \Bitrix\Main\ArgumentNullException
@@ -16,17 +18,14 @@ class SaleBsmSiteMasterButton extends \CBitrixComponent
 	 */
 	public function executeComponent()
 	{
-		if (ModuleManager::isModuleInstalled('extranet')
-			&& !ModuleManager::isModuleInstalled('bitrix24')
-			&& LANGUAGE_ID === "ru"
-		)
+		if ($this->isShowButton())
 		{
 			$this->prepareResult();
 			$this->includeComponentTemplate();
 		}
 	}
 
-	private function prepareResult()
+	private function prepareResult(): void
 	{
 		$this->arResult["MASTER_PATH"] = $this->getMasterPath();
 	}
@@ -40,5 +39,32 @@ class SaleBsmSiteMasterButton extends \CBitrixComponent
 		$bsmSiteMasterPath = getLocalPath('components'.$bsmSiteMasterPath.'/slider.php');
 
 		return $bsmSiteMasterPath;
+	}
+
+	/**
+	 * @return bool
+	 * @throws \Bitrix\Main\ArgumentNullException
+	 * @throws \Bitrix\Main\ArgumentOutOfRangeException
+	 */
+	private function isShowButton(): bool
+	{
+		return ($this->isSaleCrmSiteMasterFinish()
+			||
+			(
+				ModuleManager::isModuleInstalled('extranet')
+				&& !ModuleManager::isModuleInstalled('bitrix24')
+				&& LANGUAGE_ID === "ru"
+			)
+		);
+	}
+
+	/**
+	 * @return bool
+	 * @throws \Bitrix\Main\ArgumentNullException
+	 * @throws \Bitrix\Main\ArgumentOutOfRangeException
+	 */
+	private function isSaleCrmSiteMasterFinish(): bool
+	{
+		return (Option::get("sale", self::IS_SALE_CRM_SITE_MASTER_FINISH, "N") === "Y");
 	}
 }

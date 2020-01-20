@@ -1,15 +1,11 @@
 <?
 namespace Bitrix\Lists\Controller;
 
-use Bitrix\Lists\Copy\Container;
-use Bitrix\Lists\Copy\Field as FieldCopier;
-use Bitrix\Lists\Copy\Iblock as IblockCopier;
-use Bitrix\Lists\Copy\Section as SectionCopier;
+use Bitrix\Iblock\Copy\Manager;
 use Bitrix\Lists\Security\IblockRight;
 use Bitrix\Lists\Security\Right;
 use Bitrix\Lists\Security\RightParam;
 use Bitrix\Lists\Service\Param;
-use Bitrix\Main\Copy\ContainerManager;
 
 class Iblock extends Entity
 {
@@ -24,20 +20,26 @@ class Iblock extends Entity
 			return null;
 		}
 
-		$iblockCopier = $this->getCopier();
-		$iblockIdToCopy = $params["IBLOCK_ID"];
+		$manager = new Manager($params["IBLOCK_TYPE_ID"], [$params["IBLOCK_ID"]], $params["SOCNET_GROUP_ID"]);
 
-		$containerManager = $this->getContainerManager($iblockIdToCopy);
+		$result = $manager->startCopy();
 
-		$result = $iblockCopier->copy($containerManager);
 		if ($result->getErrors())
 		{
 			$this->addErrors($result->getErrors());
 			return null;
 		}
 
-		$listCopiedIds = $result->getData();
-		return $listCopiedIds[$iblockIdToCopy];
+		$mapIdsCopiedIblock = $manager->getMapIdsCopiedEntity();
+
+		if (array_key_exists($params["IBLOCK_ID"], $mapIdsCopiedIblock))
+		{
+			return $mapIdsCopiedIblock[$params["IBLOCK_ID"]];
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	private function checkPermission(Param $param, $permission)
@@ -52,23 +54,5 @@ class Iblock extends Entity
 		{
 			$this->addErrors($right->getErrors());
 		}
-	}
-
-	private function getCopier()
-	{
-		$iblock = new IblockCopier();
-		$iblock->addEntityToCopy(new FieldCopier());
-		$iblock->addEntityToCopy(new SectionCopier());
-
-		return $iblock;
-	}
-
-	private function getContainerManager($entityId)
-	{
-		$containerManager = new ContainerManager();
-		$container = new Container($entityId);
-		$containerManager->addContainer($container);
-
-		return $containerManager;
 	}
 }

@@ -177,10 +177,9 @@ else
 							<div class="social-group-create-container first-step"><?
 
 								$typeCode = \Bitrix\Socialnetwork\Item\Workgroup::getTypeCodeByParams(array(
-									'typesList' => $arResult['Types'],
-									'fields' => $arResult['POST']
+									"typesList" => $arResult["Types"],
+									"fields" => $arResult["POST"]
 								));
-
 								foreach($arResult["TypeRowList"] as $rowCode)
 								{
 									?><div class="social-group-create-inner">

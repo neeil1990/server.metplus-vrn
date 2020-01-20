@@ -23,6 +23,11 @@ $bFileman = Loader::includeModule("fileman");
 $bExcel = isset($_REQUEST["mode"]) && ($_REQUEST["mode"] == "excel");
 $dsc_cookie_name = (string)Main\Config\Option::get('main', 'cookie_name', 'BITRIX_SM')."_DSC";
 
+/** @global CAdminPage $adminPage */
+global $adminPage;
+/** @global CAdminSidePanelHelper $adminSidePanelHelper */
+global $adminSidePanelHelper;
+
 $publicMode = $adminPage->publicMode;
 $selfFolderUrl = $adminPage->getSelfFolderUrl();
 
@@ -80,6 +85,13 @@ while($arSite = $rsSites->Fetch())
 
 $bWorkFlow = $bWorkflow && (CIBlock::GetArrayByID($IBLOCK_ID, "WORKFLOW") != "N");
 $bBizproc = $bBizproc && (CIBlock::GetArrayByID($IBLOCK_ID, "BIZPROC") != "N");
+
+/** @var CIBlockDocument $iblockDocument */
+$iblockDocument = null;
+if ($bBizproc)
+{
+	$iblockDocument = new CIBlockDocument();
+}
 
 $elementTranslit = $arIBlock["FIELDS"]["CODE"]["DEFAULT_VALUE"];
 $useElementTranslit = $elementTranslit["TRANSLITERATION"] == "Y" && $elementTranslit["USE_GOOGLE"] != "Y";
@@ -1094,8 +1106,8 @@ if ($bCatalog)
 
 if($lAdmin->EditAction())
 {
-	if(is_array($_FILES['FIELDS']))
-		CAllFile::ConvertFilesToPost($_FILES['FIELDS'], $_POST['FIELDS']);
+	if (!empty($_FILES['FIELDS']) && is_array($_FILES['FIELDS']))
+		CFile::ConvertFilesToPost($_FILES['FIELDS'], $_REQUEST['FIELDS']);
 
 	if ($bCatalog)
 	{
@@ -1136,7 +1148,7 @@ if($lAdmin->EditAction())
 			}
 			elseif ($bBizproc)
 			{
-				if (CIBlockDocument::IsDocumentLocked($ID, ""))
+				if ($iblockDocument->IsDocumentLocked($ID, ""))
 				{
 					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_LOCKED", array("#ID#" => $ID)), $ID);
 					continue;
@@ -1147,7 +1159,7 @@ if($lAdmin->EditAction())
 			{
 				if (!CIBlockElementRights::UserHasRightTo($IBLOCK_ID, $ID, "element_edit"))
 				{
-					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					continue;
 				}
 
@@ -1168,7 +1180,7 @@ if($lAdmin->EditAction())
 			}
 			elseif($bBizproc)
 			{
-				$bCanWrite = CIBlockDocument::CanUserOperateDocument(
+				$bCanWrite = $iblockDocument->CanUserOperateDocument(
 					CBPCanUserOperateOperation::WriteDocument,
 					$USER->GetID(),
 					$ID,
@@ -1180,13 +1192,13 @@ if($lAdmin->EditAction())
 				);
 				if(!$bCanWrite)
 				{
-					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					continue;
 				}
 			}
 			elseif(!CIBlockElementRights::UserHasRightTo($IBLOCK_ID, $ID, "element_edit"))
 			{
-				$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+				$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 				continue;
 			}
 
@@ -1610,7 +1622,7 @@ if ($arID = $lAdmin->GroupAction())
 			}
 			elseif ($bBizproc)
 			{
-				if (CIBlockDocument::IsDocumentLocked($ID, "") && !($actionId == ActionType::ELEMENT_UNLOCK && CBPDocument::IsAdmin()))
+				if ($iblockDocument->IsDocumentLocked($ID, "") && !($actionId == ActionType::ELEMENT_UNLOCK && CBPDocument::IsAdmin()))
 				{
 					$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_LOCKED", array("#ID#" => $ID)), $ID);
 					continue;
@@ -1631,7 +1643,7 @@ if ($arID = $lAdmin->GroupAction())
 			}
 			elseif ($bBizproc)
 			{
-				$bCanWrite = CIBlockDocument::CanUserOperateDocument(
+				$bCanWrite = $iblockDocument->CanUserOperateDocument(
 					CBPCanUserOperateOperation::WriteDocument,
 					$USER->GetID(),
 					$ID,
@@ -1651,7 +1663,7 @@ if ($arID = $lAdmin->GroupAction())
 
 			if (!$bPermissions)
 			{
-				$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+				$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 				continue;
 			}
 
@@ -1692,7 +1704,7 @@ if ($arID = $lAdmin->GroupAction())
 					}
 					else
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					}
 					break;
 				case ActionType::MOVE_TO_SECTION:
@@ -1729,13 +1741,13 @@ if ($arID = $lAdmin->GroupAction())
 							}
 							else
 							{
-								$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+								$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 							}
 						}
 					}
 					else
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					}
 					break;
 				case ActionType::ELEMENT_WORKFLOW_STATUS:
@@ -1762,7 +1774,7 @@ if ($arID = $lAdmin->GroupAction())
 							}
 							else
 							{
-								$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+								$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 							}
 						}
 					}
@@ -1771,7 +1783,7 @@ if ($arID = $lAdmin->GroupAction())
 					$elementAccess = true;
 					if ($bWorkFlow && !CIBlockElementRights::UserHasRightTo($IBLOCK_ID, $ID, "element_edit"))
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 						$elementAccess = false;
 					}
 					if ($elementAccess)
@@ -1782,7 +1794,7 @@ if ($arID = $lAdmin->GroupAction())
 					$elementAccess = true;
 					if ($bWorkFlow && !CIBlockElementRights::UserHasRightTo($IBLOCK_ID, $ID, "element_edit"))
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 						$elementAccess = false;
 					}
 					if ($elementAccess)
@@ -1819,7 +1831,7 @@ if ($arID = $lAdmin->GroupAction())
 					}
 					else
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					}
 					break;
 				case ActionType::CLEAR_COUNTER:
@@ -1832,7 +1844,7 @@ if ($arID = $lAdmin->GroupAction())
 					}
 					else
 					{
-						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+						$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					}
 					break;
 			}
@@ -1853,7 +1865,7 @@ if ($arID = $lAdmin->GroupAction())
 							}
 							else
 							{
-								$lAdmin->AddGroupError(GetMessage("IBLIST_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
+								$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 							}
 						}
 						break;
@@ -1868,7 +1880,7 @@ if ($arID = $lAdmin->GroupAction())
 						}
 						else
 						{
-							$lAdmin->AddGroupError(GetMessage("IBLIST_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
+							$lAdmin->AddGroupError(GetMessage("IBEL_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 						}
 						break;
 				}
@@ -2102,7 +2114,7 @@ foreach (array_keys($rawRows) as $rowId)
 	}
 	elseif($bBizproc)
 	{
-		$lockStatus = CIBlockDocument::IsDocumentLocked($itemId, "") ? "red" : "green";
+		$lockStatus = $iblockDocument->IsDocumentLocked($itemId, "") ? "red" : "green";
 	}
 	else
 	{
@@ -2649,7 +2661,7 @@ foreach (array_keys($rawRows) as $rowId)
 		$arStr1 = array();
 		foreach ($arDocumentStates as $kk => $vv)
 		{
-			$canViewWorkflow = CIBlockDocument::CanUserOperateDocument(
+			$canViewWorkflow = $iblockDocument->CanUserOperateDocument(
 				CBPCanUserOperateOperation::ViewWorkflow,
 				$USER->GetID(),
 				$itemId,
@@ -3549,7 +3561,7 @@ foreach($arRows as $idRow => $row)
 	}
 	elseif($bBizproc)
 	{
-		$bWritePermission = CIBlockDocument::CanUserOperateDocument(
+		$bWritePermission = $iblockDocument->CanUserOperateDocument(
 			CBPCanUserOperateOperation::WriteDocument,
 			$USER->GetID(),
 			$idRow,
@@ -3560,7 +3572,7 @@ foreach($arRows as $idRow => $row)
 			)
 		);
 
-		$bStartWorkflowPermission = CIBlockDocument::CanUserOperateDocument(
+		$bStartWorkflowPermission = $iblockDocument->CanUserOperateDocument(
 			CBPCanUserOperateOperation::StartWorkflow,
 			$USER->GetID(),
 			$idRow,
@@ -4039,6 +4051,7 @@ if((!isset($_REQUEST["mode"]) || $_REQUEST["mode"]=='list' || $_REQUEST["mode"]=
 
 CJSCore::Init('file_input');
 
+$lAdmin->BeginPrologContent();
 if (!empty($productLimits))
 {
 	Loader::includeModule('ui');
@@ -4053,8 +4066,9 @@ if (!empty($productLimits))
 	); ?></span>
 	</div><?
 }
+$lAdmin->EndPrologContent();
 
-if (Loader::includeModule('crm') && Instagram::isAvailable())
+if (Loader::includeModule('crm') && Instagram::isAvailable() && Instagram::isActiveStatus())
 {
 	$lAdmin->setFilterPresets([
 		'import_instagram' => [

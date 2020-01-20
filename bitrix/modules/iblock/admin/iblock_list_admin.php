@@ -23,6 +23,11 @@ $bFileman = Loader::includeModule("fileman");
 $bExcel = isset($_REQUEST["mode"]) && ($_REQUEST["mode"] == "excel");
 $dsc_cookie_name = (string)Main\Config\Option::get('main', 'cookie_name', 'BITRIX_SM')."_DSC";
 
+/** @global CAdminPage $adminPage */
+global $adminPage;
+/** @global CAdminSidePanelHelper $adminSidePanelHelper */
+global $adminSidePanelHelper;
+
 $publicMode = $adminPage->publicMode;
 $selfFolderUrl = $adminPage->getSelfFolderUrl();
 
@@ -85,6 +90,13 @@ while($arSite = $rsSites->Fetch())
 
 $bWorkFlow = $bWorkflow && (CIBlock::GetArrayByID($IBLOCK_ID, "WORKFLOW") != "N");
 $bBizproc = $bBizproc && (CIBlock::GetArrayByID($IBLOCK_ID, "BIZPROC") != "N");
+
+/** @var CIBlockDocument $iblockDocument */
+$iblockDocument = null;
+if ($bBizproc)
+{
+	$iblockDocument = new CIBlockDocument();
+}
 
 $elementTranslit = $arIBlock["FIELDS"]["CODE"]["DEFAULT_VALUE"];
 $useElementTranslit = $elementTranslit["TRANSLITERATION"] == "Y" && $elementTranslit["USE_GOOGLE"] != "Y";
@@ -1095,8 +1107,8 @@ if ($bCatalog)
 // Handle edit action (check for permission before save!)
 if($lAdmin->EditAction())
 {
-	if(is_array($_FILES['FIELDS']))
-		CAllFile::ConvertFilesToPost($_FILES['FIELDS'], $_POST['FIELDS']);
+	if (!empty($_FILES['FIELDS']) && is_array($_FILES['FIELDS']))
+		CFile::ConvertFilesToPost($_FILES['FIELDS'], $_REQUEST['FIELDS']);
 
 	if ($bCatalog)
 	{
@@ -1197,7 +1209,7 @@ if($lAdmin->EditAction())
 			{
 				if (!CIBlockElementRights::UserHasRightTo($IBLOCK_ID, $ID, "element_edit"))
 				{
-					$lAdmin->AddUpdateError(GetMessage("IBEL_A_UPDERR3")." (ID:".$ID.")", $ID);
+					$lAdmin->AddUpdateError(GetMessage("IBLIST_A_UPDERR_ACCESS", array("#ID#" => $ID)), $ID);
 					continue;
 				}
 
@@ -1682,7 +1694,7 @@ if(($arID = $lAdmin->GroupAction()))
 				}
 				elseif ($bBizproc)
 				{
-					$bCanWrite = CIBlockDocument::CanUserOperateDocument(
+					$bCanWrite = $iblockDocument->CanUserOperateDocument(
 						CBPCanUserOperateOperation::WriteDocument,
 						$USER->GetID(),
 						$ID,
@@ -4285,6 +4297,7 @@ if((!$bExcel) && $bCatalog && $bCurrency)
 }
 CJSCore::Init('file_input');
 
+$lAdmin->BeginPrologContent();
 if (!empty($productLimits))
 {
 	Loader::includeModule('ui');
@@ -4299,8 +4312,9 @@ if (!empty($productLimits))
 		); ?></span>
 	</div><?
 }
+$lAdmin->EndPrologContent();;
 
-if (Loader::includeModule('crm') && Instagram::isAvailable())
+if (Loader::includeModule('crm') && Instagram::isAvailable() && Instagram::isActiveStatus())
 {
 	$lAdmin->setFilterPresets([
 		'import_instagram' => [

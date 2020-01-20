@@ -340,12 +340,6 @@ class CAdminUiList extends CAdminList
 		return $this->ActionAjaxPostGrid($postParams);
 	}
 
-	public function AddGroupActionTable($arActions, $arParams = array())
-	{
-		$this->arActions = $arActions;
-		$this->arActionsParams = $arParams;
-	}
-
 	public function ActionAjaxPostGrid($postParams)
 	{
 		return "BX.Main.gridManager.getById('".$this->table_id."').instance.reloadTable('POST', ".
@@ -719,6 +713,8 @@ class CAdminUiList extends CAdminList
 			}
 		}
 	}
+
+	public function ShowActionTable() {}
 
 	public function DisplayList($arParams = array())
 	{
@@ -1212,7 +1208,7 @@ class CAdminUiListActionPanel
 					]
 				]
 			]
-	 	];
+		];
 	 */
 	public function setActionSections(array $actionSections, $listKeyForDelete = [])
 	{

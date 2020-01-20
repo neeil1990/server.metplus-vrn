@@ -226,6 +226,22 @@ namespace
 							"FIELD_PARAM" => $answer["FIELD_PARAM"],
 							"COLOR" => $answer["COLOR"],
 						);
+						if (is_array($answer["IMAGE_ID"]))
+						{
+							$res["IMAGE_ID"] = $answer["IMAGE_ID"];
+							if (array_key_exists($res["ID"], $this->answers) && $this->answers[$res["ID"]]["IMAGE_ID"] > 0)
+							{
+								$res["IMAGE_ID"]["old_file"] = $this->answers[$res["ID"]]["IMAGE_ID"];
+							}
+						}
+						else if ($this->answers[$res["ID"]]["IMAGE_ID"] > 0 && empty($answer["IMAGE_ID"]))
+						{
+							$res["IMAGE_ID"] = [
+								"old_file" => $this->answers[$res["ID"]]["IMAGE_ID"],
+								"del" => "Y"
+							];
+						}
+
 						$this->getApplication()->ResetException();
 						$action = ($answer["DELETED"] == "Y" ? "delete" : ($res["ID"] > 0 ? "update" : "add"));
 						if ($action == "add" && ($result = \CVoteAnswer::Add($res)) && $result !== false)
@@ -478,11 +494,13 @@ namespace Bitrix\Vote\Component
 		protected $maxId = 0;
 		/** @var  ErrorCollection */
 		protected $errorCollection;
+		/** @var string */
+		protected $logDirectiory;
 
 		public function __construct(string $id)
 		{
 			$this->id = $id;
-			$name = \CTempFile::GetDirectoryName(
+			$this->logDirectiory = $name = \CTempFile::GetDirectoryName(
 				12,
 				array(
 					"vote",
@@ -606,8 +624,10 @@ namespace Bitrix\Vote\Component
 				}
 				else if ($request->getPost("action_button_" . $this->getGridId()) === 'edit')
 				{
+					\CAllFile::ConvertFilesToPost(($request->getFile("FIELDS") ?: []), $rawFiles);
+
 					foreach ($request->getPost("FIELDS") as $id => $fields)
-						$this->update($id, $fields);
+						$this->update($id, $fields, $rawFiles[$id]);
 				}
 				else
 				{
@@ -698,6 +718,7 @@ namespace Bitrix\Vote\Component
 				$id = "n".$this->getNextId();
 				$this->data[$id] = array(
 					"ID" => $id,
+					"IMAGE_ID" => $data["IMAGE_ID"],
 					"MESSAGE" => $data["MESSAGE"],
 					"MESSAGE_TYPE" => $data["MESSAGE_TYPE"],
 					"FIELD_TYPE" => $data["FIELD_TYPE"],
@@ -730,15 +751,36 @@ namespace Bitrix\Vote\Component
 		 * @param array $data
 		 * @return bool
 		 */
-		public function update($id, array $data)
+		public function update($id, array $data, $files = null)
 		{
 			$data = (array_key_exists($id, $this->data) ? array_merge($this->data[$id], $data) : $data);
 			$data["QUESTION_ID"] = 1; // hack to get through \CVoteAnswer::CheckFields
+
+			$imageFile = is_array($files) && array_key_exists("IMAGE_ID", $files) ? $files["IMAGE_ID"] : null;
+			if (is_array($imageFile) && $imageFile["error"] <= 0)
+			{
+				$file2 = \CBXVirtualIo::GetInstance()->GetFile($this->logDirectiory);
+				if (\CBXVirtualIo::GetInstance()->Move($imageFile["tmp_name"], $file2->GetPath()."/".$imageFile["name"]))
+				{
+					$newFile = \CBXVirtualIo::GetInstance()->GetFile($file2->GetPath()."/".$imageFile["name"]);
+					if ($newFile->IsExists())
+					{
+						$newFile->GetPathWithName();
+						$data["IMAGE_ID"] = array_merge($imageFile, [ "tmp_name" => $newFile->GetPathWithName()]);
+						if(!defined("BX_TEMPORARY_FILES_DIRECTORY"))
+						{
+							$data["IMAGE_ID"] += ["relative_tmp_name" => "/".ltrim(substr($newFile->GetPathWithName(), strlen($_SERVER["DOCUMENT_ROOT"])), "/\\")];
+						}
+					}
+				}
+			}
+
 			if (!array_key_exists("MESSAGE", $data) ||
 				\CVoteAnswer::CheckFields("UPDATE", $data, $id))
 			{
 				$this->log[$id] = $this->data[$id] = array(
 					"ID" => $id,
+					"IMAGE_ID" => empty($data["IMAGE_ID"]) ? "" : $data["IMAGE_ID"],
 					"MESSAGE" => $data["MESSAGE"],
 					"MESSAGE_TYPE" => $data["MESSAGE_TYPE"],
 					"FIELD_TYPE" => $data["FIELD_TYPE"],

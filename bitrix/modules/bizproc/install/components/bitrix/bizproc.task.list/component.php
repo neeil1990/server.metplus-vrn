@@ -134,6 +134,12 @@ if (strlen($arResult["FatalErrorMessage"]) <= 0 && !$arParams['COUNTERS_ONLY'])
 	else
 		$arResult['DOCUMENT_TYPES']['*']['ACTIVE'] = true;
 
+	if (!empty($arParams['MODULE_ID']))
+	{
+		$arFilter['MODULE_ID'] = $arParams['MODULE_ID'];
+		unset($arFilter['ENTITY']);
+	}
+
 	if (empty($arParams["WORKFLOW_ID"]))
 	{
 		$ar = array("" => GetMessage("BPATL_WORKFLOW_ID_ANY"));
@@ -142,7 +148,7 @@ if (strlen($arResult["FatalErrorMessage"]) <= 0 && !$arParams['COUNTERS_ONLY'])
 			array(
 				"ACTIVE" => "Y",
 				"USER_ID" => $currentUserId,
-				'!AUTO_EXECUTE' => CBPDocumentEventType::Automation
+				'<AUTO_EXECUTE' => CBPDocumentEventType::Automation
 			),
 			false, false,
 			array('ID', 'NAME')

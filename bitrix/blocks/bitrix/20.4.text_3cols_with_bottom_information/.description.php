@@ -36,7 +36,7 @@ return [
 			'type' => 'text',
 		],
 		'.landing-block-node-author' => [
-			'name' => Loc::getMessage('LANDING_BLOCK_20_4_DATE'),
+			'name' => Loc::getMessage('LANDING_BLOCK_20_4_AUTHOR'),
 			'type' => 'text',
 		],
 		'.landing-block-node-author-img' => [

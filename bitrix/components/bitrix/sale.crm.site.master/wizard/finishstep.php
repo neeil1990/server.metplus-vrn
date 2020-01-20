@@ -78,6 +78,9 @@ class FinishStep extends \FinishStep
 			CrmEntityCreatorStepper::registerEventHandler();
 
 			SitePatcher::saveConfig1C();
+
+			// enable composite
+			SitePatcher::enableComposite();
 		}
 
 		ob_start();

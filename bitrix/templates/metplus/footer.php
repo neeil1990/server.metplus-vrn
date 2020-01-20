@@ -42,7 +42,7 @@
                     <li><a href="tel:+74732075555"><span class="glipf-call-answer"></span>+7 (473) 247-55-55</a></li>
                     <li><a href="tel:info@metplus-vrn.ru" class="footer-mail"><span class="glipf-email"></span>info@metplus-vrn.ru</a></li>
                     <li>
-                        <span class="glipf-clock"></span>Будни: 8:00 - 19:00 <br>Выходные: 9.00 - 17:00
+						<span class="glipf-clock"></span>Будни: 8:00 - 00:00 <br>Суббота: 8:00 - 16:30<br>Воскресенье - выходной
                     </li>
                 </ul>
                 <ul class="social-network">

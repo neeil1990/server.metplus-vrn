@@ -21,10 +21,8 @@ class Order extends Controller
 {
 	public function getPrimaryAutoWiredParameter()
 	{
-		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
-
 		return new ExactParameter(
-			$registry->getOrderClassName(),
+			Sale\Order::class,
 			'order',
 			function($className, $id) {
 				$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);

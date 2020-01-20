@@ -1,7 +1,7 @@
 <section class="landing-block js-animation fadeIn">
-	<div class="container g-py-20">
+	<div class="container">
 		 <!-- Carousel -->
-		<div class="js-carousel g-mb-50--lg"
+		<div class="js-carousel"
 			 data-infinite="true"
 			 data-fade="true"
 			 data-lazy-load="ondemand"
@@ -9,32 +9,16 @@
 			 data-arrow-left-classes="fa fa-angle-left g-left-0 g-left-40--lg"
 			 data-arrow-right-classes="fa fa-angle-right g-right-0 g-right-40--lg">
 
-			<div class="landing-block-card-person js-slide align-self-center">
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
 				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img1.jpg)"></div>
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
-							<h3 class="landing-block-node-person-name h4 mb-1">Jessica Lisbon</h3>
-							<div class="landing-block-node-person-post">
-								<span class="d-block mb-4">Support Manager</span>
-							</div>
-							<div class="landing-block-node-person-text mb-4">
-								<p>I've got your front end and back end needs covered. I'm always looking for strategies to make your brand's needs fit with today's development languages.</p>
-							</div>
-							<a class="landing-block-node-person-link u-link-v5 g-color-text g-color-primary--hover g-font-weight-700" href="#">See Projects</a>
-						</div>
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img1.jpg" alt="">
 					</div>
-				</div>
-				<!-- End Team -->
-			</div>
 
-			<div class="landing-block-card-person js-slide align-self-center">
-				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img3.jpg)"></div>
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
+						<div class="g-px-30 g-px-50--lg">
 							<h3 class="landing-block-node-person-name h4 mb-1">David Case</h3>
 							<div class="landing-block-node-person-post">
 								<span class="d-block mb-4">Web Developer</span>
@@ -49,18 +33,22 @@
 				<!-- End Team -->
 			</div>
 
-			<div class="landing-block-card-person js-slide align-self-center">
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
 				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img4.jpg)"></div>
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
-							<h3 class="landing-block-node-person-name h4 mb-1">Maria Olsson</h3>
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img2.jpg" alt="">
+					</div>
+
+					<div class="col-sm-6 col-lg-4">
+						<div class="g-px-30 g-px-50--lg">
+							<h3 class="landing-block-node-person-name h4 mb-1">Jessica Lisbon</h3>
 							<div class="landing-block-node-person-post">
-								<span class="d-block mb-4">Technical Director</span>
+								<span class="d-block mb-4">Support Manager</span>
 							</div>
 							<div class="landing-block-node-person-text mb-4">
-								<p>I am an ambitious workaholic, but apart from that, pretty simple person. Whether it's branding, print, UI + UX I've got you covered.</p>
+								<p>I've got your front end and back end needs covered. I'm always looking for strategies to make your brand's needs fit with today's development languages.</p>
 							</div>
 							<a class="landing-block-node-person-link u-link-v5 g-color-text g-color-primary--hover g-font-weight-700" href="#">See Projects</a>
 						</div>
@@ -69,12 +57,40 @@
 				<!-- End Team -->
 			</div>
 
-			<div class="landing-block-card-person js-slide align-self-center">
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
 				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img2.jpg)"></div>
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img3.jpg" alt="">
+					</div>
+
+					<div class="col-sm-6 col-lg-4">
+						<div class="g-px-30 g-px-50--lg">
+							<h3 class="landing-block-node-person-name h4 mb-1">Monica Gaudy</h3>
+							<div class="landing-block-node-person-post">
+								<span class="d-block mb-4">Sales Manager</span>
+							</div>
+							<div class="landing-block-node-person-text mb-4">
+								<p>I am Monica and I aim high at being focused on building relationships with our clients and community.</p>
+							</div>
+							<a class="landing-block-node-person-link u-link-v5 g-color-text g-color-primary--hover g-font-weight-700" href="#">See Projects</a>
+						</div>
+					</div>
+				</div>
+				<!-- End Team -->
+			</div>
+
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
+				<!-- Team -->
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
+					<div class="col-sm-6 col-lg-4">
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img4.jpg" alt="">
+					</div>
+
+					<div class="col-sm-6 col-lg-4">
+						<div class="g-px-30 g-px-50--lg">
 							<h3 class="landing-block-node-person-name h4 mb-1">Tina Krueger</h3>
 							<div class="landing-block-node-person-post">
 								<span class="d-block mb-4">Lead Designer</span>
@@ -89,12 +105,16 @@
 				<!-- End Team -->
 			</div>
 
-			<div class="landing-block-card-person js-slide align-self-center">
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
 				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img5.jpg)"></div>
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img5.jpg" alt="">
+					</div>
+
+					<div class="col-sm-6 col-lg-4">
+						<div class="g-px-30 g-px-50--lg">
 							<h3 class="landing-block-node-person-name h4 mb-1">John Watson</h3>
 							<div class="landing-block-node-person-post">
 								<span class="d-block mb-4">Marketing Manager</span>
@@ -109,27 +129,30 @@
 				<!-- End Team -->
 			</div>
 
-			<div class="landing-block-card-person js-slide align-self-center">
+			<div class="landing-block-card-person js-slide align-self-center g-pt-30 g-pb-30 g-pl-10 g-pr-10">
 				<!-- Team -->
-				<div class="row justify-content-center align-items-center no-gutters">
-					<div class="landing-block-node-person-photo col-sm-6 col-lg-4 g-bg-size-cover g-bg-pos-top-center g-min-height-400" style="background-image: url(https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img6.jpg)"></div>
+				<div class="landing-block-container row justify-content-center align-items-center no-gutters">
 					<div class="col-sm-6 col-lg-4">
-						<div class="g-px-30 g-px-50--lg g-py-60">
-							<h3 class="landing-block-node-person-name h4 mb-1">Monica Gaudy</h3>
+						<img class="landing-block-node-person-photo img-fluid"
+							 src="https://cdn.bitrix24.site/bitrix/images/landing/business/400x450/img6.jpg" alt="">
+					</div>
+
+					<div class="col-sm-6 col-lg-4">
+						<div class="g-px-30 g-px-50--lg">
+							<h3 class="landing-block-node-person-name h4 mb-1">Maria Olsson</h3>
 							<div class="landing-block-node-person-post">
-								<span class="d-block mb-4">Sales Manager</span>
+								<span class="d-block mb-4">Technical Director</span>
 							</div>
 							<div class="landing-block-node-person-text mb-4">
-								<p>I am Monica and I aim high at being focused on building relationships with our clients and community.</p>
+								<p>I am an ambitious workaholic, but apart from that, pretty simple person. Whether it's branding, print, UI + UX I've got you covered.</p>
 							</div>
-							<!-- Social Icons -->
-							<!-- End Social Icons -->
 							<a class="landing-block-node-person-link u-link-v5 g-color-text g-color-primary--hover g-font-weight-700" href="#">See Projects</a>
 						</div>
 					</div>
 				</div>
 				<!-- End Team -->
 			</div>
+
 		</div>
 		<div class="carContTest"></div>
 			<!-- End Carousel -->

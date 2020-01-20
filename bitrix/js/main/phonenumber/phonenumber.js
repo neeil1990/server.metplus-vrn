@@ -1792,7 +1792,8 @@
 			// Check leading digits first
 			if(countryMetadata.hasOwnProperty('leadingDigits'))
 			{
-				if(localNumber.match(new RegExp(countryMetadata['leadingDigits'])))
+				var leadingDigitsRegex = '^(' + countryMetadata['leadingDigits'] + ')';
+				if(localNumber.match(new RegExp(leadingDigitsRegex)))
 				{
 					return possibleCountry;
 				}

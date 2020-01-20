@@ -18,10 +18,8 @@ class ShipmentItem extends Controller
 {
 	public function getPrimaryAutoWiredParameter()
 	{
-		$registry = Sale\Registry::getInstance(Sale\Registry::REGISTRY_TYPE_ORDER);
-
 		return new ExactParameter(
-			$registry->getShipmentItemClassName(),
+			Sale\ShipmentItem::class,
 			'shipmentItem',
 			function($className, $id) {
 

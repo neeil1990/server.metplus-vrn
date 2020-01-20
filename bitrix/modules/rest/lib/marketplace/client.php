@@ -374,4 +374,20 @@ class Client
 		return $tag;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public static function isSubscriptionAvailable()
+	{
+		return \Bitrix\Main\Config\Option::get("bitrix24", "~mp24_paid", "N") === "Y";
+	}
+
+	/**
+	 * @return \Bitrix\Main\Type\Date
+	 */
+	public static function getSubscriptionFinalDate()
+	{
+		return new \Bitrix\Main\Type\Date(\Bitrix\Main\Config\Option::get("bitrix24", "~mp24_paid_date"));
+	}
+
 }

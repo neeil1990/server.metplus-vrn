@@ -13,6 +13,11 @@ Loader::includeModule("iblock");
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/iblock/prolog.php");
 IncludeModuleLangFile(__FILE__);
 
+/** @global CAdminPage $adminPage */
+global $adminPage;
+/** @global CAdminSidePanelHelper $adminSidePanelHelper */
+global $adminSidePanelHelper;
+
 $publicMode = $adminPage->publicMode;
 $selfFolderUrl = $adminPage->getSelfFolderUrl();
 
@@ -233,6 +238,9 @@ elseif($_GET["tree"]=="Y")
 // Edititng handling (do not forget rights check!)
 if($lAdmin->EditAction()) //save button pressed
 {
+	if (!empty($_FILES['FIELDS']) && is_array($_FILES['FIELDS']))
+		CFile::ConvertFilesToPost($_FILES['FIELDS'], $_REQUEST['FIELDS']);
+
 	foreach($_POST['FIELDS'] as $ID=>$arFields)
 	{
 		$ID = intval($ID);
@@ -542,16 +550,7 @@ if($_REQUEST["mode"] == "excel")
 else
 	$arNavParams = array("nPageSize"=>CAdminUiResult::GetNavSize($sTableID));
 
-if (array_key_exists("ELEMENT_CNT", $arVisibleColumnsMap))
-{
-	$arFilter["CNT_ALL"] = "Y";
-	$arFilter["ELEMENT_SUBSECTIONS"] = "N";
-	$rsData = CIBlockSection::GetList($arOrder, $arFilter, true, $arVisibleColumns, $arNavParams);
-}
-else
-{
-	$rsData = CIBlockSection::GetList($arOrder, $arFilter, false, $arVisibleColumns, $arNavParams);
-}
+$rsData = CIBlockSection::GetList($arOrder, $arFilter, false, $arVisibleColumns, $arNavParams);
 
 $listElementScriptName = CIBlock::GetAdminElementListScriptName($IBLOCK_ID);
 $listSectionScriptName = CIBlock::GetAdminSectionListScriptName($IBLOCK_ID);
@@ -570,7 +569,17 @@ $rsData->NavStart();
 $lAdmin->SetNavigationParams($rsData, array("BASE_LINK" => $baseLink));
 $arRows = array();
 
-while ($arRes = $rsData->NavNext(false))
+$elementSectionFilter = array(
+	'IBLOCK_ID' => $IBLOCK_ID,
+	'SHOW_NEW' => 'Y',
+	'CHECK_PERMISSIONS' => 'Y',
+	'MIN_PERMISSION' => 'R',
+	'INCLUDE_SUBSECTIONS' => 'N'
+);
+$fullElementSectionFilter = $elementSectionFilter;
+$fullElementSectionFilter['INCLUDE_SUBSECTIONS'] = 'Y';
+
+while ($arRes = $rsData->Fetch())
 {
 	$el_list_url = $selfFolderUrl.CIBlock::GetAdminElementListLink($IBLOCK_ID, array(
 		'find_section_section' => $arRes["ID"]
@@ -606,12 +615,28 @@ while ($arRes = $rsData->NavNext(false))
 
 	$row->AddViewField("ID", '<a href="'.$edit_url.'" title="'.GetMessage("IBSEC_A_EDIT").'">'.$arRes["ID"].'</a>');
 	$row->AddViewField("NAME", '<a href="'.CHTTP::URN2URI($sec_list_url).'" '.($_GET["tree"] == "Y" ? 'style="padding-left:'.(($arRes["DEPTH_LEVEL"] - 1) * 22).'px"' : '').' class="adm-list-table-icon-link" title="'.GetMessage("IBSEC_A_LIST").'"><span class="adm-submenu-item-link-icon adm-list-table-icon iblock-section-icon"></span><span class="adm-list-table-link">'.htmlspecialcharsbx($arRes["NAME"]).'</span></a>');
-	if (array_key_exists("ELEMENT_CNT", $arVisibleColumnsMap))
-		$row->AddViewField("ELEMENT_CNT", '<a href="'.CHTTP::URN2URI($elementListUrl).'" title="'.GetMessage("IBSEC_A_ELLIST").'">'.$arRes["ELEMENT_CNT"].'</a>('.'<a href="'.CHTTP::URN2URI($nestedElementListUrl).'" title="'.GetMessage("IBSEC_A_ELLIST_TITLE").'">'.IntVal(CIBlockSection::GetSectionElementsCount($arRes["ID"], array(
-			"CNT_ALL" => "Y",
-		))).'</a>) [<a href="'.$el_add_url.'" title="'.GetMessage("IBSEC_A_ELADD_TITLE").'">+</a>]');
+	if (isset($arVisibleColumnsMap["ELEMENT_CNT"]))
+	{
+		$elementSectionFilter['SECTION_ID'] = $arRes['ID'];
+		$fullElementSectionFilter['SECTION_ID'] = $arRes['ID'];
 
-	if (array_key_exists("SECTION_CNT", $arVisibleColumnsMap))
+		$elementCount = (int)CIBlockElement::GetList(
+			array(),
+			$elementSectionFilter,
+			array()
+		);
+		$fullElementCount = (int)CIBlockElement::GetList(
+			array(),
+			$fullElementSectionFilter,
+			array()
+		);
+
+		$row->AddViewField("ELEMENT_CNT", '<a href="'.CHTTP::URN2URI($elementListUrl).'" title="'.GetMessage("IBSEC_A_ELLIST").'">'.$elementCount.'</a>'.
+			' (<a href="'.CHTTP::URN2URI($nestedElementListUrl).'" title="'.GetMessage("IBSEC_A_ELLIST_TITLE").'">'.$fullElementCount.'</a>)'.
+			' [<a href="'.$el_add_url.'" title="'.GetMessage("IBSEC_A_ELADD_TITLE").'">+</a>]'
+		);
+	}
+	if (isset($arVisibleColumnsMap["SECTION_CNT"]))
 	{
 		$arFilter = array(
 			"IBLOCK_ID" => $IBLOCK_ID,
@@ -619,12 +644,12 @@ while ($arRes = $rsData->NavNext(false))
 		);
 		$row->AddViewField("SECTION_CNT", '<a href="'.CHTTP::URN2URI($sec_list_url).'" title="'.GetMessage("IBSEC_A_LIST").'">'.IntVal(CIBlockSection::GetCount($arFilter)).'</a> [<a href="'.$sec_add_url.'" title="'.GetMessage("IBSEC_A_SECTADD_TITLE").'">+</a>]');
 	}
-	if (array_key_exists("MODIFIED_BY", $arVisibleColumnsMap))
+	if (isset($arVisibleColumnsMap["MODIFIED_BY"]))
 	{
 		if ($html = GetUserProfileLink($arRes["MODIFIED_BY"], GetMessage("IBSEC_A_USERINFO")))
 			$row->AddViewField("MODIFIED_BY", $html);
 	}
-	if (array_key_exists("CREATED_BY", $arVisibleColumnsMap))
+	if (isset($arVisibleColumnsMap["CREATED_BY"]))
 	{
 		if ($html = GetUserProfileLink($arRes["CREATED_BY"], GetMessage("IBSEC_A_USERINFO")))
 			$row->AddViewField("CREATED_BY", $html);

@@ -4,7 +4,8 @@ namespace Bitrix\Sale\CrmSiteMaster\Tools;
 use Bitrix\Main,
 	Bitrix\Catalog,
 	Bitrix\Main\UrlRewriter,
-	Bitrix\Main\Config\Option;
+	Bitrix\Main\Config\Option,
+	Bitrix\Main\Config\Configuration;
 
 /**
  * Class SitePatcher
@@ -18,6 +19,7 @@ class SitePatcher
 	const SELECTED_USER_GROUPS = "~SELECTED_USER_GROUPS";
 	const EMPLOYEE_USER_GROUP_ID = "~EMPLOYEE_USER_GROUP_ID";
 	const CONFIG_1C = "~CONFIG_1C";
+	const FORCE_ENABLE_SELF_HOSTED_COMPOSITE = "force_enable_self_hosted_composite";
 
 	private static $instance = null;
 
@@ -1462,5 +1464,29 @@ class SitePatcher
 		}
 
 		return $siteList;
+	}
+
+	/**
+	 * Enable composite using option in .settings.php
+	 */
+	public static function enableComposite()
+	{
+		if (self::isCanEnableComposite())
+		{
+			Configuration::setValue(self::FORCE_ENABLE_SELF_HOSTED_COMPOSITE, true);
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private static function isCanEnableComposite()
+	{
+		if (Configuration::getValue(self::FORCE_ENABLE_SELF_HOSTED_COMPOSITE) === false)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

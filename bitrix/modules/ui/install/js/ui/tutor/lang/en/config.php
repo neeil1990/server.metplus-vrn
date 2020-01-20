@@ -21,6 +21,7 @@ $MESS["JS_UI_TUTOR_FINAL_CONGRATULATIONS"] = "Congratulations";
 $MESS["JS_UI_TUTOR_FINAL_NOTICE"] = "All steps have been completed";
 $MESS["JS_UI_TUTOR_FINAL_TEXT"] = "You are ready to rock";
 $MESS["JS_UI_TUTOR_STEP_COMPLETED"] = "Step completed";
+$MESS["JS_UI_TUTOR_STEP_NEW"] = "New steps are available, would you like to continue?";
 $MESS["JS_UI_TUTOR_STEP_TITLE"] = "Step";
 $MESS["JS_UI_TUTOR_TITLE"] = "Tutor";
 ?>

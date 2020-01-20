@@ -1,6 +1,6 @@
 <section class="landing-block landing-block-menu landing-block-menu-store g-pt-25 g-pb-25">
 	<div class="container">
-		<nav class="landing-block-node-navbar g-pa-0 g-mb-0 navbar navbar-expand-lg g-brd-0 u-navbar-color-gray-dark-v4 u-navbar-color-black--hover u-navbar-bg-gray-light-v5--hover">
+		<nav class="landing-block-node-navbar g-pa-0 g-mb-0 navbar navbar-expand-md g-brd-0 u-navbar-color-gray-dark-v4 u-navbar-color-black--hover u-navbar-bg-gray-light-v5--hover">
 
 			<div class="collapse navbar-collapse align-items-center" id="navBar">
 				<ul class="landing-block-node-menu w-100 navbar-nav flex-column list-unstyled js-scroll-nav">

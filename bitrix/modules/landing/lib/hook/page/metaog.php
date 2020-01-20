@@ -1,6 +1,8 @@
 <?php
 namespace Bitrix\Landing\Hook\Page;
 
+use \Bitrix\Landing\Hook;
+use \Bitrix\Landing\Internals\HookDataTable;
 use \Bitrix\Landing\File;
 use Bitrix\Landing\Landing;
 use \Bitrix\Landing\Manager;
@@ -55,19 +57,20 @@ class MetaOg extends \Bitrix\Landing\Hook\Page
 
 	/**
 	 * Specific method gor get all landing's images.
+	 * @param string $entityType Entity type.
 	 * @return array
 	 */
-	public static function getAllImages()
+	public static function getAllImages($entityType = Hook::ENTITY_TYPE_LANDING)
 	{
 		$images = array();
-		$res = \Bitrix\Landing\Internals\HookDataTable::getList(array(
+		$res = HookDataTable::getList(array(
 			'select' => array(
 				'VALUE', 'ENTITY_ID'
 			),
 			'filter' => array(
 				'=HOOK' => 'METAOG',
 				'=CODE' => 'IMAGE',
-				'=ENTITY_TYPE' => \Bitrix\Landing\Hook::ENTITY_TYPE_LANDING
+				'=ENTITY_TYPE' => $entityType
 			)
 		));
 		while ($row = $res->fetch())
@@ -85,6 +88,15 @@ class MetaOg extends \Bitrix\Landing\Hook\Page
 	public function getTitle()
 	{
 		return Loc::getMessage('LANDING_HOOK_METAOG_NAME');
+	}
+
+	/**
+	 * Exec or not hook in edit mode.
+	 * @return boolean
+	 */
+	public function enabledInEditMode()
+	{
+		return false;
 	}
 
 	/**
@@ -150,10 +162,6 @@ class MetaOg extends \Bitrix\Landing\Hook\Page
 				else
 				{
 					$output .= '<meta property="og:' . $key . '" content="' . $val . '" />';
-				}
-				if ($key == 'url')
-				{
-					$output .= '<link rel="canonical" href="' . $curUrl . '"/>';
 				}
 			}
 		}

@@ -17,6 +17,10 @@ class Toolbar
 	/**
 	 * @param Button[] $buttons
 	 */
+	private $titleRightButtons = [];
+	/**
+	 * @param Button[] $buttons
+	 */
 	private $buttons = [];
 	private $filterButtons = [];
 	private $options;
@@ -68,6 +72,10 @@ class Toolbar
 		if ($location === ButtonLocation::AFTER_FILTER)
 		{
 			$this->filterButtons[] = $button;
+		}
+		elseif($location === ButtonLocation::AFTER_TITLE)
+		{
+			$this->titleRightButtons[] = $button;
 		}
 		else
 		{
@@ -163,7 +171,14 @@ class Toolbar
 	 */
 	public function getButtons()
 	{
-		return array_merge($this->buttons, $this->filterButtons);
+		return array_merge($this->titleRightButtons, $this->buttons, $this->filterButtons);
+	}
+
+	public function renderTitleRightButtons()
+	{
+		return implode(array_map(function(Button $button) {
+			return self::processButtonRender($button);
+		}, $this->titleRightButtons));
 	}
 
 	public function renderRightButtons()

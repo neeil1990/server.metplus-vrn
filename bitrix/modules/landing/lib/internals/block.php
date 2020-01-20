@@ -85,6 +85,9 @@ class BlockTable extends Entity\DataManager
 				'save_data_modification' => array('\Bitrix\Main\Text\Emoji', 'getSaveModificator'),
 				'fetch_data_modification' => array('\Bitrix\Main\Text\Emoji', 'getFetchModificator'),
 			)),
+			'SEARCH_CONTENT' => new Entity\StringField('SEARCH_CONTENT', array(
+				'title' => Loc::getMessage('LANDING_TABLE_FIELD_SEARCH_CONTENT')
+			)),
 			'CREATED_BY_ID' => new Entity\IntegerField('CREATED_BY_ID', array(
 				'title' => Loc::getMessage('LANDING_TABLE_FIELD_CREATED_BY_ID'),
 				'required' => true

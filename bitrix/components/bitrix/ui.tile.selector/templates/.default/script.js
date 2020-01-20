@@ -251,7 +251,7 @@
 				)
 				{
 					selectorInstance.callback.unSelect({
-						item: selectorInstance.entities[tile.data.entityType].items[(tile.id.match(/^\d+$/) ? ('U' + tile.id) : tile.id)],
+						item: selectorInstance.entities[tile.data.entityType.toUpperCase()].items[(tile.id.match(/^\d+$/) ? ('U' + tile.id) : tile.id)],
 						entityType: tile.data.entityType,
 						selectorId: selectorInstance.id
 					});

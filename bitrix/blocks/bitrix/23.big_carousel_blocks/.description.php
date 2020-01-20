@@ -10,6 +10,7 @@ return array(
 	'block' => array(
 		'name' => Loc::getMessage('LANDING_BLOCK_8_BIG_CAROUSEL_BLOCKS_NAME'),
 		'section' => array('feedback'),
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-card-carousel-element' => array(

@@ -134,7 +134,6 @@ if (!function_exists('__SLEGetLogRecord'))
 
 		$cache_time = 31536000;
 		$arEvent = array();
-		$bEmpty = false;
 
 		$cache = new CPHPCache;
 
@@ -530,14 +529,10 @@ if (!function_exists('__SLEGetLogRecord'))
 								);
 							}
 						}
-						else
-						{
-							$bEmpty = true;
-						}
 					}
 				}
 
-				if (!$bEmpty)
+				if (is_array($arEvent["FIELDS_FORMATTED"]))
 				{
 					$dateFormated = FormatDate(
 						$DB->DateFormatToPHP(FORMAT_DATE),
@@ -663,7 +658,7 @@ if (!function_exists('__SLEGetLogRecord'))
 			}
 		}
 
-		if ($bEmpty)
+		if (!is_array($arEvent["FIELDS_FORMATTED"]))
 		{
 			return false;
 		}

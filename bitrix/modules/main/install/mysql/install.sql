@@ -462,7 +462,7 @@ CREATE TABLE b_user_field
 (
 	ID int(11) not null auto_increment,
 	ENTITY_ID varchar(50),
-	FIELD_NAME varchar(20),
+	FIELD_NAME varchar(50),
 	USER_TYPE_ID varchar(50),
 	XML_ID varchar(255),
 	SORT int,

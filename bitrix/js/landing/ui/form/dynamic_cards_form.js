@@ -21,17 +21,19 @@
 			"useSef"
 		];
 
-		this.addField(this.createSourceField());
-		this.addField(this.createPagesField());
+		this.sourceField = this.createSourceField();
+		this.pagesField = this.createPagesField();
 
-		if (data.detailPage)
-		{
-			this.addCard(
-				this.createFieldsGroup([
-					this.createLinkField()
-				])
-			);
-		}
+		this.addField(this.sourceField);
+		this.addField(this.pagesField);
+
+		this.detailPageGroup = this.createFieldsGroup([
+			this.createLinkField()
+		]);
+
+		this.addCard(
+			this.detailPageGroup
+		);
 	};
 
 	BX.Landing.UI.Form.DynamicCardsForm.prototype = {
@@ -56,7 +58,8 @@
 							items: item.sort.map(function(sortItem) {
 								return {name: sortItem.name, value: sortItem.id}
 							})
-						}
+						},
+						settings: item.settings
 					}
 				});
 		},
@@ -67,9 +70,6 @@
 			var value = {
 				source: sourceItems[0].value,
 				filter: sourceItems[0].filter,
-				sort: {
-					items: sourceItems[0].sort.items
-				}
 			};
 
 			if (
@@ -80,10 +80,10 @@
 			{
 				value.source = this.dynamicParams.settings.source.source;
 				value.filter = this.dynamicParams.settings.source.filter;
-				value.sort.value = this.dynamicParams.settings.source.sort;
+				value.sort = this.dynamicParams.settings.source.sort;
 			}
 
-			return new BX.Landing.UI.Field.Source({
+			return new BX.Landing.UI.Field.SourceField({
 				selector: "source",
 				title: BX.Landing.Loc.getMessage("LANDING_CARDS__SOURCE_FIELD_TITLE"),
 				items: sourceItems,
@@ -96,6 +96,14 @@
 					});
 
 					setTimeout(function() {
+						if (!this.sourceField.isDetailPageAllowed())
+						{
+							BX.style(this.detailPageGroup.layout, 'display', 'none');
+						}
+						else
+						{
+							BX.style(this.detailPageGroup.layout, 'display', null);
+						}
 						this.onSourceChangeHandler(source);
 					}.bind(this), 0);
 				}.bind(this)
@@ -197,7 +205,14 @@
 
 		serialize: function()
 		{
+			var isDetailPageAllowed = this.sourceField.isDetailPageAllowed();
+
 			return this.fields.reduce(function(acc, field) {
+				if (field.selector === 'detailPage' && !isDetailPageAllowed)
+				{
+					return acc;
+				}
+
 				var value = field.getValue();
 
 				if (this.settingFieldsSelectors.includes(field.selector))
@@ -247,7 +262,6 @@
 						{
 							acc.references[field.selector] = value;
 						}
-
 					}
 					else
 					{

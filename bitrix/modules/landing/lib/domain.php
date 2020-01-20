@@ -3,6 +3,7 @@ namespace Bitrix\Landing;
 
 use \Bitrix\Main\Config\Option;
 use \Bitrix\Main\Context;
+use \Bitrix\Main\Web\Uri;
 
 class Domain extends \Bitrix\Landing\Internals\BaseTable
 {
@@ -132,7 +133,7 @@ class Domain extends \Bitrix\Landing\Internals\BaseTable
 		else
 		{
 			$host = Option::get('main', 'server_name', $request->getHttpHost()
-				? : $request->getHttpHost());
+					? : $request->getHttpHost());
 		}
 
 		$hostUrl = rtrim($protocol . $host, '/');

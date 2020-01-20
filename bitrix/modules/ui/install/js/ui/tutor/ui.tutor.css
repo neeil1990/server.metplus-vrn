@@ -1323,9 +1323,32 @@
 	pointer-events: none;
 }
 
+.bx-im-bar .bx-im-users-wrap {
+	bottom: 60px;
+}
+
 @media (max-height: 670px) {
 
 	.ui-tutor-popup-content {
-		max-height: 370px;
+		max-height: 430px;
 	}
+
+	.ui-tutor-popup-video {
+		height: 270px;
+	}
+
+	.ui-tutor-popup-help {
+		height: 300px;
+	}
+}
+
+.ui-tutor-popup-content-inner::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 6px;
+}
+
+.ui-tutor-popup-content-inner::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }

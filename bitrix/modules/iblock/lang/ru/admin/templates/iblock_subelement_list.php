@@ -94,10 +94,10 @@ $MESS["IBEL_A_CHANGE"] = "Изменить";
 $MESS["IBEL_A_COPY_ELEMENT"] = "Копировать";
 $MESS["IBLOCK_DELETE_ALT"] = "Удалить запись";
 $MESS["IBLOCK_CONFIRM_DEL_MESSAGE"] = "Будет удалена вся информация, связанная с этой записью! Продолжить?";
-$MESS["IBEL_A_UNLOCK_ACTION"] = "разблокировать";
-$MESS["IBEL_A_LOCK_ACTION"] = "заблокировать";
-$MESS["IBEL_A_WF_STATUS_CHANGE"] = "изменить статус";
 $MESS["IBLOCK_GREEN_ALT"] = "доступна для модификации";
 $MESS["IBLOCK_YELLOW_ALT"] = "заблокирована вами (не забудьте \"освободить\")";
 $MESS["IBLOCK_RED_ALT"] = "временно заблокирована (редактируется в данный момент)";
+$MESS["IBLOCK_SUBELEMENT_LIST_SELECTED"] = "Выбрано:";
+$MESS["IBLOCK_SUBELEMENT_LIST_CHECKED"] = "Отмечено:";
+$MESS["IBLOCK_SUBELEMENT_LIST_ACTION_DELETE"] = "Удалить";
 ?>

@@ -5,4 +5,5 @@ $MESS["BX_CATALOG_PRODUCT_ACTION_ERR_CANNOT_MODIFY_SET"] = "A bundle's stock tra
 $MESS["BX_CATALOG_PRODUCT_ACTION_ERR_CANNOT_MODIFY_SKU"] = "Cannot modify product fields for a product containing SKU's";
 $MESS["BX_CATALOG_PRODUCT_ACTION_ERR_EMPTY_ELEMENTS"] = "No items to modify specified";
 $MESS["BX_CATALOG_PRODUCT_ACTION_ERR_EMPTY_FIELDS"] = "No product parameters to update specified";
+$MESS["BX_CATALOG_PRODUCT_ACTION_ERR_SECTION_PRODUCTS_UPDATE"] = "Error updating products in section [#ID#] #NAME#. Please open the section and try again.";
 ?>

@@ -10,6 +10,7 @@ return array(
 	'block' => array(
 		'name' => Loc::getMessage('LANDING_BLOCK_42.1.REST_MENU_NAME'),
 		'section' => array('tariffs'),
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-node-card' => array(

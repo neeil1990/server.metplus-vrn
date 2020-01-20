@@ -8,10 +8,15 @@ use \Bitrix\Main\Localization\Loc;
 
 return [
 	'block' => [
-		// 'name' => Loc::getMessage('LANDING_BLOCK_59_1_NAME'),
+		'name' => Loc::getMessage('LANDING_BLOCK_59_1_NAME'),
 		'section' => array('other'),
-		'type' => 'knowledge',
-		'version' => '19.0.300',	//and may be more
+		'type' => ['knowledge', 'group'],
+		'subtype' => 'search',
+		'subtype_params' => [
+			'type' => 'form',
+			'resultPage' => 'search-result',
+		],
+		'version' => '20.0.0',
 	],
 	'nodes' => [
 		'.landing-block-node-bgimage' => [
@@ -42,15 +47,23 @@ return [
 				'name' => Loc::getMessage('LANDING_BLOCK_59_1_TEXT'),
 				'type' => ['typo'],
 			],
+			'.landing-block-button' => [
+				'name' => Loc::getMessage('LANDING_BLOCK_59_1_BUTTON'),
+				'type' => ['background-color', 'color'],
+			],
 		],
 	],
 	'attrs' => [
 		'.landing-block-node-form' => [
-			'name' => 'Search result page',
+			'name' => Loc::getMessage('LANDING_BLOCK_59_1-SEARCH_RESULT'),
 			'attribute' => 'action',
 			'type' => 'url',
-			'disableBlocks' => true,
+			'allowedTypes' => [
+				'landing',
+			],
 			'disableCustomURL' => true,
-		],
-	],
+			'disallowType' => true,
+			'disableBlocks' => true
+		]
+	]
 ];

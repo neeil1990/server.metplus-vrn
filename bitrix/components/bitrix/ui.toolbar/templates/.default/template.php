@@ -10,6 +10,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $this->setFrameMode(true);
 
 $filter = Toolbar::getFilter();
+$titleRightButtons = Toolbar::renderTitleRightButtons();
 $rightButtons = Toolbar::renderRightButtons();
 $filterButtons = Toolbar::renderAfterFilterButtons();
 $favoriteStar = Toolbar::hasFavoriteStar()? '<span class="ui-toolbar-star" id="uiToolbarStar"></span>' : '';
@@ -34,6 +35,10 @@ $titleStyles = !empty($titleProps) ? ' style="'.$titleProps.'"' : "";
 		?><span id="pagetitle" class="ui-toolbar-title-item"><?=$APPLICATION->getTitle(false)?></span><?
 		?><?= $favoriteStar ?>
 	</div><?
+
+	if (strlen($titleRightButtons)):
+		?><div class="ui-toolbar-btn-box ui-toolbar-title-box"><?=$titleRightButtons?></div><?
+	endif;
 
 	if (strlen($filter)):
 		?><div class="ui-toolbar-filter-box"><?=$filter?><?=$filterButtons?></div><?

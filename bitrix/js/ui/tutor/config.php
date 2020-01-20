@@ -11,6 +11,7 @@ return [
 		'main.core',
 		'ui.tour',
 		'main.loader',
+		'ui.feedback.form',
 	],
 	'skip_core' => false,
 ];

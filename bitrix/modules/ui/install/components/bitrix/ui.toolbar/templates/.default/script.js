@@ -117,7 +117,7 @@
 			{
 				var item = this.items[i];
 
-				if (userAgent.indexOf('safari') !== -1)
+				if (userAgent.indexOf('safari') !== -1 || userAgent.indexOf('firefox') !== -1 || userAgent.indexOf('MSIE') !== -1)
 				{
 					if (userAgent.indexOf('chrome') > -1)
 					{

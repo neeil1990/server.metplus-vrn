@@ -10,6 +10,7 @@ return array(
 	'block' => array(
 		'name' => Loc::getMessage('LANDING_BLOCK_43.3.COVER_WITH_FEEDBACK_NAME'),
 		'section' => array('feedback'),
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-node-card' => array(

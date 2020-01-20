@@ -228,6 +228,13 @@ class main extends CModule
 
 		$eventManager->registerEventHandler('main', 'OnBuildFilterFactoryMethods', 'main', '\Bitrix\Main\Filter\FactoryMain', 'onBuildFilterFactoryMethods');
 
+		RegisterModuleDependences("main", "OnBeforeUserTypeAdd", "main", '\Bitrix\Main\UserField\Internal\UserFieldHelper', "OnBeforeUserTypeAdd");
+		RegisterModuleDependences("main", "OnAfterUserTypeAdd", "main", '\Bitrix\Main\UserField\Internal\UserFieldHelper', "onAfterUserTypeAdd");
+		RegisterModuleDependences("main", "OnBeforeUserTypeDelete", "main", '\Bitrix\Main\UserField\Internal\UserFieldHelper', "OnBeforeUserTypeDelete");
+		$eventManager->registerEventHandler('main', 'onGetUserFieldValues', 'main', '\Bitrix\Main\UserField\Internal\UserFieldHelper', 'onGetUserFieldValues');
+		$eventManager->registerEventHandler('main', 'onUpdateUserFieldValues', 'main', '\Bitrix\Main\UserField\Internal\UserFieldHelper', 'onUpdateUserFieldValues');
+		$eventManager->registerEventHandler('main', 'onDeleteUserFieldValues', 'main', '\Bitrix\Main\UserField\Internal\UserFieldHelper', 'onDeleteUserFieldValues');
+
 
 		self::InstallDesktop();
 
@@ -347,7 +354,7 @@ class main extends CModule
 			)
 		);
 
-		if (LANGUAGE_ID <> "en")
+		if (LANGUAGE_ID <> "en" && file_exists($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/lang/en/install/index.php'))
 		{
 			$addResult = CultureTable::add(array(
 				"NAME" => "en",

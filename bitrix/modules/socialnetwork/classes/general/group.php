@@ -276,7 +276,15 @@ class CAllSocNetGroup
 		}
 		if ($bSuccess)
 		{
-			$bSuccess = $DB->Query("DELETE FROM b_sonet_log_right WHERE GROUP_CODE LIKE 'SG".$ID."\_%' OR GROUP_CODE = 'SG".$ID."'", true);
+			$bSuccess = $DB->Query("DELETE FROM b_sonet_log_right WHERE GROUP_CODE LIKE 'OSG".$ID."\_%'", true);
+		}
+		if ($bSuccess)
+		{
+			$bSuccess = $DB->Query("DELETE FROM b_sonet_log_right WHERE GROUP_CODE LIKE 'SG".$ID."\_%'", true);
+		}
+		if ($bSuccess)
+		{
+			$bSuccess = $DB->Query("DELETE FROM b_sonet_log_right WHERE GROUP_CODE = 'SG".$ID."'", true);
 		}
 		if ($bSuccess)
 		{

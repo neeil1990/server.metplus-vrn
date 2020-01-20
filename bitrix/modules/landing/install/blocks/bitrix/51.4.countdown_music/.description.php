@@ -12,6 +12,7 @@ return array(
 		'section' => array('countdowns', 'cover'),
 		'dynamic' => false,
 		'version' => '18.5.0',
+		'type' => ['page', 'store'],
 	),
 	'cards' => array(
 		'.landing-block-node-card' => array(
@@ -50,19 +51,7 @@ return array(
 			'type' => 'text',
 		),
 		
-		'.landing-block-node-number-text-days' => array(
-			'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--NUMBER_TEXT'),
-			'type' => 'text',
-		),
-		'.landing-block-node-number-text-hours' => array(
-			'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--NUMBER_TEXT'),
-			'type' => 'text',
-		),
-		'.landing-block-node-number-text-minutes' => array(
-			'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--NUMBER_TEXT'),
-			'type' => 'text',
-		),
-		'.landing-block-node-number-text-seconds' => array(
+		'.landing-block-node-number-text' => array(
 			'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--NUMBER_TEXT'),
 			'type' => 'text',
 		),
@@ -98,7 +87,7 @@ return array(
 			),
 			'.landing-block-node-number' => array(
 				'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--NUMBER_NUMBER'),
-				'type' => array('border-color'),
+				'type' => array('bg', 'border-color'),
 			),
 			'.landing-block-node-img' => array(
 				'name' => Loc::getMessage('LANDING_BLOCK_51_4_COUNTDOWN_MUSIC--IMG'),

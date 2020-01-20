@@ -20,11 +20,16 @@ else
 }
 
 $filter = $toolbar->getFilter();
+$titleRightButtons = $toolbar->renderTitleRightButtons();
 $rightButtons = $toolbar->renderRightButtons();
 $filterButtons = $toolbar->renderAfterFilterButtons();
 ?>
 
 <div id="<?=$arResult["CONTAINER_ID"]?>" class="ui-toolbar">
+	<? if (strlen($titleRightButtons)):?>
+		<div class="ui-toolbar-btn-box"><?=$titleRightButtons?></div>
+	<?endif;?>
+
 	<? if (strlen($filter)): ?>
 		<div class="ui-toolbar-filter-box"><?=$filter?><?=$filterButtons?></div>
 	<? endif; ?>

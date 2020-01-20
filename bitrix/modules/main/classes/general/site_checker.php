@@ -2193,7 +2193,9 @@ class CSiteCheckerTest
 			'b_search_content_stem' => 'STEM',
 			'b_search_content_freq' => 'STEM',
 			'b_search_stem' => 'STEM',
-			'b_search_tags' => 'NAME'
+			'b_search_tags' => 'NAME',
+			'b_translate_path' => 'NAME',
+			'b_translate_phrase' => 'CODE',
 		);
 		while($f = $res->Fetch())
 		{

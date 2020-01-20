@@ -65,6 +65,9 @@ class UIFormComponent extends \CBitrixComponent
 		$this->arResult['ENABLE_FIELDS_CONTEXT_MENU'] = !isset($this->arParams['~ENABLE_FIELDS_CONTEXT_MENU'])
 			|| $this->arParams['~ENABLE_FIELDS_CONTEXT_MENU'];
 
+		$this->arResult['IS_EMBEDDED'] = isset($this->arParams['~IS_EMBEDDED'])
+			&& $this->arParams['~IS_EMBEDDED'];
+
 		$this->entityTypeName = isset($this->arParams['ENTITY_TYPE_NAME'])
 			? $this->arParams['ENTITY_TYPE_NAME'] : '';
 		$this->entityID = isset($this->arParams['ENTITY_ID'])

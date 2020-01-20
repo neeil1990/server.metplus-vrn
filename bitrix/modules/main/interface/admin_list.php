@@ -193,6 +193,10 @@ class CAdminList
 			$this->context = new CAdminContextMenuList($aContext, $aAdditionalMenu);
 	}
 
+	/**
+	 * @param string|int $ID
+	 * @return bool
+	 */
 	public function IsUpdated($ID)
 	{
 		$f = $_REQUEST['FIELDS'][$ID];
@@ -234,6 +238,9 @@ class CAdminList
 		return false;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function EditAction()
 	{
 		if($_SERVER['REQUEST_METHOD']=='POST' && isset($_REQUEST['save'])  && check_bitrix_sessid())
@@ -262,6 +269,16 @@ class CAdminList
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Returns field values in for inline edit grid mode.
+	 *
+	 * @return array
+	 */
+	public function GetEditFields()
+	{
+		return (isset($_REQUEST['FIELDS']) && is_array($_REQUEST['FIELDS']) ? $_REQUEST['FIELDS'] : []);
 	}
 
 	/**
@@ -785,14 +802,13 @@ class CAdminList
 
 	public function ShowActionTable()
 	{
-		if(count($this->arActions)<=0 && !$this->bCanBeEdited)
+		if (empty($this->arActions) && !$this->bCanBeEdited)
 			return;
-
 ?>
-<div class="adm-list-table-footer" id="<?=$this->table_id?>_footer<?=$this->bEditMode || count($this->arUpdateErrorIDs)>0 ? '_edit' : ''?>">
-	<input type="hidden" name="action_button" value="" />
+<div class="adm-list-table-footer" id="<?=$this->table_id?>_footer<?=$this->bEditMode || !empty($this->arUpdateErrorIDs) ? '_edit' : ''?>">
+	<input type="hidden" name="action_button" id="<?=$this->table_id; ?>_action_button" value="" />
 <?
-		if($this->bEditMode || count($this->arUpdateErrorIDs)>0):
+		if($this->bEditMode || !empty($this->arUpdateErrorIDs)):
 ?>
 		<input type="hidden" name="save" id="<?=$this->table_id?>_hidden_save" value="Y">
 		<input type="submit" class="adm-btn-save" name="save" value="<?=GetMessage("admin_lib_list_edit_save")?>" title="<?=GetMessage("admin_lib_list_edit_save_title")?>" />
@@ -861,19 +877,19 @@ class CAdminList
 				}
 			}
 
-			if (strlen($buttons) > 0)
+			if ($buttons != '')
 				echo '<span class="adm-list-footer-ext">'.$buttons.'</span>';
 
-			if (strlen($list) > 0):
+			if ($list != ''):
 ?>
 	<span class="adm-select-wrap">
-		<select name="action" class="adm-select"<?=($this->arActionsParams["select_onchange"] <> ""? ' onchange="'.htmlspecialcharsbx($this->arActionsParams["select_onchange"]).'"':'')?>>
+		<select name="action" id="<?=$this->table_id.'_action'; ?>" class="adm-select"<?=($this->arActionsParams["select_onchange"] <> ""? ' onchange="'.htmlspecialcharsbx($this->arActionsParams["select_onchange"]).'"':'')?>>
 			<option value=""><?=GetMessage("admin_lib_list_actions")?></option>
 <?=$list?>
 		</select>
 	</span>
 <?
-				if (strlen($html) > 0)
+				if ($html != '')
 					echo $html;
 ?>
 	<input type="submit" name="apply" value="<?=GetMessage("admin_lib_list_apply")?>" onclick="if(this.form.action[this.form.action.selectedIndex].getAttribute('custom_action')){eval(this.form.action[this.form.action.selectedIndex].getAttribute('custom_action'));return false;}" disabled="disabled" class="adm-table-action-button" />

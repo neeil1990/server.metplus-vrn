@@ -747,6 +747,7 @@ BX.SocialnetworkUISelector = {
 
 		selectorInstance.entityTypes.GROUPS = {
 			options: {
+				context: (BX.type.isNotEmptyString(selectorInstance.getOption('context')) ? selectorInstance.getOption('context') : false),
 				enableAll: (selectorInstance.getOption('enableAll') == 'Y' ? 'Y' : 'N'),
 				enableEmpty: (selectorInstance.getOption('enableEmpty') == 'Y' ? 'Y' : 'N'),
 				enableUserManager: (selectorInstance.getOption('enableUserManager') == 'Y' ? 'Y' : 'N')
@@ -800,7 +801,8 @@ BX.SocialnetworkUISelector = {
 					enableProjects: (selectorInstance.getOption('enableProjects') == 'Y' ? 'Y' : 'N'), // enableProjects
 					searchFeatures: selectorInstance.getOption('allowSonetGroupsAjaxSearchFeatures'), // allowSonetGroupsAjaxSearchFeatures
 					siteId: selectorInstance.getOption('socNetGroupsSiteId'),
-					landing: (selectorInstance.getOption('landing') == 'Y' ? 'Y' : 'N')
+					landing: (selectorInstance.getOption('landing') == 'Y' ? 'Y' : 'N'),
+					feature: selectorInstance.getOption('sonetGroupsFeature')
 				}
 			};
 		}

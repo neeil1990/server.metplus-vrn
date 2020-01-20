@@ -4,7 +4,8 @@ import {Manager} from './manager.js';
 
 export class Scenario extends Event.EventEmitter {
 	constructor(options = {}) {
-		super(options);
+		super();
+		this.setEventNamespace('BX.UI.Tutor.Scenario');
 
 		this.stepPopup = null;
 		this.arrowTimer = null;
@@ -61,7 +62,7 @@ export class Scenario extends Event.EventEmitter {
 
 		this.loadYoutubeApiScript();
 
-		this.subscribe("UI.Tutor.Scenario:onYouTubeReady", () => {
+		this.subscribe("onYouTubeReady", () => {
 			this.setVideoItems();
 		});
 	}
@@ -69,7 +70,7 @@ export class Scenario extends Event.EventEmitter {
 	loadYoutubeApiScript()
 	{
 		const onYouTubeReadyEvent = function() {
-			this.emit(this.constructor.getFullEventName("onYouTubeReady"), { scenario: this});
+			this.emit("onYouTubeReady", { scenario: this});
 		}.bind(this);
 
 		if (!window.YT)
@@ -186,7 +187,7 @@ export class Scenario extends Event.EventEmitter {
 	 */
 	start(complexAnimation)
 	{
-		this.emit(this.constructor.getFullEventName("onStart"), { scenario: this});
+		this.emit("onStart", { scenario: this});
 
 		if (complexAnimation) // animate transition from collapsed popup to step popup
 		{
@@ -232,7 +233,7 @@ export class Scenario extends Event.EventEmitter {
 	getStepPopup()
 	{
 		const clickOnCloseIcon = () => {
-			this.emit(this.constructor.getFullEventName("onClickOnCloseIcon"), { scenario: this});
+			this.emit("onClickOnCloseIcon", { scenario: this});
 		};
 
 		if (!this.stepPopup)
@@ -307,9 +308,13 @@ export class Scenario extends Event.EventEmitter {
 					<div class="ui-tutor-popup-footer">
 						${this.getNavigation()}
 						${this.getBtnContainer()}
-						${this.getSupportLink()}
 					</div>
 				`;
+
+			if (Manager.getInstance().feedbackFormId) {
+				Dom.append(this.getSupportLink(), this.layout.footer);
+			}
+
 		}
 
 		return this.layout.footer;
@@ -525,27 +530,27 @@ export class Scenario extends Event.EventEmitter {
 				items: [
 					{ text: Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_HOUR'),
 						onclick: function() {
-							this.emit(this.constructor.getFullEventName("onDeferOneHour"), { scenario: this});
+							this.emit("onDeferOneHour", { scenario: this});
 							deferMenu.close();
 						}.bind(this)
 					},
 					{ text: Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_TOMORROW'),
 						onclick: function() {
-							this.emit(this.constructor.getFullEventName("onDeferTomorrow"), { scenario: this});
+							this.emit("onDeferTomorrow", { scenario: this});
 							deferMenu.close();
 						}.bind(this)
 					},
 					{
 						text: Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_WEEK'),
 						onclick: function() {
-							this.emit(this.constructor.getFullEventName("onDeferWeek"), { scenario: this});
+							this.emit("onDeferWeek", { scenario: this});
 							deferMenu.close();
 						}.bind(this)
 					},
 					{
 						text: Loc.getMessage('JS_UI_TUTOR_DEFER_MENU_FOREVER'),
 						onclick: function() {
-							this.emit(this.constructor.getFullEventName("onDeferForever"), { scenario: this});
+							this.emit("onDeferForever", { scenario: this});
 							deferMenu.close();
 						}.bind(this)
 					}
@@ -719,9 +724,10 @@ export class Scenario extends Event.EventEmitter {
 		this.showNode(this.getStepPopup());
 	}
 
-	supportLinkHandler ()
+	supportLinkHandler()
 	{
-		this.emit(this.constructor.getFullEventName('supportLinkClick'));
+		this.emit('supportLinkClick');
+		Manager.getInstance().showFeedbackForm();
 	}
 
 	/**
@@ -892,7 +898,7 @@ export class Scenario extends Event.EventEmitter {
 	 */
 	handleClickLinkHandler()
 	{
-		this.emit(this.constructor.getFullEventName('helpLinkClick'));
+		this.emit('helpLinkClick');
 	}
 
 	/**
@@ -1276,9 +1282,9 @@ export class Scenario extends Event.EventEmitter {
 		}
 		if (currentStep && fireStepEvent)
 		{
-			currentStep.emit(currentStep.constructor.getFullEventName(eventName), data);
+			currentStep.emit(eventName, data);
 		}
-		this.emit(this.constructor.getFullEventName(eventName), data);
+		this.emit(eventName, data);
 	}
 
 	/**
@@ -1326,7 +1332,10 @@ export class Scenario extends Event.EventEmitter {
 		}
 
 		Dom.replace(this.getFinishedBlock(), this.getHelpBlock());
-		Dom.append(this.getSupportLink(), this.getFooter());
+
+		if (Manager.getInstance().feedbackFormId) {
+			Dom.append(this.getSupportLink(), this.getFooter());
+		}
 		Dom.prepend(this.getNavigation(), this.getFooter());
 		Dom.prepend(this.getDescription(), this.getContentInner());
 		Dom.prepend(this.getTitle(), this.getContentInner());
@@ -1606,7 +1615,7 @@ export class Scenario extends Event.EventEmitter {
 	 */
 	static getFullEventName(shortName)
 	{
-		return "UI.Tutor.Scenario:" + shortName;
+		return shortName;
 	}
 
 	static getInstance()

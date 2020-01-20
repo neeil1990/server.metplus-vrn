@@ -1,6 +1,6 @@
 /**
-* @bxjs_lang_path template.php
-*/
+ * @bxjs_lang_path template.php
+ */
 
 (function() {
 
@@ -43,11 +43,13 @@
 			this.title = options.title || '';
 			this.topInit = options.topInit || false;
 			this.active = options.active || false;
+			this.draftMode = options.draftMode || false;
 			this.id = options.id || 0;
 			this.siteId = options.siteId || 0;
 			this.pagesCount = options.pagesCount || 0;
 			this.siteTitle = options.siteTitle || '';
 			this.storeEnabled = options.storeEnabled || false;
+			this.fullPublication = options.fullPublication || false;
 			this.urls = options.urls || {};
 			this.rights = options.rights || {};
 			this.sliderConditions = options.sliderConditions || [];
@@ -124,20 +126,22 @@
 			// force top and style panel initialization
 			if (this.topInit)
 			{
-				BX.Landing.PageObject.getInstance().view().then(function(iframe) {
-					iframe.contentWindow.addEventListener('load', function() {
-						BX.Landing.UI.Panel.StylePanel.getInstance();
-						BX.Landing.UI.Panel.Top.getInstance();
-					});
-					iframe.contentWindow.addEventListener('click', function()
-					{
-						this.closeAllPopupsMenu();
-					}.bind(this));
-					iframe.contentWindow.addEventListener('resize', BX.debounce(function()
-					{
-						this.closeAllPopupsMenu();
-					}.bind(this), 200));
+				var editorWindow = BX.Landing.PageObject.getEditorWindow();
+				var rootWindow = BX.Landing.PageObject.getRootWindow();
+
+				editorWindow.addEventListener('load', function() {
+					BX.Landing.UI.Panel.StylePanel.getInstance();
+					rootWindow.BX.Landing.UI.Panel.Top.instance = null;
+					BX.Landing.UI.Panel.Top.getInstance();
+				});
+
+				editorWindow.addEventListener('click', function() {
+					this.closeAllPopupsMenu();
 				}.bind(this));
+
+				editorWindow.addEventListener('resize', BX.debounce(function() {
+					this.closeAllPopupsMenu();
+				}.bind(this), 200));
 			}
 			// build top panel
 			if (this.topInit)
@@ -160,7 +164,6 @@
 			}
 
 			var conditions = [];
-			var lastLocation = top.location.toString();
 
 			for (var i = 0, c = this.sliderConditions.length; i < c; i++)
 			{
@@ -169,7 +172,12 @@
 				);
 			}
 
-			BX.SidePanel.Instance.bindAnchors({
+			if (!conditions)
+			{
+				return;
+			}
+
+			var sliderOptions = top.BX.clone({
 				rules: [
 					{
 						condition: conditions,
@@ -177,22 +185,31 @@
 							events: {
 								onClose: function()
 								{
-									if (window['landingSettingsSaved'] === true)
+									if (
+										window['landingSettingsSaved'] === true ||
+										top && top.window && top.window['landingSettingsSaved'] === true
+									)
 									{
-										top.location = lastLocation;
+										BX.Landing.Component.View.changeTop(
+											this.id,
+											{changeState: false}
+										);
+										BX('landing-view-frame').contentWindow.location.reload();
 									}
 
 									if (BX.PopupMenu.getCurrentMenu())
 									{
 										BX.PopupMenu.getCurrentMenu().close();
 									}
-								}
+								}.bind(this)
 							},
 							allowChangeHistory: false
 						}
 					}
 				]
 			});
+
+			BX.SidePanel.Instance.bindAnchors(sliderOptions);
 		},
 
 		/**
@@ -200,8 +217,8 @@
 		 */
 		loadEditor: function()
 		{
-			var loaderContainer = top.document.querySelector('.landing-editor-loader-container');
-			var userActionContainer = top.document.querySelector('.landing-editor-required-user-action');
+			var loaderContainer = document.querySelector('.landing-editor-loader-container');
+			var userActionContainer = document.querySelector('.landing-editor-required-user-action');
 
 			if (loaderContainer)
 			{
@@ -366,47 +383,76 @@
 				);
 			}.bind(this));
 			// publication menu
-			BX('landing-publication').setAttribute(
-				'href',
-				(this.type === 'STORE')
-					? this.urls['publicationAll']
-					: this.urls['publication']
-			);
-			if (!this.rights.public)
+			if (BX('landing-publication'))
 			{
-				BX.addClass(
-					BX('landing-publication').parentNode,
-					'ui-btn-disabled'
+				BX('landing-publication').setAttribute(
+					'href',
+					this.fullPublication
+						? this.urls['publicationAll']
+						: this.urls['publication']
+				);
+				if (!this.rights.public)
+				{
+					BX.addClass(
+						BX('landing-publication').parentNode,
+						'ui-btn-disabled'
+					);
+				}
+				else
+				{
+					BX.removeClass(
+						BX('landing-publication').parentNode,
+						'ui-btn-disabled'
+					);
+				}
+				if (BX('landing-publication-submenu'))
+				{
+					BX('landing-publication-submenu').addEventListener(
+						'click',
+						function()
+						{
+							var element = BX('landing-publication-submenu');
+							if (!BX.hasClass(element.parentNode, 'ui-btn-disabled'))
+							{
+								this.onSubPublicationClick(element);
+							}
+						}.bind(this)
+					);
+				}
+				BX('landing-publication').addEventListener(
+					'click',
+					function()
+					{
+						if (BX.hasClass(BX('landing-publication').parentNode, 'ui-btn-disabled'))
+						{
+							BX.PreventDefault();
+						}
+						else if (BX('landing-publication').getAttribute('target') === '_self')
+						{
+							BX.addClass(document.querySelector(".ui-btn-primary.landing-btn-menu"), 'ui-btn-wait');
+						}
+					}.bind(this)
 				);
 			}
-			else
+			if (BX('landing-urls-preview'))
 			{
-				BX.removeClass(
-					BX('landing-publication').parentNode,
-					'ui-btn-disabled'
+				BX('landing-urls-preview').addEventListener(
+					'click',
+					function()
+					{
+						if (BX('landing-urls-preview').getAttribute('target') === '_self')
+						{
+							BX.SidePanel.Instance.open(
+								BX('landing-urls-preview').getAttribute('href') + '&IFRAME=Y',
+								{
+									allowChangeHistory: false
+								}
+							);
+							BX.PreventDefault();
+						}
+					}.bind(this)
 				);
 			}
-			BX('landing-publication-submenu').addEventListener(
-				'click',
-				function()
-				{
-					var element = BX('landing-publication-submenu');
-					if (!BX.hasClass(element.parentNode, 'ui-btn-disabled'))
-					{
-						this.onSubPublicationClick(element);
-					}
-				}.bind(this)
-			);
-			BX('landing-publication').addEventListener(
-				'click',
-				function()
-				{
-					if (BX.hasClass(BX('landing-publication').parentNode, 'ui-btn-disabled'))
-					{
-						BX.PreventDefault();
-					}
-				}.bind(this)
-			);
 			// nav chain
 			BX('landing-navigation-site').text = this.siteTitle;
 			BX('landing-navigation-site').setAttribute('title', this.siteTitle);
@@ -415,7 +461,7 @@
 			// set browser title and url
 			if (options.changeState === true)
 			{
-				top.window.history.pushState('', this.title, this.urls['landingView']);
+				parent.window.history.pushState('', this.title, this.urls['landingView']);
 			}
 			document.title = this.title;
 		},
@@ -496,11 +542,13 @@
 						disabled: !this.rights.settings
 					}
 					: null,
-					{
+					!this.draftMode
+					? {
 						href: this.urls['unpublic'],
 						text: BX.message('LANDING_TPL_SETTINGS_UNPUBLIC'),
 						disabled: !this.rights.public || !this.active
 					}
+					: null
 				];
 				for (var p = 0, cp = this.placements.length; p < cp; p++)
 				{
@@ -556,10 +604,18 @@
 
 	/**
 	 * Change top panel for new landing instance.
-	 * @param id New landing id.
+	 * @param {int} id New landing id.
+	 * @param {Object} params Additional params.
 	 */
-	BX.Landing.Component.View.changeTop = function(id)
+	BX.Landing.Component.View.changeTop = function(id, params)
 	{
+		params = params || {};
+
+		if (typeof params.changeState === 'undefined')
+		{
+			params.changeState = true;
+		}
+
 		BX.ajax({
 			url: BX.util.add_url_param(
 				window.location.href,
@@ -579,7 +635,7 @@
 					data
 				);
 				BX.Landing.Component.View.instance.buildTop({
-					changeState: true
+					changeState: params.changeState
 				});
 			}
 		});
