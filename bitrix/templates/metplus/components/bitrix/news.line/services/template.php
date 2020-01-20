@@ -23,7 +23,7 @@ $this->setFrameMode(true);
                 ?>
                 <div class="col-md-4 col-sm-6">
                     <div class="service-item">
-                        <a href="" class="service-item_mobile-link"></a>
+                        <a href="<?=$arItem['DETAIL_PAGE_URL']?>" class="service-item_mobile-link"></a>
                         <img data-src="<?=$arItem['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arItem['NAME']?>">
                         <div class="service-item_desc">
                             <span class="service-item_title"><?=$arItem['NAME']?></span>
