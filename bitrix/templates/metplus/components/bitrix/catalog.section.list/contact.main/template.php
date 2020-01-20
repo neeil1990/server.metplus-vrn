@@ -45,7 +45,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
         <? endif; ?>
     </ul>
     <?endforeach;?>
-    <a href="" class="main-btn map-callback_btn"><span class="glipf-call-answer"></span>Заказать обратный звонок</a>
+    <a href="#callback" class="main-btn map-callback_btn" data-toggle="modal"><span class="glipf-call-answer"></span>Заказать обратный звонок</a>
 </div>
 
 
