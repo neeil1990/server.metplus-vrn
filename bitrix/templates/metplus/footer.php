@@ -51,8 +51,8 @@
                     <li><a href=""><span class="glipf-odnoklassniki"></span></a></li>
                     <li><a href=""><span class="glipf-twitter"></span></a></li>
                 </ul>
-            </div>
-        </div>
+ </div>
+		</div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="rules">
@@ -60,8 +60,8 @@
                     <a href="/upload/compliance.pdf" target="_blank">Согласие на обработку персональных данных</a>
                 </div>
             </div>
-        </div>
-    </div>
+</div>
+
 </footer>
 <!-- end main-footer -->
 <div class="scroll-to-top"></div>

@@ -13,8 +13,7 @@
 /** @var CBitrixComponent $component */
 
 $this->setFrameMode(true);
-?>
-<div class="category-section_mod">
+?><div class="category-section_mod">
 	<div class="container">
 		<div class="row">
 			<? $APPLICATION->IncludeComponent("bitrix:catalog.section.list", "sections", array(
@@ -40,17 +39,17 @@ $this->setFrameMode(true);
                 <div class="category-item_mod category-item_mod-other">
                     <span class="category-icon category-icon_first"></span>
                     <span class="text">Кровельные материалы</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="http://metprof-vrn.ru/" class="site-link">Перейти на сайт</a>
                 </div>
                 <div class="category-item_mod category-item_mod-other">
                     <span class="category-icon category-icon_second"></span>
                     <span class="text">Инженерная сантехника</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="https://polimer-vrn.ru/" class="site-link">Перейти на сайт</a>
                 </div>
                 <div class="category-item_mod category-item_mod-other">
                     <span class="category-icon category-icon_third"></span>
                     <span class="text">Художественная ковка</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="https://vrn-ehk.ru/" class="site-link">Перейти на сайт</a>
                 </div>
             </div>
 
@@ -66,6 +65,3 @@ $this->setFrameMode(true);
 		</div>
 	</div>
 </div>
-
-
-

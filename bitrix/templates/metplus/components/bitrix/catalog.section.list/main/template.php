@@ -15,8 +15,7 @@ $this->setFrameMode(true);
 $strSectionEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_EDIT");
 $strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELETE");
 $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
-?>
-<div class="category-section">
+?><div class="category-section">
     <div class="container">
         <ul class="category-list">
             <? foreach ($arResult['SECTIONS'] as &$arSection):
@@ -31,28 +30,24 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                 <div class="category-item_mod-content">
                     <span class="category-icon category-icon_thirst"></span>
                     <span class="text">Инженерная <br>сантехника</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="https://polimer-vrn.ru/" class="site-link">Перейти на сайт</a>
                 </div>
             </li>
             <li class="category-item_mod">
                 <div class="category-item_mod-content">
                     <span class="category-icon category-icon_fifth"></span>
                     <span class="text">Кровельные <br>материалы</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="http://metprof-vrn.ru/" class="site-link">Перейти на сайт</a>
                 </div>
             </li>
             <li class="category-item_mod">
                 <div class="category-item_mod-content">
                     <span class="category-icon category-icon_sixteen"></span>
                     <span class="text">Художественная <br>ковка</span>
-                    <a href="" class="site-link">Перейти на сайт</a>
+                    <a href="https://vrn-ehk.ru/" class="site-link">Перейти на сайт</a>
                 </div>
             </li>
         </ul>
 		<a href="/upload/prays.xlsx" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
     </div>
 </div>
-
-
-
-
