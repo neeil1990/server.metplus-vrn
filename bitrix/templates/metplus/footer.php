@@ -54,11 +54,14 @@
  </div>
 		</div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-10">
                 <div class="rules">
                     <a href="/upload/politics.pdf" target="_blank">Политика конфиденциальности</a>
                     <a href="/upload/compliance.pdf" target="_blank">Согласие на обработку персональных данных</a>
                 </div>
+            </div>
+            <div class="col-lg-2">
+                <a class="prime-incut white colour" style="padding: 1.2em 0 0;"></a>
             </div>
 </div>
 
