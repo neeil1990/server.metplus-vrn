@@ -75,6 +75,10 @@ jQuery(document).ready(function($) {
       }
     });
   }
+
+  $('.product-table').on('click', '.product-item_buy-btn', function () {
+    $(this).closest('tr').find('.product-item_cart-btn').trigger('click');
+  });
   $(".product-table").on("click", ".product-item_cart-btn", function() {
     $(this).clone().css({
       'position': 'absolute',
@@ -463,11 +467,11 @@ jQuery(document).ready(function($) {
     $(this).toggleClass('is-active');
   });
   if (is_mobile()) {
-    $('.product-table_first-cell').on('click', function(e) {
+    $('.product-table').on('click', '.product-table_first-cell', function(e) {
       $(this).closest('tr').siblings('tr').find('.product-item_popup').fadeOut(100);
       if ($(e.target).closest(".product-item_popup").length == 0) $(this).find('.product-item_popup').fadeIn(100);
     });
-    $('.product-item_popup-close').on('click', function() {
+    $('.product-table').on('click', '.product-item_popup-close', function() {
       $(this).closest('.product-item_popup').fadeOut(100);
     });
   }

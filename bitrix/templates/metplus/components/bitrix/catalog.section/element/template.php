@@ -52,6 +52,32 @@ if(!count($arResult['ITEMS']))
                     <?=preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME']))?>
                 </span>
                 <span class="product-availability">В наличии на складе.</span>
+                <div class="product-item_popup">
+                    <div class="product-item_popup-close"><span class="glipf-reset"></span></div>
+                    <ul class="product-item_popup-list">
+                        <li>
+                            <strong>Наименование товара</strong>
+                            <span class="product-item_name"><?=preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME']))?></span>
+                        </li>
+                        <li>
+                            <strong>Марка Стали</strong>
+                            <?=$arItem['PROPERTIES']['TYPE_METALL']['VALUE']?>
+                        </li>
+                        <li>
+                            <strong>Вес <?=($arResult['WEIGHT']) ? $arResult['WEIGHT'] : 'пм'?></strong>
+                            <?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?>
+                        </li>
+                        <li>
+                            <strong>Цена руб/кг (с НДС)</strong>
+                            <?=implode(', ', $price)?>
+                        </li>
+                        <li>
+                            <strong>Порезка, руб</strong>
+                            <?=$arItem['PROPERTIES']['PRICE_CUTTING']['VALUE']?>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0)" class="main-btn product-item_buy-btn">Купить</a>
+                </div>
             </td>
             <td><?=$arItem['PROPERTIES']['TYPE_METALL']['VALUE']?></td>
             <td><?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?></td>
