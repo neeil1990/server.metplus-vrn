@@ -311,7 +311,7 @@ class Updater {
             array(),
             array(
                 "PRODUCT_ID" => $this->curDonFields['ID'],
-                "CATALOG_GROUP_ID" => 14
+                "CATALOG_GROUP_ID" => 16
             )
         );
 
