@@ -34,7 +34,7 @@ if(!count($arResult['ITEMS']))
                 Наименование товара, <span class="min">размер (мм)</span>
             </th>
             <th>Марка Стали</th>
-            <th>Вес пм</th>
+            <th>Вес <?=($arResult['WEIGHT']) ? $arResult['WEIGHT'] : 'пм'?></th>
             <th>Цена руб/кг <span class="min">(с НДС)</span></th>
             <th>Порезка, руб</th>
             <th>Купить</th>
