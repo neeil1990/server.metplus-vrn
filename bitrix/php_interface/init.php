@@ -9,3 +9,12 @@ function priceDiscount($id){
         return false;
 
 }
+
+function getGroupPriceForProduct($PriceID, $productID){
+    if(empty($PriceID) || empty($productID))
+        return false;
+
+    $db_res = CPrice::GetList(array(), array("PRODUCT_ID" => $productID, "CATALOG_GROUP_ID" => $PriceID));
+    if ($ar_res = $db_res->Fetch())
+        return CurrencyFormat($ar_res["PRICE"], $ar_res["CURRENCY"]);
+}

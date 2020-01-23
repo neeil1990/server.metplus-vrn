@@ -8,7 +8,7 @@
 (function($) {
 	$.fn.fancyTable = function(options) {
 		var settings = $.extend({
-			nColumns: 6,
+			nColumns: 7,
 			inputStyle: "",
 			inputPlaceholder: "Search...",
 			pagination: false,

@@ -30,20 +30,16 @@ if(!count($arResult['ITEMS']))
 <table class="product-table" id="product-table">
     <thead>
         <tr>
-            <th>
-                Наименование товара, <span class="min">размер (мм)</span>
-            </th>
-            <th>Марка Стали</th>
-            <th>Вес <?=($arResult['WEIGHT']) ? $arResult['WEIGHT'] : 'пм'?></th>
-            <th>Цена руб/кг <span class="min">(с НДС)</span></th>
-            <th>Порезка, руб</th>
-            <th>Купить</th>
+            <? foreach ($arResult['FIELDS'] as $field):?>
+            <th><?=$field?></th>
+            <? endforeach;?>
         </tr>
     </thead>
     <tbody>
         <? foreach ($arResult['ITEMS'] as $arItem):
+            $priceGroup = getGroupPriceForProduct(16, $arItem['ID']);
             $price = array_map(function($val){
-                return $val['PRICE'];
+                return $val['PRINT_PRICE'];
             }, $arItem['ITEM_PRICES']);
             ?>
         <tr>
@@ -64,12 +60,12 @@ if(!count($arResult['ITEMS']))
                             <?=$arItem['PROPERTIES']['TYPE_METALL']['VALUE']?>
                         </li>
                         <li>
-                            <strong>Вес <?=($arResult['WEIGHT']) ? $arResult['WEIGHT'] : 'пм'?></strong>
+                            <strong>Вес</strong>
                             <?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?>
                         </li>
                         <li>
                             <strong>Цена руб/кг (с НДС)</strong>
-                            <?=implode(', ', $price)?>
+                            <?=$priceGroup?>
                         </li>
                         <li>
                             <strong>Порезка, руб</strong>
@@ -81,8 +77,9 @@ if(!count($arResult['ITEMS']))
             </td>
             <td><?=$arItem['PROPERTIES']['TYPE_METALL']['VALUE']?></td>
             <td><?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?></td>
-            <td><?=implode(', ', $price)?></td>
+            <td><?=$priceGroup?></td>
             <td><?=$arItem['PROPERTIES']['PRICE_CUTTING']['VALUE']?></td>
+            <td><?=implode(', ', $price)?></td>
             <td>
                 <a href="javascript:void(0)" class="product-item_cart-btn main-btn" id="<?=$arItem['ID']?>"><span class="glipf-cart"></span></a>
             </td>

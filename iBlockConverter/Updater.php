@@ -58,6 +58,7 @@ class Updater {
     //properties for current good
 
     private $curDon;
+    private $curDonPriceId = 16;
     private $curDonFields;      //for caching
     private $curDonProps;       //for caching
 
@@ -265,7 +266,9 @@ class Updater {
         echo str_pad("DonPrice?: $priceDon", 19);
 
         //запись базовой цены в аццептора
-        $this->setConcretePrice(1, $priceDon);
+        $priceBase = (strlen(trim($this->curDonProps['_7_DLINASHT']['VALUE'])) > 0) ? round($priceDon*$this->curDonProps['_7_DLINASHT']['VALUE']) : $priceDon;
+        $this->setConcretePrice(1, $priceBase);
+        $this->setConcretePrice($this->curDonPriceId, $priceDon);
 
         //запись второй цены в аццептора
         $idSecondPrice = '';
@@ -311,7 +314,7 @@ class Updater {
             array(),
             array(
                 "PRODUCT_ID" => $this->curDonFields['ID'],
-                "CATALOG_GROUP_ID" => 16
+                "CATALOG_GROUP_ID" => $this->curDonPriceId
             )
         );
 
