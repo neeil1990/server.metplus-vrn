@@ -69,7 +69,7 @@ if(!count($arResult['ITEMS']))
                         </li>
                         <li>
                             <strong>Порезка, руб</strong>
-                            <?=$arItem['PROPERTIES']['PRICE_CUTTING']['VALUE']?>
+                            <?=CurrencyFormat($arItem['PROPERTIES']['PRICE_CUTTING']['VALUE'], $arItem['ITEM_PRICES'][0]['CURRENCY']);?>
                         </li>
                     </ul>
                     <a href="javascript:void(0)" class="main-btn product-item_buy-btn">Купить</a>
@@ -78,7 +78,7 @@ if(!count($arResult['ITEMS']))
             <td><?=$arItem['PROPERTIES']['TYPE_METALL']['VALUE']?></td>
             <td><?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?></td>
             <td><?=$priceGroup?></td>
-            <td><?=$arItem['PROPERTIES']['PRICE_CUTTING']['VALUE']?></td>
+            <td><?=CurrencyFormat($arItem['PROPERTIES']['PRICE_CUTTING']['VALUE'], $arItem['ITEM_PRICES'][0]['CURRENCY']);?></td>
             <td><?=implode(', ', $price)?></td>
             <td>
                 <a href="javascript:void(0)" class="product-item_cart-btn main-btn" id="<?=$arItem['ID']?>"><span class="glipf-cart"></span></a>

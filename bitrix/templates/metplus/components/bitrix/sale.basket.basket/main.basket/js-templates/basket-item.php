@@ -29,14 +29,12 @@ use Bitrix\Main\Localization\Loc;
                         case 'columns':
                             ?>
                             {{#COLUMN_LIST}}
-
-                            {{#IS_TEXT}}
-                            <td>
-                                <span class="cart-table_mobile-text">{{NAME}}</span>
-                                {{VALUE}}
-                            </td>
-                            {{/IS_TEXT}}
-
+                                {{#IS_TEXT}}
+                                <td>
+                                    <span class="cart-table_mobile-text">{{NAME}}</span>
+                                    {{VALUE}}
+                                </td>
+                                {{/IS_TEXT}}
                             {{/COLUMN_LIST}}
                             <?
                             break;

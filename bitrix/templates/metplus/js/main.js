@@ -406,17 +406,19 @@ jQuery(document).ready(function($) {
   });
 
   $('.cart-content').on('click', '.js-checkout', function() {
+    var comment = $(this).closest('.container').find('.cart-table_textarea').val();
     $.get("/ajax/", { component: "order" }).done(function(data) {
       $('.cart-content > .cart-content_second').html(data);
+      $('.cart-content > .cart-content_second').find('textarea[name="COMMENT"]').val(comment);
       $('.cart-content_second').addClass('is-open');
     });
     return false;
   });
 
 
-  $('.js_back-site').on('click', function() {
-    $('.cart-content').removeClass('is-open');
-    $('html').removeClass('is-hidden');
+  $('.cart-content').on('click', '.cart-content_second .js_back-site', function() {
+    $('.cart-content_second').removeClass('is-open');
+    $('.cart-content_first').addClass('is-open');
     return false;
   });
 

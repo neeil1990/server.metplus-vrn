@@ -358,7 +358,7 @@ foreach ($this->basketItems as $row)
 					'HIDE_MOBILE' => !isset($mobileColumns[$value['id']])
 				);
 			}
-			elseif (!empty($row[$value['id']]))
+			elseif (isset($row[$value['id']]))
 			{
 				$rowData['COLUMN_LIST'][] = array(
 					'CODE' => $value['id'],

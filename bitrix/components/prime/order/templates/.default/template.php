@@ -49,10 +49,7 @@ $this->setFrameMode(true);
         </div>
         <div class="cart-content_footer cart-content_footer-second align-items-center">
             <div class="left-column">
-                <label class="unified-checkbox checkout-checkbox">
-                    <input value="" type="checkbox" name="checkbox" checked="">
-                    <span class="checkbox-text">Самовывоз со склада</span>
-                </label>
+                <a href="" class="gray-btn back-site_btn js_back-site">Вернуться</a>
             </div>
             <div class="right-column">
                 <input type="submit" class="main-btn form-checkout_btn js-checkout-2"  value="Оформить заказ">
