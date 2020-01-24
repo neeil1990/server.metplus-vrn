@@ -79,6 +79,7 @@ if(!count($arResult['ITEMS']))
             <td><?=$arItem['PROPERTIES']['_3_VESPMSAYT']['VALUE']?></td>
             <td><?=$priceGroup?></td>
             <td><?=CurrencyFormat($arItem['PROPERTIES']['PRICE_CUTTING']['VALUE'], $arItem['ITEM_PRICES'][0]['CURRENCY']);?></td>
+            <td><?=implode(', ', $price)?></td>
             <td>
                 <a href="javascript:void(0)" class="product-item_cart-btn main-btn" id="<?=$arItem['ID']?>"><span class="glipf-cart"></span></a>
             </td>
