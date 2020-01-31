@@ -519,6 +519,7 @@ h3,
 .head_phone-number {
   color: #363637;
   white-space: nowrap;
+  line-height: 40px;
 }
 
 .head_callback-btn a {
