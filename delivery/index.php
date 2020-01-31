@@ -74,7 +74,7 @@ $APPLICATION->SetTitle("delivery");
         </div>
         <!-- end delivery-section -->
 
-        <?$APPLICATION->IncludeComponent(
+        <?/*$APPLICATION->IncludeComponent(
             "bitrix:news.line",
             "delivery.order_transport",
             array(
@@ -102,7 +102,7 @@ $APPLICATION->SetTitle("delivery");
                 "COMPONENT_TEMPLATE" => "delivery.order_transport"
             ),
             false
-        );?>
+        );*/?>
         <!-- end order-transport_section -->
     </main>
     <!-- end main-content -->

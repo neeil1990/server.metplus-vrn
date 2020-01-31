@@ -305,7 +305,7 @@ if ($isFilter)
     </section>
     <!-- end category-section -->
 
-<? if($arCurSection['DEPTH_LEVEL'] > 1): ?>
+<? if(false): ?>
 <div class="form-content">
     <div class="container">
         <div class="form-content_title title-h3">Остались вопросы? <span class="blue-color">Задайте</span> их прямо сейчас</div>

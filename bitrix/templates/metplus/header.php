@@ -55,12 +55,12 @@
                         </div>
                         <div class="head_phone-box tablet-small_hidden">
                             <a href="tel:+74732075555" class="head_phone-number">+7 (473) 207-55-55 </a>
-                            <div class="head_callback-btn">
+                            <!--<div class="head_callback-btn">
                                 <a href="#callback" data-toggle="modal">
                                     <span class="glipf-call-answer"></span>
                                     <span class="text">Заказать звонок</span>
                                 </a>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-6 col-sm-7 col-4 main-head_right-column">

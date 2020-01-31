@@ -26,7 +26,7 @@ $this->setFrameMode(true);
                 );?>
 			</div>
 			<div class="right-column">
-                <?$APPLICATION->IncludeComponent("prime:main.feedback", "gost", Array(
+                <?/*$APPLICATION->IncludeComponent("prime:main.feedback", "gost", Array(
                     "EVENT_MESSAGE_ID" => array('88'),	// Почтовые шаблоны для отправки письма
                     "IBLOCK_ID" => "34",	// Код информационного блока
                     "IBLOCK_TYPE" => "feedback",	// Тип информационного блока (используется только для проверки)
@@ -41,7 +41,7 @@ $this->setFrameMode(true);
                     "COMPONENT_TEMPLATE" => "call"
                 ),
                     false
-                );?>
+                );*/?>
 			</div>
 		</div>
 		<?$APPLICATION->IncludeComponent(
