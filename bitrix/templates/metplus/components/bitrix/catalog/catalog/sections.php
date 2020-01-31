@@ -57,7 +57,7 @@ $this->setFrameMode(true);
                 <div class="price-list_box">
                     <div class="price-list_box-content">
                         <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/price-list_img.jpg" alt="alt">
-                        <a href="" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
+						<a href="/prays/price_metall.xls" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
                     </div>
                 </div>
             </div>

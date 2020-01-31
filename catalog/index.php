@@ -85,10 +85,10 @@ if($code &&  $cat == "catalog"){
 		"SECTIONS_SHOW_PARENT_NAME" => "N",
 		"PAGE_ELEMENT_COUNT" => "30",
 		"LINE_ELEMENT_COUNT" => "3",
-		"ELEMENT_SORT_FIELD" => "desc",
+		"ELEMENT_SORT_FIELD" => "name",
 		"ELEMENT_SORT_ORDER" => "asc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "desc",
+		"ELEMENT_SORT_FIELD2" => "name",
+		"ELEMENT_SORT_ORDER2" => "asc",
 		"LIST_PROPERTY_CODE" => array(
 			0 => "NEWPRODUCT",
 			1 => "SALELEADER",

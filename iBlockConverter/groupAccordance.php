@@ -166,8 +166,8 @@ $accordances = [
     [
         'idDon' => '28',
         'idSecondPrice' => '',
-        'secCode' => 'svarnaya-i-kladochnaya-setka',
-        'Сварная и кладочная сетка'
+        'secCode' => 'setka-tspvs-i-bazaltovaya',
+        'Сетка ЦПВС и базальтовая'
     ],
     [
         'idDon' => '29',
@@ -178,8 +178,8 @@ $accordances = [
     [
         'idDon' => '30',
         'idSecondPrice' => '',
-        'secCode' => 'setka-tspvs-i-bazaltovaya',
-        'Сетка ЦПВС и базальтовая'
+        'secCode' => 'shtuchnaya-produktsiya',
+        'Штучная продукция'
     ],
     [
         'idDon' => '31',

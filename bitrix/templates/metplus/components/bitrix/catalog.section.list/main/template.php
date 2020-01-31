@@ -48,6 +48,6 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                 </div>
             </li>
         </ul>
-		<a href="/upload/prays.xlsx" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
+		<a href="/prays/price_metall.xls" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
     </div>
 </div>
