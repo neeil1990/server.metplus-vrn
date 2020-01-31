@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
     $('#citySelect').modal('hide');
   });
   if (!is_mobile()) {
-    $('.text-section').paroller();
+    $('.text-section').parallax();
   }
   if (is_mobile()) {
     $('.head-menu_catalog-item > a').on('click', function() {

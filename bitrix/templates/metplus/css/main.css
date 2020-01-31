@@ -3166,7 +3166,6 @@ h3,
 .text-section {
   padding: 5em 0;
   color: #fff;
-  background: url(../img/bg/text-section_bg.jpg) no-repeat center;
   -webkit-background-size: cover;
           background-size: cover;
 }
