@@ -27,5 +27,5 @@ $this->setFrameMode(true);
 
 <div class="services-detailed_footer">
     <span class="text">Узнайте стоимость всех услуг</span>
-    <a href="<?=$arResult['IBLOCK']['PICTURE']?>" class="download-price_btn main-btn"><span class="glipf-download"></span>Скачать прайс</a>
+    <a href="<?=CFile::GetPath($arResult['PROPERTIES']['PRICE']['VALUE'])?>" class="download-price_btn main-btn" download><span class="glipf-download"></span>Скачать прайс</a>
 </div>
