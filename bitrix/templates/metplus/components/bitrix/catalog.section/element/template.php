@@ -45,7 +45,7 @@ if(!count($arResult['ITEMS']))
         <tr>
             <td class="product-table_first-cell">
                 <span class="product-item_name <? if($arItem['CATALOG_QUANTITY'] < 1000):?>product-item_name-mod<?endif;?>">
-                    <?=preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME']))?>
+                    <?=htmlspecialchars_decode(preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME'])))?>
                 </span>
                 <span class="product-availability">В наличии на складе.</span>
                 <div class="product-item_popup">
@@ -53,7 +53,7 @@ if(!count($arResult['ITEMS']))
                     <ul class="product-item_popup-list">
                         <li>
                             <strong>Наименование товара</strong>
-                            <span class="product-item_name"><?=preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME']))?></span>
+                            <span class="product-item_name"><?=htmlspecialchars_decode(preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME'])))?></span>
                         </li>
                         <li>
                             <strong>Марка Стали</strong>
