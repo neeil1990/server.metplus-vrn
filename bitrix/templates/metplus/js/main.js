@@ -193,6 +193,11 @@ jQuery(document).ready(function($) {
     autoplay: true,
     autoplaySpeed: 6000
   });
+  $('.main-slider').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+    var currentSlide = $(slick.$slides.get(nextSlide));
+    var currentImage = currentSlide.find('.main-slide').data('background');
+    currentSlide.closest('.main-section').css('background','url('+ currentImage +') no-repeat center top');
+  });
   $('.review_mobile-slider').slick({
     dots: true,
     infinite: false,

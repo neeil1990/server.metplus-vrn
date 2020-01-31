@@ -18,3 +18,12 @@ function getGroupPriceForProduct($PriceID, $productID){
     if ($ar_res = $db_res->Fetch())
         return CurrencyFormat($ar_res["PRICE"], $ar_res["CURRENCY"]);
 }
+
+function isDebug(){
+    $config = \Bitrix\Main\Config\Configuration::getInstance();
+    $configConnections = $config->get("exception_handling");
+    if($configConnections['debug'])
+        return false;
+
+    return true;
+}

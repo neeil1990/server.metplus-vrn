@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<div class="main-section">
+<div class="main-section" <? if($arResult["ITEMS"][0]['PREVIEW_PICTURE']['SRC']): ?>style="background: url(<?=$arResult["ITEMS"][0]['PREVIEW_PICTURE']['SRC']?>) no-repeat center top;"<? endif;?>>
     <div class="container">
         <div class="main-slider">
             <?foreach($arResult["ITEMS"] as $arItem):?>
@@ -20,7 +20,7 @@ $this->setFrameMode(true);
                 $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
                 $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                 ?>
-                <div class="main-slide">
+                <div class="main-slide" data-background="<?=$arItem['PREVIEW_PICTURE']['SRC'];?>">
                     <h1 class="main-page_title">
                         <?=$arItem['PREVIEW_TEXT']?>
                     </h1>

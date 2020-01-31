@@ -16,7 +16,7 @@ $APPLICATION->SetTitle("ООО «КОРПОРАЦИЯ МЕТАЛЛИНВЕСТ»
 		"CACHE_TYPE" => "A",
 		"COMPONENT_TEMPLATE" => ".default",
 		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"CODE",1=>"NAME",2=>"PREVIEW_TEXT",3=>"",),
+		"FIELD_CODE" => array(0=>"CODE",1=>"NAME",2=>"PREVIEW_TEXT",3=>"PREVIEW_PICTURE",),
 		"IBLOCKS" => array(0=>"5",),
 		"IBLOCK_TYPE" => "components",
 		"NEWS_COUNT" => "20",

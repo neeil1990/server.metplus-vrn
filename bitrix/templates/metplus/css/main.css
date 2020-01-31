@@ -2224,6 +2224,9 @@ h3,
   -webkit-background-size: cover;
           background-size: cover;
   padding: 3em 0 4em;
+  transition-property: background;
+  transition-duration: 1s;
+  transition-timing-function: linear;
 }
 
 .main-page_title {
