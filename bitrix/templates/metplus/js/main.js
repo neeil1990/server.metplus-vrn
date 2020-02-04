@@ -549,7 +549,7 @@ jQuery(document).ready(function($) {
   });
 
   $("#product-table").fancyTable({
-    sortColumn: 0,
+    sortColumn: 1,
     sortable: false,
     searchable: true,
     globalSearch: true,

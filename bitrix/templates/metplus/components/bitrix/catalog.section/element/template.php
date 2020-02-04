@@ -89,10 +89,11 @@ if(!count($arResult['ITEMS']))
 </table>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="product-availability_text">— наличие товара на складе</div>
+        <div class="product-availability_text yellow">— Количество ограничено, уточняйте у менеджера</div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
             <?=$arResult["NAV_STRING"]?>
         <?endif;?>

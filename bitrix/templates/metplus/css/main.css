@@ -4360,6 +4360,10 @@ h3,
   left: 0;
 }
 
+.product-availability_text.yellow:after {
+  background-color: #E4C523;
+}
+
 .main-pagination {
   display: -webkit-flex;
   display: -moz-flex;
