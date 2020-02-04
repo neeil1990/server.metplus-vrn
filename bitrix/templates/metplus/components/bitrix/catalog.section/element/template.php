@@ -47,7 +47,9 @@ if(!count($arResult['ITEMS']))
                 <span class="product-item_name <? if($arItem['CATALOG_QUANTITY'] < 1000):?>product-item_name-mod<?endif;?>">
                     <?=htmlspecialchars_decode(preg_replace(array('|[\s]+|s','/\(|\)/'), array(' ', '"'), trim($arItem['NAME'])))?>
                 </span>
-                <span class="product-availability">В наличии на складе.</span>
+                <span class="product-availability">
+                    <? if($arItem['CATALOG_QUANTITY'] < 1000):?>Количество ограничено, уточняйте у менеджера<? else:?>В наличии на складе.<?endif;?>
+                </span>
                 <div class="product-item_popup">
                     <div class="product-item_popup-close"><span class="glipf-reset"></span></div>
                     <ul class="product-item_popup-list">

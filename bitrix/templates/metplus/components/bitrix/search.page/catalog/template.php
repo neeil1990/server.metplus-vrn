@@ -42,7 +42,9 @@
                 <tr>
                     <td class="product-table_first-cell">
                         <span class="product-item_name <? if($arItem['CATALOG_QUANTITY'] < 1000):?>product-item_name-mod<?endif;?>"><?echo $arItem["TITLE_FORMATED"]?></span>
-                        <span class="product-availability">Наличие на складе ограничено. Уточняйте.</span>
+                        <span class="product-availability">
+                            <? if($arItem['CATALOG_QUANTITY'] < 1000):?>Количество ограничено, уточняйте у менеджера<? else:?>В наличии на складе.<?endif;?>
+                        </span>
                     </td>
                     <td><?=$arItem['TYPE_METALL']['VALUE']?></td>
                     <td><?=$arItem['_3_VESPMSAYT']['VALUE']?></td>
