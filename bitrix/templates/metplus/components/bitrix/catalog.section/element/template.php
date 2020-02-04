@@ -90,7 +90,7 @@ if(!count($arResult['ITEMS']))
 
 <div class="row">
     <div class="col-md-6">
-        <div class="product-availability_text">— наличие товара на складе</div>
+        <div class="product-availability_text">— Наличие товара на складе</div>
         <div class="product-availability_text yellow">— Количество ограничено, уточняйте у менеджера</div>
     </div>
     <div class="col-md-6">
