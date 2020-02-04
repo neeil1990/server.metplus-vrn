@@ -112,6 +112,10 @@ if (empty($arResult['ERROR_MESSAGE']))
                 </table>
             </div>
             <textarea class="cart-table_textarea" placeholder="Комментарий к заказу"></textarea>
+            <small>
+                Расчеты и размеры товара являются предварительными. После оформления заказа с вами свяжутся наши операторы.
+                * цена за единицу товара будет уточнена оператором
+            </small>
         </div>
 
         <div class="cart-content_footer" data-entity="basket-total-block"></div>
