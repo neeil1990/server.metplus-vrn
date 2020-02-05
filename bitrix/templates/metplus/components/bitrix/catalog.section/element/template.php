@@ -26,6 +26,14 @@ if(!count($arResult['ITEMS']))
     return false;
 ?>
 
+<? if($arResult['UF_HIDDEN_COL']):?>
+<style>
+    .product-table tr th:nth-child(<?=$arResult['UF_HIDDEN_COL']?>),
+    .product-table tr td:nth-child(<?=$arResult['UF_HIDDEN_COL']?>){
+        display: none;
+    }
+</style>
+<? endif; ?>
 
 <table class="product-table" id="product-table">
     <thead>
