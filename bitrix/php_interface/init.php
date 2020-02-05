@@ -27,3 +27,23 @@ function isDebug(){
 
     return true;
 }
+
+
+AddEventHandler("sale", "OnOrderNewSendEmail", "bxModifySaleMails");
+function bxModifySaleMails($orderID, &$eventName, &$arFields)
+{
+    $order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
+    $phone = "";
+    while ($arProps = $order_props->Fetch())
+    {
+        if ($arProps["CODE"] == "PHONE")
+        {
+            $phone = htmlspecialchars($arProps["VALUE"]);
+        }
+    }
+
+    $arFields["PHONE"] = $phone;
+
+    if($_COOKIE['roistat_visit'])
+        $arFields["ROI_VISIT"] = $_COOKIE['roistat_visit'];
+}
