@@ -57,8 +57,7 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
                 <span class="input-file_icon glipf-paper-clip"></span>
                 <span class="button">
                     <input type="file" name="<?=$field['CODE']?>" multiple="" class="requiredField callback-file" onchange="this.parentNode.nextSibling.value = this.value" tabindex="0">
-                </span>
-                <input class="input-file-text" placeholder="<?=$field['NAME']?>">
+                </span><input class="input-file-text" placeholder="<?=$field['NAME']?>">
             </label>
         </div>
         <?
