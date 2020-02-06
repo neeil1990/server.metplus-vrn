@@ -27,12 +27,16 @@ if(!count($arResult['ITEMS']))
 ?>
 
 <? if($arResult['UF_HIDDEN_COL']):?>
-<style>
-    .product-table tr th:nth-child(<?=$arResult['UF_HIDDEN_COL']?>),
-    .product-table tr td:nth-child(<?=$arResult['UF_HIDDEN_COL']?>){
-        display: none;
-    }
-</style>
+    <?
+    $hidden_cols = explode(',', $arResult['UF_HIDDEN_COL']);
+    foreach($hidden_cols as $col): ?>
+    <style>
+        .product-table tr th:nth-child(<?=$col?>),
+        .product-table tr td:nth-child(<?=$col?>){
+            display: none;
+        }
+    </style>
+    <? endforeach; ?>
 <? endif; ?>
 
 <table class="product-table" id="product-table">
