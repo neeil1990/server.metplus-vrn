@@ -98,7 +98,7 @@
 				);
 				$(elm).find("thead th a").eq(elm.fancyTable.sortColumn).append(sortArrow);
 				var rows = $(elm).find("tbody tr").toArray().sort(
-					function(a, b) {
+					/*function(a, b) {
 						var stra = $(a).find("td").eq(elm.fancyTable.sortColumn).html();
 						var strb = $(b).find("td").eq(elm.fancyTable.sortColumn).html();
 						if(elm.fancyTable.sortAs[elm.fancyTable.sortColumn] == 'numeric'){
@@ -106,7 +106,7 @@
 						} else {
 							return((stra<strb)?-elm.fancyTable.sortOrder:(stra>strb)?elm.fancyTable.sortOrder:0);
 						}
-					}
+					}*/
 				);
 				$(elm).find("tbody").empty().append(rows);
 			}
