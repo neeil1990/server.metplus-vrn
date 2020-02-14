@@ -13,4 +13,4 @@ bitrix/backup/*
 sitemap.xml
 sitemap-iblock-*.xml
 sitemap-files.xml
-
+.htaccess
