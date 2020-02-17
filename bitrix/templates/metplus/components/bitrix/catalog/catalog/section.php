@@ -22,6 +22,7 @@ if ($isFilter)
         "IBLOCK_ID" => $arParams["IBLOCK_ID"],
         "ACTIVE" => "Y",
         "GLOBAL_ACTIVE" => "Y",
+        "ELEMENT_SUBSECTIONS" => "N"
     );
     if (0 < intval($arResult["VARIABLES"]["SECTION_ID"]))
         $arFilter["ID"] = $arResult["VARIABLES"]["SECTION_ID"];
@@ -38,7 +39,7 @@ if ($isFilter)
         $arCurSection = array();
         if (Loader::includeModule("iblock"))
         {
-            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL", "DESCRIPTION"));
+            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL", "UF_DESCRIPTION_TOP", "DESCRIPTION"));
 
             if(defined("BX_COMP_MANAGED_CACHE"))
             {
@@ -108,6 +109,12 @@ if ($isFilter)
                             false
                         );?>
 
+                        <? if(intval($arCurSection['ELEMENT_CNT']) > 0): ?>
+                            <div class="unified-text-section top">
+                                <?=$arCurSection['UF_DESCRIPTION_TOP'];?>
+                            </div>
+                        <? endif; ?>
+
                         <?$APPLICATION->IncludeComponent(
                             "bitrix:catalog.section.list",
                             "section", array(
@@ -132,7 +139,7 @@ if ($isFilter)
 
                         ?>
 
-                        <? if($arCurSection['DEPTH_LEVEL'] > 1): ?>
+                        <? if(intval($arCurSection['ELEMENT_CNT']) > 0): ?>
                         <div class="catalog-section-header">
                             <?$APPLICATION->IncludeComponent("bitrix:catalog.smart.filter", "filter", array(
                                     "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
@@ -297,7 +304,7 @@ if ($isFilter)
                         ?>
                 </div>
             </div>
-            <? if($arCurSection['DEPTH_LEVEL'] > 1): ?>
+            <? if(intval($arCurSection['ELEMENT_CNT']) > 0): ?>
             <div class="unified-text-section">
                 <?=$arCurSection['DESCRIPTION'];?>
             </div>
