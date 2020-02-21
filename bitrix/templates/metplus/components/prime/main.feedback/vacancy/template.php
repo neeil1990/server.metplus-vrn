@@ -46,6 +46,16 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
     <div class="form-group">
         <div class="g-recaptcha" data-sitekey="<?=$arParams["CAPTCHA_SITE_KEY"]?>"></div>
     </div>
+
+        <script>
+            window.onload = function() {
+                var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+                if($recaptcha) {
+                    $recaptcha.setAttribute("required", "required");
+                }
+            };
+        </script>
     <?endif;?>
 
     <div class="row form-static_footer">
