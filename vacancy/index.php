@@ -71,8 +71,8 @@ $APPLICATION->SetTitle("Вакансии");
                 );?>
                 <div class="title-h3">Вы хотите работать с нами? Отправьте свое резюме</div>
                 <?$APPLICATION->IncludeComponent(
-	"prime:main.feedback", 
-	"vacancy", 
+	"prime:main.feedback",
+	"vacancy",
 	array(
 		"EVENT_MESSAGE_ID" => array(
 			0 => "85",
@@ -85,7 +85,7 @@ $APPLICATION->SetTitle("Вакансии");
 			1 => "EMAIL",
 			2 => "FILE",
 		),
-		"USE_CAPTCHA" => "N",
+		"USE_CAPTCHA" => "Y",
 		"CAPTCHA_SITE_KEY" => "6Ld60c4UAAAAAGXC83w4_ZPy-Q6OErFzaVYjjNQl",
 		"CAPTCHA_SERVER_KEY" => "6Ld60c4UAAAAAP7qkcYtAQ_byWeHtD0kgGFiH0Q9",
 		"COMPONENT_TEMPLATE" => "vacancy"

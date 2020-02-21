@@ -43,7 +43,7 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
     </div>
 
     <?if($arParams["USE_CAPTCHA"] == "Y"):?>
-    <div class="row">
+    <div class="form-group">
         <div class="g-recaptcha" data-sitekey="<?=$arParams["CAPTCHA_SITE_KEY"]?>"></div>
     </div>
     <?endif;?>
