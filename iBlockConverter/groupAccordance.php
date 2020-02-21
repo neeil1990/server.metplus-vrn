@@ -295,6 +295,12 @@ $accordances = [
         'secCode' => 'shestigrannik',
         'Шестигранник'
     ],
+	    [
+        'idDon' => '50',
+        'idSecondPrice' => '',
+        'secCode' => 'nekonditsiya',
+        'Некондиция'
+    ],
 
 ];
 
