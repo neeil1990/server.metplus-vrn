@@ -115,6 +115,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_P
             if($arLoadProductArray['PREVIEW_TEXT'])
                 $arFields['PREVIEW_TEXT'] = $arLoadProductArray['PREVIEW_TEXT'];
 
+            if($arLoadProductArray['PROPERTY_VALUES']['FILE'])
+                $arFields['FILE'] = CFile::GetPath($arLoadProductArray['PROPERTY_VALUES']['FILE']['VALUE']);
+            
 			if(!empty($arParams["EVENT_MESSAGE_ID"]))
 			{
 				foreach($arParams["EVENT_MESSAGE_ID"] as $v)
