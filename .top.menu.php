@@ -8,6 +8,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Прайс-лист", 
+		"/prays/price_metall.xls", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"услуги", 
 		"services/", 
 		Array(), 
@@ -15,8 +22,8 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"о компании", 
-		"about/", 
+		"отзывы", 
+		"reviews/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -29,8 +36,8 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"отзывы", 
-		"reviews/", 
+		"о компании", 
+		"about/", 
 		Array(), 
 		Array(), 
 		"" 
