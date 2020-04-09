@@ -89,13 +89,10 @@
                     <li>
                         Лиски
                     </li>
-                    
+
                 </ul>
                 <ul class="modal-city_list-unstyled col-sm-6">
-                    <li>
-                        Старый Оскол
-                    </li>
-                   
+                    <li><a href="http://metplus-osk.ru/">Старый Оскол</a></li>
                 </ul>
             </div>
         </div>
