@@ -34,15 +34,24 @@ function bxModifySaleMails($orderID, &$eventName, &$arFields)
 {
     $order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
     $phone = "";
+    $email = "";
+    $address = "";
     while ($arProps = $order_props->Fetch())
     {
         if ($arProps["CODE"] == "PHONE")
-        {
             $phone = htmlspecialchars($arProps["VALUE"]);
-        }
+
+        if ($arProps["CODE"] == "EMAIL")
+            $email = htmlspecialchars($arProps["VALUE"]);
+
+        if ($arProps["CODE"] == "ADDRESS")
+            $address = htmlspecialchars($arProps["VALUE"]);
+
     }
 
     $arFields["PHONE"] = $phone;
+    $arFields["EMAIL"] = $email;
+    $arFields["ADDRESS"] = $address;
 
     if($_COOKIE['roistat_visit'])
         $arFields["ROI_VISIT"] = $_COOKIE['roistat_visit'];
