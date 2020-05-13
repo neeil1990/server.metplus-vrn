@@ -36,6 +36,7 @@ function bxModifySaleMails($orderID, &$eventName, &$arFields)
     $phone = "";
     $email = "";
     $address = "";
+
     while ($arProps = $order_props->Fetch())
     {
         if ($arProps["CODE"] == "PHONE")
@@ -46,12 +47,15 @@ function bxModifySaleMails($orderID, &$eventName, &$arFields)
 
         if ($arProps["CODE"] == "ADDRESS")
             $address = htmlspecialchars($arProps["VALUE"]);
-
     }
 
     $arFields["PHONE"] = $phone;
     $arFields["EMAIL"] = $email;
     $arFields["ADDRESS"] = $address;
+
+    $comment = (CSaleOrder::GetByID($orderID)['USER_DESCRIPTION']) ?: null;
+    if($comment)
+        $arFields["COMMENT"] = 'Ваш комментарий: '.$comment;
 
     if($_COOKIE['roistat_visit'])
         $arFields["ROI_VISIT"] = $_COOKIE['roistat_visit'];
