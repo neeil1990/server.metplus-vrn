@@ -4,7 +4,7 @@
 //**    MODIFICATION OF THIS FILE WILL ENTAIL SITE FAILURE            **/
 //**********************************************************************/
 if (!defined("UPDATE_SYSTEM_VERSION"))
-	define("UPDATE_SYSTEM_VERSION", "20.0.100");
+	define("UPDATE_SYSTEM_VERSION", "20.0.900");
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
 define("HELP_FILE", "marketplace/sysupdate.php");
@@ -229,7 +229,7 @@ if (date("Y-m-d") < "2019-09-01")
 
 if (version_compare($curPhpVer, $minPhpErrorVersion) < 0)
 {
-	$strongSystemMessage .= "<br>".GetMessage("SUP_PHP_LERR_F",
+	$strongSystemMessage .= "<br>".GetMessage("SUP_PHP_LERR_F_NEW",
 			array("#VERS#" => $curPhpVer,
 				"#REQ#" => $minPhpErrorVersion
 			)
@@ -578,7 +578,7 @@ $tabControl->BeginNextTab();
 							<?if($bLicenseNotFound):?>
 									<?= GetMessage("SUP_SUBK_HINT") ?><br><br>
 									<input TYPE="button" NAME="licence_key_btn" value="<?= GetMessage("SUP_SUBK_BUTTON") ?>" onclick="ShowLicenceKeyForm()"><br><br>
-									<a href="http://<?= ((LANGUAGE_ID == "ru") ? "www.bitrixsoft.ru" : "www.bitrixsoft.com") ?>/bsm_register.php" target="_blank"><?= GetMessage("SUP_SUBK_GET_KEY") ?></a>
+									<a href="https://<?= ((LANGUAGE_ID == "ru") ? "www.1c-bitrix.ru" : "www.bitrixsoft.com") ?>/bsm_register.php" target="_blank"><?= GetMessage("SUP_SUBK_GET_KEY") ?></a>
 							<?else:?>
 									<?= GetMessage("SUP_SUBK_HINT_DEMO") ?><br><br>
 									<input TYPE="button" NAME="licence_key_btn" value="<?= GetMessage("SUP_SUBK_BUTTON") ?>" onclick="ShowLicenceKeyForm()">

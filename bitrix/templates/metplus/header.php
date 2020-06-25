@@ -157,12 +157,6 @@
                 <div class="tablet-small_visible">
                     <div class="head_phone-box">
                         <a href="tel:+74732075555" class="head_phone-number">+7 (473) 207-55-55 </a>
-                        <div class="head_callback-btn">
-                            <a href="#callback" data-toggle="modal">
-                                <span class="glipf-call-answer"></span>
-                                <span class="text">Заказать звонок</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div class="mobile-visible">

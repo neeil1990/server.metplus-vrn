@@ -1,7 +1,7 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Резка газом", 
+		"Резка газом и вулканитом", 
 		"/services/rezka-gazom/", 
 		Array(), 
 		Array(), 
