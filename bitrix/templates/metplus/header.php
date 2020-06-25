@@ -32,7 +32,7 @@
 <? endif; ?>
 
 </head>
-<body>
+<body>1
 <div id="panel"><? $APPLICATION->ShowPanel(); ?></div>
 <!--[if lt IE 10]>
 <p class="browsehappy"><br>Вы используете <strong>устаревший</strong> браузер.
