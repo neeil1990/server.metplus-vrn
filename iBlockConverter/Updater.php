@@ -196,6 +196,9 @@ class Updater {
 
         $fields['ACTIVE'] = $this->curDonFields['ACTIVE'];
         $fields['CODE'] = $this->curDonFields['CODE'];
+
+        $fields['SORT'] = 100;
+
         $fields['PREVIEW_TEXT'] = $this->curDonFields['PREVIEW_TEXT'];
         $fields['EXTERNAL_ID'] = $this->curDonFields['EXTERNAL_ID'];
 
