@@ -22,8 +22,7 @@ use \Bitrix\Main\Localization\Loc;
 
 $this->setFrameMode(true);
 
-if(!count($arResult['ITEMS']))
-    return false;
+if(count($arResult['ITEMS'])) :
 ?>
 
 <? if($arResult['UF_HIDDEN_COL']):?>
@@ -113,3 +112,11 @@ if(!count($arResult['ITEMS']))
         <?endif;?>
     </div>
 </div>
+
+<?
+endif; 
+?>
+
+<? if($arParams["DEPTH_LEVEL"] == "1"): ?>
+	<div class="unified-text-section"><?=$arResult['DESCRIPTION'];?></div>
+<? endif; ?>

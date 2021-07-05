@@ -295,11 +295,23 @@ $accordances = [
         'secCode' => 'shestigrannik',
         'Шестигранник'
     ],
-	    [
+	[
         'idDon' => '50',
         'idSecondPrice' => '',
         'secCode' => 'nekonditsiya',
         'Некондиция'
+    ],
+	[
+        'idDon' => '51',
+        'idSecondPrice' => '',
+        'secCode' => 'metizy',
+        'Метизы'
+    ],
+	[
+        'idDon' => '52',
+        'idSecondPrice' => '',
+        'secCode' => 'nekonditsiya-nerzhaveyushchaya-stal',
+        'Некондиция (нержавеющая сталь)'
     ],
 
 ];

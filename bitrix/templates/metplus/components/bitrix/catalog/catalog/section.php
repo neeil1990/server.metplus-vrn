@@ -39,7 +39,7 @@ if ($isFilter)
         $arCurSection = array();
         if (Loader::includeModule("iblock"))
         {
-            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL", "UF_DESCRIPTION_TOP", "DESCRIPTION"));
+            $dbRes = CIBlockSection::GetList(array(), $arFilter, true, array("ID", "NAME", "DEPTH_LEVEL", "UF_DESCRIPTION_TOP", "DESCRIPTION", "UF_INCLUDE_SUBSECTIONS"));
 
             if(defined("BX_COMP_MANAGED_CACHE"))
             {
@@ -189,7 +189,8 @@ if ($isFilter)
                             "META_DESCRIPTION" => $arParams["LIST_META_DESCRIPTION"],
                             "BROWSER_TITLE" => $arParams["LIST_BROWSER_TITLE"],
                             "SET_LAST_MODIFIED" => $arParams["SET_LAST_MODIFIED"],
-                            "INCLUDE_SUBSECTIONS" => $arParams["INCLUDE_SUBSECTIONS"],
+                            "INCLUDE_SUBSECTIONS" => ($arCurSection['UF_INCLUDE_SUBSECTIONS']) ? "N" : $arParams["INCLUDE_SUBSECTIONS"],
+							"DEPTH_LEVEL" => $arCurSection['DEPTH_LEVEL'],
                             "BASKET_URL" => $arParams["BASKET_URL"],
                             "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
                             "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],

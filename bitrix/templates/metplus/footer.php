@@ -152,11 +152,12 @@
 
 
 <? if(isDebug()): ?>
-<!-- BEGIN JIVOSITE CODE {literal} -->
-<script type='text/javascript'>
-(function(){ var widget_id = 'Oj63Ns0MBk';
-var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
-<!-- {/literal} END JIVOSITE CODE -->
+<script>
+        (function(w,d,u){
+                var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+                var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+        })(window,document,'https://cdn-ru.bitrix24.ru/b7243579/crm/site_button/loader_2_s8ozty.js');
+</script>
 <? endif; ?>
 
 </body>

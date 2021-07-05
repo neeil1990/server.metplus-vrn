@@ -40,7 +40,7 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <textarea name="PREVIEW_TEXT" class="form-textarea" placeholder="Введите текст сообщения"><?=$arResult['PREVIEW_TEXT']?></textarea>
+                <textarea name="PREVIEW_TEXT" class="form-textarea" placeholder="Введите текст сообщения *" required><?=$arResult['PREVIEW_TEXT']?></textarea>
             </div>
         </div>
 

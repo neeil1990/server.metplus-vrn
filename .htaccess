@@ -17,6 +17,9 @@ ErrorDocument 404 /404.php
 <IfModule mod_rewrite.c>
   Options +FollowSymLinks
   RewriteEngine On
+RewriteCond %{HTTPS} =off
+RewriteCond %{REQUEST_URI} !^/bitrix/admin/1c_exchange.php
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
 
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
@@ -95,6 +98,8 @@ Redirect 301     /documentation/gosty-i-tu/ /gost/
 Redirect 301     /publications/ /articles/
 Redirect 301     /career/jobs/ /vacancy/
 
+Redirect 301 /catalog/svarnaya-setka/ /catalog/svarnaya-i-kladochnaya-setka/
+Redirect 301 /catalog/setka-kladochnaya/ /catalog/svarnaya-i-kladochnaya-setka/
 
 <IfModule mod_dir.c>
   DirectoryIndex index.php index.html

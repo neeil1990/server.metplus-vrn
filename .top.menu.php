@@ -9,7 +9,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Прайс-лист", 
-		"/prays/price_metall.xls", 
+		"prays/price_metall.xls", 
 		Array(), 
 		Array(), 
 		"" 

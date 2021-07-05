@@ -40,7 +40,6 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
     <?endforeach;?>
 </div>
 
-<div class="unified-text-section"><?=$arResult['SECTION']['DESCRIPTION'];?></div>
 
 
 

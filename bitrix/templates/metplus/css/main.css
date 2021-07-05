@@ -6843,7 +6843,7 @@ img.contact-section-desc.is-active {
   background: #052542;
   cursor: pointer;
   position: fixed;
-  right: 20px;
+  left: 40px;
   bottom: 4em;
   opacity: 0;
   -webkit-transform: scale(0);
@@ -8828,8 +8828,8 @@ img.contact-section-desc.is-active {
   .scroll-to-top {
     width: 35px;
     height: 35px;
-    right: 18px;
-    left: auto;
+    right: auto;
+    left: 18px;
   }
   .input-file {
     width: 152px;
